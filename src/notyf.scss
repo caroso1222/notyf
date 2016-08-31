@@ -1,0 +1,176 @@
+@import "notyf-colors";
+
+@keyframes fadeinup{
+  0%{
+    opacity: 0;
+    bottom: -15px;
+    max-height: 0;
+    max-width: 0;
+    margin-top: 0;
+  }
+  30%{
+    opacity: 0.8;
+    bottom: -3px;
+  }
+  100%{
+    opacity: 1;
+    bottom: 0;
+    max-height: 200px;
+    margin-top: 12px;
+    max-width: 400px;
+  }
+}
+
+@keyframes fadeoutdown{
+  0%{
+    opacity: 1;
+    bottom: 0;
+  }
+  30%{
+    opacity: 0.2;
+    bottom: -3px;
+  }
+  100%{
+    opacity: 0;
+    bottom: -15px;
+  }
+}
+
+@keyframes appear{
+  0%{
+    opacity: 0;
+  }
+  30%{
+    opacity: 0.5;
+  }
+  100%{
+    opacity: 0.6;
+  }
+}
+
+@keyframes disappear{
+  0%{
+    opacity: 0.6;
+  }
+  30%{
+    opacity: 0.1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+.notyf-container{
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  width: 20%;
+  color: white;
+  z-index: 9999;
+  .notyf-alert-icon, .notyf-confirm-icon{
+    height: 21px;
+    width: 21px;
+    background: white;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+  }
+  .notyf-alert-icon{
+    &:after, &:before{
+      content: "";
+      background: $red-notyf;
+      display: block;
+      position: absolute;
+      width: 3px;
+      border-radius: 3px;
+      left: 9px;
+    }
+
+    &:after{
+      height: 3px;
+      top: 14px;
+    }
+    &:before{
+      height: 8px;
+      top: 4px;
+    }
+  }
+  .notyf-confirm-icon{
+    &:after, &:before{
+      content: "";
+      background: $green-notyf;
+      display: block;
+      position: absolute;
+      width: 3px;
+      border-radius: 3px;
+    }
+    &:after{
+      height: 6px;
+      transform: rotate(-45deg);
+      top: 9px;
+      left: 6px;
+    }
+    &:before{
+      height: 11px;
+      transform: rotate(45deg);
+      top: 5px;
+      left: 10px;
+    }
+  }
+  .notyf{
+    display: block;
+    overflow: hidden;
+    animation: fadeinup 0.3s forwards;
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);
+    position: relative;
+    &.alert{
+      background: $red-notyf;
+    }
+    &.confirm{
+      background: $green-notyf;
+    }
+    &.disappear{
+      animation: fadeoutdown 0.3s 1 forwards;
+      animation-delay: 0.25s;
+      .notyf-message{
+        opacity: 1;
+        animation: fadeoutdown 0.3s 1 forwards;
+        animation-delay: 0.1s;
+      }
+      .notyf-icon{
+        opacity: 1;
+        animation: disappear 0.3s 1 forwards;
+      }
+    }
+  }
+  .notyf-wrapper{
+    display: table;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 15px;
+    border-radius: 3px;
+  }
+  .notyf-icon{
+    display: table-cell;
+    width: 20%;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.3em;
+    opacity: 0;
+    animation: appear 0.5s forwards;
+    animation-delay: 0.25s;
+  }
+  .notyf-message{
+    display: table-cell;
+    width: 80%;
+    vertical-align: middle;
+    position: relative;
+    opacity: 0;
+    animation: fadeinup 0.3s forwards;
+    animation-delay: 0.15s;
+  }
+}
