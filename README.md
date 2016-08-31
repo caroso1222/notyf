@@ -1,5 +1,5 @@
 #Notyf
-Notyd is a dead simple, responsive, vanilla javascript notification plugin. No jQuery required.
+Notyf is a dead simple, responsive, vanilla javascript notification plugin. No jQuery required.
 
 ##Installation
 ```
