@@ -1,11 +1,7 @@
 {
-  "name": "notyfjs",
+  "name": "notyf",
   "version": "1.0.0",
   "description": "A dead simple, responsive, vanilla javascript notification plugin. No jQuery required",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "javascript",
     "plugin",

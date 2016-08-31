@@ -2,10 +2,23 @@
 Notyf is a dead simple, responsive, vanilla javascript notification plugin. No jQuery required.
 
 ##Installation
+Install the [npm package](https://www.npmjs.com/package/notyf):
 ```
 npm install --save notyf
 ```
-
+Now add it to your project:
+```html
+<html>
+  <head>
+    ...
+    <link rel="stylesheet" type="text/css" href="/path/to/notyf.min.css">
+  </head>
+  <body>
+    ...
+    <script src="/path/to/notyf.min.js" type="text/javascript"></script>
+  </body>
+</html>
+```
 ##Usage
 
 ```javascript
