@@ -3,6 +3,8 @@ Notyf is a dead simple, responsive, vanilla javascript notification plugin. No j
 
 **Demo:** [carlosroso.com/notyf](http://carlosroso.com/notyf/)
 
+![demo gif](https://media.giphy.com/media/l2SpZitHNMHjic8Mw/giphy.gif)
+
 ##Installation
 Install the [npm package](https://www.npmjs.com/package/notyf):
 ```
