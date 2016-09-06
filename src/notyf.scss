@@ -126,6 +126,7 @@
     -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);
     position: relative;
+    padding-right: 13px;
     &.alert{
       background: $red-notyf;
     }
@@ -172,5 +173,16 @@
     opacity: 0;
     animation: fadeinup 0.3s forwards;
     animation-delay: 0.15s;
+  }
+}
+
+/* Small screens */
+@media only screen and (max-width: 736px){
+  .notyf-container{
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    right: 0;
+    left: 0;
   }
 }
