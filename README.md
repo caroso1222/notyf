@@ -1,6 +1,8 @@
 #Notyf
 Notyf is a dead simple, responsive, vanilla javascript notification plugin. No jQuery required.
 
+**Demo:** [carlosroso.com/notyf](http://carlosroso.com/notyf/)
+
 ##Installation
 Install the [npm package](https://www.npmjs.com/package/notyf):
 ```
