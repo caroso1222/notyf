@@ -1,6 +1,6 @@
 {
   "name": "notyf",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A dead simple, responsive, vanilla javascript notification plugin. No jQuery required",
   "keywords": [
     "javascript",
