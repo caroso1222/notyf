@@ -122,3 +122,12 @@
     }
 
 })();
+
+(function() {
+    if (typeof define === 'function' && define.amd)
+        define('Notyf', function () { return Notyf; });
+    else if (typeof module !== 'undefined' && module.exports)
+        module.exports = Notyf;
+    else
+        window.autoComplete = Notyf;
+})();
