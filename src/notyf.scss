@@ -1,13 +1,13 @@
 @import "notyf-colors";
 
-@keyframes fadeinup{
+@keyframes fadeinup{ 
   0%{
     opacity: 0;
     bottom: -15px;
     max-height: 0;
     max-width: 0;
     margin-top: 0;
-  }
+  } 
   30%{
     opacity: 0.8;
     bottom: -3px;
