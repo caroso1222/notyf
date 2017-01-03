@@ -1,13 +1,13 @@
 @import "notyf-colors";
 
-@keyframes fadeinup{ 
+@keyframes fadeinup{
   0%{
     opacity: 0;
     bottom: -15px;
     max-height: 0;
     max-width: 0;
     margin-top: 0;
-  } 
+  }
   30%{
     opacity: 0.8;
     bottom: -3px;
@@ -60,14 +60,7 @@
   }
 }
 
-.notyf-container{
-  position: fixed;
-  bottom: 20px;
-  right: 30px;
-  width: 20%;
-  color: white;
-  z-index: 9999;
-  .notyf-alert-icon, .notyf-confirm-icon{
+.notyf__icon--alert, .notyf__icon--confirm{
     height: 21px;
     width: 21px;
     background: white;
@@ -75,8 +68,9 @@
     display: block;
     margin: 0 auto;
     position: relative;
-  }
-  .notyf-alert-icon{
+}
+
+.notyf__icon--alert{
     &:after, &:before{
       content: "";
       background: $red-notyf;
@@ -95,8 +89,9 @@
       height: 8px;
       top: 4px;
     }
-  }
-  .notyf-confirm-icon{
+}
+
+.notyf__icon--confirm{
     &:after, &:before{
       content: "";
       background: $green-notyf;
@@ -117,8 +112,9 @@
       top: 5px;
       left: 10px;
     }
-  }
-  .notyf{
+}
+
+.notyf__toast{
     display: block;
     overflow: hidden;
     animation: fadeinup 0.3s forwards;
@@ -127,35 +123,37 @@
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);
     position: relative;
     padding-right: 13px;
-    &.alert{
+    &.notyf--alert{
       background: $red-notyf;
     }
-    &.confirm{
+    &.notyf--confirm{
       background: $green-notyf;
     }
-    &.disappear{
+    &.notyf--disappear{
       animation: fadeoutdown 0.3s 1 forwards;
       animation-delay: 0.25s;
-      .notyf-message{
+      .notyf__message{
         opacity: 1;
         animation: fadeoutdown 0.3s 1 forwards;
         animation-delay: 0.1s;
       }
-      .notyf-icon{
+      .notyf__icon{
         opacity: 1;
         animation: disappear 0.3s 1 forwards;
       }
     }
-  }
-  .notyf-wrapper{
+}
+
+.notyf__wrapper{
     display: table;
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-right: 15px;
     border-radius: 3px;
-  }
-  .notyf-icon{
+}
+
+.notyf__icon{
     display: table-cell;
     width: 20%;
     text-align: center;
@@ -164,8 +162,9 @@
     opacity: 0;
     animation: appear 0.5s forwards;
     animation-delay: 0.25s;
-  }
-  .notyf-message{
+}
+
+.notyf__message{
     display: table-cell;
     width: 80%;
     vertical-align: middle;
@@ -173,12 +172,20 @@
     opacity: 0;
     animation: fadeinup 0.3s forwards;
     animation-delay: 0.15s;
-  }
+}
+
+.notyf{
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  width: 20%;
+  color: white;
+  z-index: 9999;
 }
 
 /* Small screens */
 @media only screen and (max-width: 736px){
-  .notyf-container{
+  .notyf__container{
     width: 90%;
     margin: 0 auto;
     display: block;

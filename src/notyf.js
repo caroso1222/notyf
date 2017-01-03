@@ -5,8 +5,8 @@
 
       var defaults = {
         delay:2000,
-        alertIcon:'notyf-alert-icon',
-        confirmIcon:'notyf-confirm-icon'
+        alertIcon:'notyf__icon--alert',
+        confirmIcon:'notyf__icon--confirm'
       }
 
       if (arguments[0] && typeof arguments[0] == "object"){
@@ -18,7 +18,7 @@
       //Creates the main notifications container
       var docFrag = document.createDocumentFragment();
       var notyfContainer = document.createElement('div');
-      notyfContainer.className = 'notyf-container';
+      notyfContainer.className = 'notyf';
       docFrag.appendChild(notyfContainer);
       document.body.appendChild(docFrag);
       this.container = notyfContainer;
@@ -33,7 +33,7 @@
     */
     this.Notyf.prototype.alert = function(alertMessage){
       var card = buildNotificationCard.call(this, alertMessage, this.options.alertIcon);
-      card.className += ' alert';
+      card.className += ' notyf--alert';
       this.container.appendChild(card);
       this.notifications.push(card);
     }
@@ -43,7 +43,7 @@
     */
     this.Notyf.prototype.confirm = function(alertMessage){
       var card = buildNotificationCard.call(this, alertMessage, this.options.confirmIcon);
-      card.className += ' confirm';
+      card.className += ' notyf--confirm';
       this.container.appendChild(card);
       this.notifications.push(card);
     }
@@ -69,19 +69,19 @@
     function buildNotificationCard(messageText, iconClass){
       //Card wrapper
       var notification = document.createElement('div');
-      notification.className = 'notyf';
+      notification.className = 'notyf__toast';
 
       var wrapper = document.createElement('div');
-      wrapper.className = 'notyf-wrapper';
+      wrapper.className = 'notyf__wrapper';
 
       var iconContainer = document.createElement('div');
-      iconContainer.className = 'notyf-icon';
+      iconContainer.className = 'notyf__icon';
 
       var icon = document.createElement('i');
       icon.className = iconClass;
 
       var message = document.createElement('div');
-      message.className = 'notyf-message';
+      message.className = 'notyf__message';
       message.innerHTML = messageText;
 
       //Build the card
@@ -92,7 +92,7 @@
 
       var _this = this;
       setTimeout(function(){
-          notification.className += " disappear";
+          notification.className += " notyf--disappear";
           notification.addEventListener(_this.animationEnd, function(event){
             event.target == notification && _this.container.removeChild(notification);
           });
