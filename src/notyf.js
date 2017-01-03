@@ -129,5 +129,5 @@
     else if (typeof module !== 'undefined' && module.exports)
         module.exports = Notyf;
     else
-        window.autoComplete = Notyf;
+        window.Notyf = Notyf;
 })();
