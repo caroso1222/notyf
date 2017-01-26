@@ -1,0 +1,24 @@
+{
+  "name": "notyf",
+  "description": "A dead simple, responsive, vanilla javascript notification plugin. No jQuery required",
+  "main": [],
+  "authors": [
+    "Carlos Roso"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "javascript",
+    "plugin",
+    "notification",
+    "plugin",
+    "notify"
+  ],
+  "homepage": "https://github.com/caroso1222/notyf",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
