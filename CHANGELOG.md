@@ -1,3 +1,9 @@
+#2.0.1
+
+###Features
+
+* Add entry point for CommonJS require. Now Notyf can be imported as `var Notyf = require('notyf')`
+
 #2.0.0
 
 ###Features
