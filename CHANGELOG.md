@@ -1,3 +1,9 @@
+#2.0.1a
+
+###Features
+
+* Added additional method to display warnings.
+
 #2.0.1
 
 ###Features

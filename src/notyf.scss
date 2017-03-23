@@ -60,7 +60,7 @@
   }
 }
 
-.notyf__icon--alert, .notyf__icon--confirm{
+.notyf__icon--alert, .notyf__icon--warn, .notyf__icon--confirm{
     height: 21px;
     width: 21px;
     background: white;
@@ -89,6 +89,27 @@
       height: 8px;
       top: 4px;
     }
+}
+
+.notyf__icon--warn{
+  &:after, &:before{
+    content: "";
+    background: $yellow-notyf;
+    display: block;
+    position: absolute;
+    width: 3px;
+    border-radius: 3px;
+    left: 9px;
+  }
+
+  &:after{
+    height: 3px;
+    top: 14px;
+  }
+  &:before{
+    height: 8px;
+    top: 4px;
+  }
 }
 
 .notyf__icon--confirm{
@@ -125,6 +146,9 @@
     padding-right: 13px;
     &.notyf--alert{
       background: $red-notyf;
+    }
+    &.notyf--warn{
+      background: $yellow-notyf;
     }
     &.notyf--confirm{
       background: $green-notyf;

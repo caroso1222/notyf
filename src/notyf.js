@@ -4,9 +4,12 @@
       this.notifications = [];
 
       var defaults = {
-        delay:2000,
+        alertDelay:2000,
         alertIcon:'notyf__icon--alert',
-        confirmIcon:'notyf__icon--confirm' 
+        warnDelay:2000,
+        warnIcon:'notyf__icon--warn',
+        confirmDelay:2000,
+        confirmIcon:'notyf__icon--confirm'
       }
 
       if (arguments[0] && typeof arguments[0] == "object"){
@@ -32,23 +35,34 @@
     * Shows an alert card
     */
     this.Notyf.prototype.alert = function(alertMessage){
-      var card = buildNotificationCard.call(this, alertMessage, this.options.alertIcon);
-      card.className += ' notyf--alert';
-      this.container.appendChild(card);
-      this.notifications.push(card);
+      card(this, alertMessage, this.options.alertIcon, this.options.alertDelay, ' notyf--alert');
+    }
+
+    /**
+     * Shows a warn card
+     */
+    this.Notyf.prototype.warn = function(alertMessage){
+        card(this, alertMessage, this.options.warnIcon, this.options.warnDelay, ' notyf--warn');
     }
 
     /**
     * Shows a confirm card
     */
     this.Notyf.prototype.confirm = function(alertMessage){
-      var card = buildNotificationCard.call(this, alertMessage, this.options.confirmIcon);
-      card.className += ' notyf--confirm';
-      this.container.appendChild(card);
-      this.notifications.push(card);
+      card(this, alertMessage, this.options.confirmIcon, this.options.confirmDelay, ' notyf--confirm');
     }
 
     //---------- Private methods ---------------
+
+    /**
+     * Shows any card
+     */
+    function card(instance, alertMessage, icon, delay, classname){
+        var card = buildNotificationCard.call(instance, alertMessage, icon, delay);
+        card.className += classname;
+        instance.container.appendChild(card);
+        instance.notifications.push(card);
+    }
 
     /**
     * Populates the source object with the value from the same keys found in destination
@@ -66,7 +80,7 @@
     /**
     * Creates a generic card with the param message. Returns a document fragment.
     */
-    function buildNotificationCard(messageText, iconClass){
+    function buildNotificationCard(messageText, iconClass, delay){
       //Card wrapper
       var notification = document.createElement('div');
       notification.className = 'notyf__toast';
@@ -98,7 +112,7 @@
           });
           var index = _this.notifications.indexOf(notification);
           _this.notifications.splice(index,1);
-      },_this.options.delay);
+      },delay);
 
       return notification;
     }
