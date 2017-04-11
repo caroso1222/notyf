@@ -1,16 +1,17 @@
-#Notyf
+# Notyf
 Notyf is a dead simple, responsive, vanilla javascript notification plugin. No jQuery required.
 
 **Demo:** [carlosroso.com/notyf](http://carlosroso.com/notyf/)
 
 ![demo gif](https://media.giphy.com/media/l2SpZitHNMHjic8Mw/giphy.gif)
 
-##Installation
-###npm
+## Installation
+
+### npm
 ```
 npm install --save notyf
 ```
-###Bower
+### Bower
 ```
 bower install --save notyf
 ```
@@ -27,9 +28,9 @@ Now add it to your project:
   </body>
 </html>
 ```
-##Usage
+## Usage
 
-###Basic
+### Basic
 
 ```javascript
 // Create an instance of Notyf
@@ -42,7 +43,7 @@ notyf.alert('You must fill out the form before moving forward');
 notyf.confirm('Your changes have been successfully saved!');
 ```
 
-###CommonJS
+### CommonJS
 
 When importing Notyf via CommonJS modules, for example for Vue or Angular on top of Webpack, you can import the module as shown below:
 ```javascript
@@ -57,9 +58,10 @@ var notyf = new Notyf()
 notyf.alert('Please fill out the form')
 ```
 
-##Options
+## Options
 You can set some options when creating a Notyf instance.
-####`new Notyf([options])`
+
+#### `new Notyf([options])`
 
 Param | Type | Default | Details
 ------------ | ------------- | ------------- | -------------
@@ -76,5 +78,5 @@ var notyf = new Notyf({
 })
 ```
 
-##Licence
+## Licence
 Notyf is under [MIT licence](https://opensource.org/licenses/mit-license.php)
