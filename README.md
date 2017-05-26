@@ -6,6 +6,7 @@ Notyf is a dead simple, responsive, vanilla javascript notification plugin. No j
 ![demo gif](https://media.giphy.com/media/l2SpZitHNMHjic8Mw/giphy.gif)
 
 ## Installation
+
 ### npm
 ```
 npm install --save notyf
@@ -59,6 +60,7 @@ notyf.alert('Please fill out the form')
 
 ## Options
 You can set some options when creating a Notyf instance.
+
 #### `new Notyf([options])`
 
 Param | Type | Default | Details
