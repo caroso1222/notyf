@@ -123,7 +123,6 @@
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.45);
     position: relative;
     padding-right: 13px;
-    flex: auto;
     &.notyf--alert{
       background: $red-notyf;
     }
@@ -133,7 +132,6 @@
     &.notyf--disappear{
       animation: fadeoutdown 0.3s 1 forwards;
       animation-delay: 0.25s;
-      max-width: 400px;
       .notyf__message{
         opacity: 1;
         animation: fadeoutdown 0.3s 1 forwards;
@@ -183,8 +181,6 @@
   width: 20%;
   color: white;
   z-index: 9999;
-  display: flex;
-  justify-content: flex-end;
 }
 
 /* Small screens */
