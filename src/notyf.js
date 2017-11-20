@@ -20,7 +20,7 @@
       var notyfContainer = document.createElement('div');
       notyfContainer.className = 'notyf';
       notyfContainer.setAttribute('role', 'alert');
-      notyfContainer.setAttribute('aria-live', 'assertive');
+      notyfContainer.setAttribute('aria-live', 'polite');
       docFrag.appendChild(notyfContainer);
       document.body.appendChild(docFrag);
       this.container = notyfContainer;
