@@ -19,6 +19,8 @@
       var docFrag = document.createDocumentFragment();
       var notyfContainer = document.createElement('div');
       notyfContainer.className = 'notyf';
+      notyfContainer.setAttribute('role', 'alert');
+      notyfContainer.setAttribute('aria-live', 'assertive');
       docFrag.appendChild(notyfContainer);
       document.body.appendChild(docFrag);
       this.container = notyfContainer;
