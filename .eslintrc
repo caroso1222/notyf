@@ -1,0 +1,6 @@
+{
+  "extends": "eslint-config-airbnb-es5",
+  "rules": {
+    "func-names": ["error", "never"]
+  }
+}
