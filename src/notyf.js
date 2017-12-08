@@ -6,8 +6,8 @@
     var defaults = {
       delay: 2000,
       alertIcon: 'notyf__icon--alert',
-      confirmIcon:'notyf__icon--confirm' 
-    }
+      confirmIcon: 'notyf__icon--confirm',
+    };
 
     if (arguments[0] && typeof arguments[0] === 'object') {
       this.options = extendDefaults(defaults, arguments[0]);
@@ -27,9 +27,12 @@
     this.animationEnd = animationEndSelect();
   }
 
-  //---------- Public methods ---------------
+  // ---------- Public methods ---------------
+
   /**
    * Shows an alert card
+   * @param {string} alertMessage message
+   * @returns {void}
    */
   this.Notyf.prototype.alert = function (alertMessage) {
     var card = buildNotificationCard.call(this, alertMessage, this.options.alertIcon);
@@ -39,7 +42,9 @@
   }
 
   /**
-   * Shows a confirm card
+   * Shows an alert card
+   * @param {string} alertMessage message
+   * @returns {void}
    */
   this.Notyf.prototype.confirm = function (alertMessage) {
     var card = buildNotificationCard.call(this, alertMessage, this.options.confirmIcon);
@@ -48,14 +53,17 @@
     this.notifications.push(card);
   }
 
-  //---------- Private methods ---------------
+  // ---------- Private methods ---------------
 
   /**
    * Populates the source object with the value from the same keys found in destination
+   * @param {Object} source source config
+   * @param {Object} destination destination config
+   * @returns {Object} config
    */
   function extendDefaults(source, destination) {
     for (var property in destination) {
-      //Avoid asigning inherited properties of destination, only asign to source the destination own properties
+      // Avoid asigning inherited properties of destination, only asign to source the destination own properties
       if (destination.hasOwnProperty(property)) {
         source[property] = destination[property];
       }
@@ -65,6 +73,9 @@
 
   /**
    * Creates a generic card with the param message. Returns a document fragment.
+   * @param {string} messageText message text
+   * @param {string} iconClass icon class name
+   * @returns {DOMElement} notification
    */
   function buildNotificationCard(messageText, iconClass) {
     // Card wrapper
@@ -103,7 +114,10 @@
     return notification;
   }
 
-  // Determine which animationend event is supported
+  /**
+   * Determines which animationend event is supported
+   * @returns {string} transition name
+   */
   function animationEndSelect() {
     var t;
     var el = document.createElement('fake');
