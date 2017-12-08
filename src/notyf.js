@@ -6,7 +6,7 @@
     var defaults = {
       delay: 2000,
       alertIcon: 'notyf__icon--alert',
-      confirmIcon: 'notyf__icon--confirm',
+      confirmIcon: 'notyf__icon--confirm'
     };
 
     if (arguments[0] && typeof arguments[0] === 'object') {
@@ -126,7 +126,7 @@
       OTransition: 'oAnimationEnd',
       MozTransition: 'animationend',
       WebkitTransition: 'webkitAnimationEnd'
-    }
+    };
 
     for (t in transitions) {
       if (typeof el.style[t] !== 'undefined') {
