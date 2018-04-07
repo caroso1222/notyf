@@ -9,6 +9,11 @@
     "plugin",
     "notify"
   ],
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack",
+    "watch": "./node_modules/.bin/webpack -w"
+  },
   "author": "Carlos Roso",
   "license": "MIT",
   "bugs": {
@@ -22,7 +27,9 @@
     "gulp-cssnano": "^2.1.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
-    "gulp-uglify": "^2.0.0"
+    "gulp-uglify": "^2.0.0",
+    "typescript": "2.8.1",
+    "webpack": "4.5.0"
   },
   "repository": {
     "type": "git",
