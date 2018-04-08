@@ -5,6 +5,8 @@ Notyf is a dead simple, responsive, vanilla javascript notification plugin. No j
 
 ![demo gif](https://media.giphy.com/media/l2SpZitHNMHjic8Mw/giphy.gif)
 
+Angular version: [ng-notyf](https://github.com/jdjuan/ng-notyf)
+
 ## Installation
 
 ### npm
