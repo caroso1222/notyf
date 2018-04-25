@@ -120,9 +120,10 @@ export class _Notyf {
 
 class Notyf {
   notifications: NotyfArray<NotyfNotification> = new NotyfArray();
+  private view: NotyfView = new NotyfView();
 
   constructor(opts: any) {
-
+    this.notifications.onupdate(elems => this.view.update(elems))
   }
 
   alert() {
@@ -142,7 +143,7 @@ class Notyf {
     }, 200);
   }
 
-  private _updateUI() {
+  private _updateUI(notifications: NotyfNotification[]) {
 
   }
 }
@@ -171,7 +172,9 @@ class NotyfArray<T> {
 }
 
 class NotyfView {
+  update(notifications: NotyfNotification[]) {
 
+  }
 }
 
 class NotyfNotification {
