@@ -13,7 +13,7 @@ export class Notyf {
   constructor(opts?: NotyfOptions) {
     // List of notifications currently active
     this.notifications = [];
-    this.options = {...opts, ...DEFAULT_OPTIONS};
+    this.options = {...DEFAULT_OPTIONS, ...opts};
 
     // Creates the main notifications container
     var docFrag = document.createDocumentFragment();
