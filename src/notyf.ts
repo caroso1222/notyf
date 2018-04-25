@@ -4,14 +4,16 @@ export enum NotyfType {
   Alert, Confirm
 }
 
-export class Notyf {
+export class _Notyf {
+  /**
+   * List of currently active notifications
+   */
   notifications: HTMLElement[];
   options: NotyfOptions;
   animationEndEventName: string;
   container: HTMLElement;
 
   constructor(opts?: NotyfOptions) {
-    // List of notifications currently active
     this.notifications = [];
     this.options = {...DEFAULT_OPTIONS, ...opts};
 
@@ -113,4 +115,67 @@ export class Notyf {
     return 'animationend';
   }
 
+}
+
+
+class Notyf {
+  notifications: NotyfArray<NotyfNotification> = new NotyfArray();
+
+  constructor(opts: any) {
+
+  }
+
+  alert() {
+    this._pushNotification(0);
+  }
+
+  confirm() {
+    this._pushNotification(1);
+  }
+
+  private _pushNotification(type: any) {
+    const notification = new NotyfNotification();
+    this.notifications.push(notification);
+    setTimeout(() => {
+      const index = this.notifications.indexOf(notification);
+      this.notifications.splice(index,1);
+    }, 200);
+  }
+
+  private _updateUI() {
+
+  }
+}
+
+class NotyfArray<T> {
+  private notifications: T[] = [];
+  private updateFn: (elems: T[]) => void;
+
+  push(elem: T) {
+    this.notifications.push(elem);
+    this.updateFn(this.notifications);
+  }
+
+  splice(index: number, num: number) {
+    this.notifications.splice(index, num);
+    this.updateFn(this.notifications);
+  }
+
+  indexOf(elem: T) {
+    return this.notifications.indexOf(elem);
+  }
+
+  onupdate(fn: (elems: T[]) => void) {
+    this.updateFn = fn;
+  }
+}
+
+class NotyfView {
+
+}
+
+class NotyfNotification {
+  type: any;
+  message: string;
+  delay: number;
 }
