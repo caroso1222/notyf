@@ -1,7 +1,7 @@
 //var Notyf = require('../../dist/notyf.min.js');
 
 
-var notyf = new Notyf();
+var notyf = new Notyf({delay: 5000});
 
 document.getElementById('confirm-btn')
         .addEventListener('click', function(){
@@ -10,5 +10,5 @@ document.getElementById('confirm-btn')
 
 document.getElementById('alert-btn')
         .addEventListener('click', function(){
-            notyf.alert('confirming');
+            notyf.alert('alerting');
         });

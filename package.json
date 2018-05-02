@@ -12,7 +12,7 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
-    "watch": "./node_modules/.bin/webpack -w"
+    "watch": "./node_modules/.bin/webpack -w --mode=development"
   },
   "author": "Carlos Roso",
   "license": "MIT",
@@ -28,8 +28,10 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
     "gulp-uglify": "^2.0.0",
-    "typescript": "2.8.1",
-    "webpack": "4.5.0"
+    "ts-loader": "^4.2.0",
+    "typescript": "^2.8.1",
+    "webpack": "4.5.0",
+    "webpack-cli": "^2.1.2"
   },
   "repository": {
     "type": "git",
