@@ -123,7 +123,9 @@ class Notyf {
   private view: NotyfView = new NotyfView();
 
   constructor(opts: any) {
-    this.notifications.onupdate(elems => this.view.update(elems))
+    this.notifications.onupdate((elem, type) => {
+      this.view.update(elem, type)
+    });
   }
 
   alert() {
@@ -140,40 +142,134 @@ class Notyf {
     setTimeout(() => {
       const index = this.notifications.indexOf(notification);
       this.notifications.splice(index,1);
-    }, 200);
-  }
-
-  private _updateUI(notifications: NotyfNotification[]) {
-
+    }, 2000);
   }
 }
 
+enum NotyfArrayEvent {
+  Add, Remove
+}
+
+type NotyfArrayEventFn<T> = (elem: T, event: NotyfArrayEvent, elems: T[]) => void;
+
 class NotyfArray<T> {
   private notifications: T[] = [];
-  private updateFn: (elems: T[]) => void;
+  private updateFn: NotyfArrayEventFn<T>;
 
   push(elem: T) {
     this.notifications.push(elem);
-    this.updateFn(this.notifications);
+    this.updateFn(elem, NotyfArrayEvent.Add, this.notifications);
   }
 
   splice(index: number, num: number) {
-    this.notifications.splice(index, num);
-    this.updateFn(this.notifications);
+    const elem = this.notifications.splice(index, num)[0];
+    this.updateFn(elem, NotyfArrayEvent.Remove, this.notifications);
   }
 
   indexOf(elem: T) {
     return this.notifications.indexOf(elem);
   }
 
-  onupdate(fn: (elems: T[]) => void) {
+  onupdate(fn: NotyfArrayEventFn<T>) {
     this.updateFn = fn;
   }
 }
 
 class NotyfView {
-  update(notifications: NotyfNotification[]) {
+  
+  animationEndEventName: string;
+  container: HTMLElement;
 
+  constructor() {
+    // Creates the main notifications container
+    var docFrag = document.createDocumentFragment();
+    const notyfContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf' });
+    docFrag.appendChild(notyfContainer);
+    document.body.appendChild(docFrag);
+    this.container = notyfContainer;
+
+    // Identifies the main animation end event
+    this.animationEndEventName = this._getAnimationEndEventName();
+  }
+
+  update(notification: NotyfNotification, type: NotyfArrayEvent) {
+    if (type === NotyfArrayEvent.Add) {
+      this.addNotification(notification);
+    } else if (type === NotyfArrayEvent.Remove) {
+      this.removeNotification(notification);
+    }
+  }
+
+  removeNotification(notification: NotyfNotification) {
+
+  }
+
+  addNotification(notification: NotyfNotification) {
+    this._renderNotification(notification.message, notification.type);
+  }
+
+  private _renderNotification(message: string, type: NotyfType) {
+    let className: string;
+
+    switch(type) {
+      case NotyfType.Alert:
+        className = 'notyf--alert';
+        break;
+      case NotyfType.Confirm:
+        className = 'notyf--confirm';
+        break;
+    }
+
+    const card = this._buildNotificationCard(message, 'TODO: add icon');
+    card.classList.add(className);
+    this.container.appendChild(card);
+  }
+
+  private _buildNotificationCard(messageText: string, iconClass: string): HTMLElement {
+    // Create elements
+    const notification = this._createHTLMElement({ tagName: 'div', className: 'notyf__toast'});
+    const wrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__wrapper'});
+    const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon'});
+    const icon = this._createHTLMElement({ tagName: 'i', className: iconClass});
+    const message = this._createHTLMElement({ tagName: 'div', className: 'notyf__message'});
+
+    message.innerHTML = messageText;
+
+    // Build the card
+    iconContainer.appendChild(icon);
+    wrapper.appendChild(iconContainer);
+    wrapper.appendChild(message);
+    notification.appendChild(wrapper);
+
+    return notification;
+  }
+
+  private _createHTLMElement({ tagName, className }:
+    { tagName: keyof ElementTagNameMap, className: string }): HTMLElement {
+    const elem = document.createElement(tagName);
+    elem.className = className;
+    return elem;
+  }
+
+  /**
+   * Determine which animationend event is supported
+   */
+  private _getAnimationEndEventName(): string {
+    var el = document.createElement('_fake');
+    var transitions: {[key: string]: string} = {
+      'transition':'animationend',
+      'OTransition':'oAnimationEnd',
+      'MozTransition':'animationend',
+      'WebkitTransition':'webkitAnimationEnd'
+    }
+    let t: any;
+    for(t in transitions){
+      if( el.style[t] !== undefined ){
+        return transitions[t];
+      }
+    }
+    console.warn('Notyf Warning: No supported animation end event. Using "animationend" as a fallback');
+    return 'animationend';
   }
 }
 
