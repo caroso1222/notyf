@@ -78,5 +78,9 @@ var notyf = new Notyf({
 })
 ```
 
+## Contributing
+
+Run `npm run watch` and open the browser a `localhost:8080`. 
+
 ## Licence
 Notyf is under [MIT licence](https://opensource.org/licenses/mit-license.php)

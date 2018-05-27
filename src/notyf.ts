@@ -2,7 +2,7 @@ import { NotyfOptions, DEFAULT_OPTIONS } from "./notyf.options";
 import { NotyfView } from './notyf.view';
 import { NotyfNotification, NotyfType, NotyfArrayEvent, NotyfArray } from "./notyf.models";
 
-export class Notyf {
+export default class Notyf {
   notifications: NotyfArray<NotyfNotification>;
   private view: NotyfView;
   options: NotyfOptions;
@@ -13,7 +13,7 @@ export class Notyf {
     this.options = { ...DEFAULT_OPTIONS, ...opts };
 
     this.notifications.onupdate((elem, type) => {
-      this.view.update(elem, type)
+      this.view.update(elem, type);
     });
   }
 
@@ -45,6 +45,3 @@ export class Notyf {
     }, notification.delay);
   }
 }
-
-// TODO: remove this
-(window as any)['Notyf'] = Notyf;

@@ -11,7 +11,7 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
+    "build": "./node_modules/.bin/webpack --mode=production",
     "watch": "./node_modules/.bin/webpack -w --mode=development"
   },
   "author": "Carlos Roso",
