@@ -19,7 +19,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'Notyf',
-    libraryTarget: 'window',
+    libraryTarget: 'umd',
     libraryExport: 'default',
     umdNamedDefine: true,
   }
