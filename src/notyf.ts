@@ -1,13 +1,21 @@
-import { NotyfOptions, DEFAULT_OPTIONS } from "./notyf.options";
+import {
+  NotyfArray,
+  NotyfArrayEvent,
+  NotyfNotification,
+  NotyfType,
+} from './notyf.models';
+import { DEFAULT_OPTIONS, INotyfOptions } from './notyf.options';
 import { NotyfView } from './notyf.view';
-import { NotyfNotification, NotyfType, NotyfArrayEvent, NotyfArray } from "./notyf.models";
 
+/**
+ * Main controller class. Defines the main Notyf API.
+ */
 export default class Notyf {
-  notifications: NotyfArray<NotyfNotification>;
+  public notifications: NotyfArray<NotyfNotification>;
+  public options: INotyfOptions;
   private view: NotyfView;
-  options: NotyfOptions;
 
-  constructor(opts?: Partial<NotyfOptions>) {
+  constructor(opts?: Partial<INotyfOptions>) {
     this.notifications = new NotyfArray();
     this.view = new NotyfView();
     this.options = { ...DEFAULT_OPTIONS, ...opts };
@@ -17,22 +25,22 @@ export default class Notyf {
     });
   }
 
-  alert(message: string)  {
+  public alert(message: string)  {
     const notification = new NotyfNotification(
       NotyfType.Alert,
       message,
       this.options.delay,
-      this.options.alertIcon
+      this.options.alertIcon,
     );
     this._pushNotification(notification);
   }
 
-  confirm(message: string) {
+  public confirm(message: string) {
     const notification = new NotyfNotification(
       NotyfType.Confirm,
       message,
       this.options.delay,
-      this.options.confirmIcon
+      this.options.confirmIcon,
     );
     this._pushNotification(notification);
   }
@@ -41,7 +49,7 @@ export default class Notyf {
     this.notifications.push(notification);
     setTimeout(() => {
       const index = this.notifications.indexOf(notification);
-      this.notifications.splice(index,1);
+      this.notifications.splice(index, 1);
     }, notification.delay);
   }
 }

@@ -1,14 +1,19 @@
-import { RenderedNotification, NotyfNotification, NotyfArrayEvent, NotyfType } from "./notyf.models";
+import {
+  IRenderedNotification,
+  NotyfArrayEvent,
+  NotyfNotification,
+  NotyfType,
+} from './notyf.models';
 
 export class NotyfView {
-  
-  animationEndEventName: string;
-  container: HTMLElement;
-  private notifications: RenderedNotification[] = [];
+
+  public animationEndEventName: string;
+  public container: HTMLElement;
+  private notifications: IRenderedNotification[] = [];
 
   constructor() {
     // Creates the main notifications container
-    var docFrag = document.createDocumentFragment();
+    const docFrag = document.createDocumentFragment();
     const notyfContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf' });
     docFrag.appendChild(notyfContainer);
     document.body.appendChild(docFrag);
@@ -18,7 +23,7 @@ export class NotyfView {
     this.animationEndEventName = this._getAnimationEndEventName();
   }
 
-  update(notification: NotyfNotification, type: NotyfArrayEvent) {
+  public update(notification: NotyfNotification, type: NotyfArrayEvent) {
     if (type === NotyfArrayEvent.Add) {
       this.addNotification(notification);
     } else if (type === NotyfArrayEvent.Remove) {
@@ -26,7 +31,7 @@ export class NotyfView {
     }
   }
 
-  removeNotification(notification: NotyfNotification) {
+  public removeNotification(notification: NotyfNotification) {
     const node = this._popRenderedNotification(notification).node;
     node.classList.add('notyf--disappear');
     let eventFn: (e: TransitionEvent) => void;
@@ -38,7 +43,7 @@ export class NotyfView {
     });
   }
 
-  addNotification(notification: NotyfNotification) {
+  public addNotification(notification: NotyfNotification) {
     const node = this._renderNotification(notification);
     this.notifications.push({ notification, node });
   }
@@ -46,7 +51,7 @@ export class NotyfView {
   private _renderNotification(notification: NotyfNotification): HTMLElement {
     let className: string;
 
-    switch(notification.type) {
+    switch (notification.type) {
       case NotyfType.Alert:
         className = 'notyf--alert';
         break;
@@ -61,7 +66,7 @@ export class NotyfView {
     return card;
   }
 
-  private _popRenderedNotification(notification: NotyfNotification): RenderedNotification {
+  private _popRenderedNotification(notification: NotyfNotification): IRenderedNotification {
     let idx = -1;
     for (let i = 0; i < this.notifications.length && idx < 0; i++) {
       if (this.notifications[i].notification === notification) {
@@ -104,20 +109,20 @@ export class NotyfView {
    * Determine which animationend event is supported
    */
   private _getAnimationEndEventName(): string {
-    var el = document.createElement('_fake');
-    var transitions: {[key: string]: string} = {
-      'transition':'animationend',
-      'OTransition':'oAnimationEnd',
-      'MozTransition':'animationend',
-      'WebkitTransition':'webkitAnimationEnd'
-    }
+    const el = document.createElement('_fake');
+    const transitions: {[key: string]: string} = {
+      MozTransition: 'animationend',
+      OTransition: 'oAnimationEnd',
+      WebkitTransition: 'webkitAnimationEnd',
+      transition: 'animationend',
+    };
     let t: any;
-    for(t in transitions){
-      if( el.style[t] !== undefined ){
+    for (t in transitions) {
+      if ( el.style[t] !== undefined ) {
         return transitions[t];
       }
     }
-    console.warn('Notyf Warning: No supported animation end event. Using "animationend" as a fallback');
+    // No supported animation end event. Using "animationend" as a fallback
     return 'animationend';
   }
 }
