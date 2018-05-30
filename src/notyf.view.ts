@@ -7,6 +7,7 @@ import {
 
 export class NotyfView {
 
+  public a11yContainer!: HTMLElement;
   public animationEndEventName: string;
   public container: HTMLElement;
   private notifications: IRenderedNotification[] = [];
@@ -21,6 +22,7 @@ export class NotyfView {
 
     // Identifies the main animation end event
     this.animationEndEventName = this._getAnimationEndEventName();
+    this._createA11yContainer();
   }
 
   public update(notification: NotyfNotification, type: NotyfArrayEvent) {
@@ -51,6 +53,7 @@ export class NotyfView {
   public addNotification(notification: NotyfNotification) {
     const node = this._renderNotification(notification);
     this.notifications.push({ notification, node });
+    this._announce(notification.message);
   }
 
   private _renderNotification(notification: NotyfNotification): HTMLElement {
@@ -108,6 +111,46 @@ export class NotyfView {
     const elem = document.createElement(tagName);
     elem.className = className;
     return elem;
+  }
+
+  /**
+   * Creates an invisible container which will announce the notyfs to
+   * screen readers
+   */
+  private _createA11yContainer() {
+    const a11yContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf-announcer' });
+    a11yContainer.setAttribute('aria-atomic', 'true');
+    a11yContainer.setAttribute('aria-live', 'polite');
+    // Set the a11y container to be visible hidden. Can't use display: none as
+    // screen readers won't read it.
+    a11yContainer.style.border = '0';
+    a11yContainer.style.clip = 'rect(0 0 0 0)';
+    a11yContainer.style.height = '1px';
+    a11yContainer.style.margin = '-1px';
+    a11yContainer.style.overflow = 'hidden';
+    a11yContainer.style.padding = '0';
+    a11yContainer.style.position = 'absolute';
+    a11yContainer.style.width = '1px';
+    a11yContainer.style.outline = '0';
+    document.body.appendChild(a11yContainer);
+    this.a11yContainer = a11yContainer;
+  }
+
+  /**
+   * Announces a message to screenreaders.
+   */
+  private _announce(message: string) {
+    this.a11yContainer.textContent = '';
+
+    // This 100ms timeout is necessary for some browser + screen-reader combinations:
+    // - Both JAWS and NVDA over IE11 will not announce anything without a non-zero timeout.
+    // - With Chrome and IE11 with NVDA or JAWS, a repeated (identical) message won't be read a
+    //   second time without clearing and then using a non-zero delay.
+    // (using JAWS 17 at time of this writing).
+    // https://github.com/angular/material2/blob/master/src/cdk/a11y/live-announcer/live-announcer.ts
+    setTimeout(() => {
+      this.a11yContainer.textContent = message;
+    }, 100);
   }
 
   /**

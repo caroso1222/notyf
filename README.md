@@ -1,5 +1,5 @@
 # Notyf
-Notyf is a dead simple, responsive, vanilla javascript notification plugin. No jQuery required.
+Notyf is a dead simple, responsive, a11y compatible, vanilla javascript notification plugin. No jQuery required.
 
 **Demo:** [carlosroso.com/notyf](http://carlosroso.com/notyf/)
 
