@@ -24,7 +24,7 @@ type NotyfArrayEventFn<T> = (elem: T, event: NotyfArrayEvent, elems: T[]) => voi
 
 export class NotyfArray<T> {
   private notifications: T[] = [];
-  private updateFn: NotyfArrayEventFn<T>;
+  private updateFn!: NotyfArrayEventFn<T>;
 
   public push(elem: T) {
     this.notifications.push(elem);

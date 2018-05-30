@@ -32,12 +32,17 @@ export class NotyfView {
   }
 
   public removeNotification(notification: NotyfNotification) {
-    const node = this._popRenderedNotification(notification).node;
+    const renderedNotification = this._popRenderedNotification(notification);
+    let node!: HTMLElement;
+    if (!renderedNotification) {
+      return;
+    }
+    node = renderedNotification.node;
     node.classList.add('notyf--disappear');
-    let eventFn: (e: TransitionEvent) => void;
-    node.addEventListener(this.animationEndEventName, eventFn = (event: TransitionEvent) => {
+    let handleEvent: (e: Event) => void;
+    node.addEventListener(this.animationEndEventName, handleEvent = (event: Event) => {
       if (event.target === node) {
-        node.removeEventListener(this.animationEndEventName, eventFn);
+        node.removeEventListener(this.animationEndEventName, handleEvent);
         this.container.removeChild(node);
       }
     });
@@ -49,7 +54,7 @@ export class NotyfView {
   }
 
   private _renderNotification(notification: NotyfNotification): HTMLElement {
-    let className: string;
+    let className: string = '';
 
     switch (notification.type) {
       case NotyfType.Alert:
@@ -66,7 +71,7 @@ export class NotyfView {
     return card;
   }
 
-  private _popRenderedNotification(notification: NotyfNotification): IRenderedNotification {
+  private _popRenderedNotification(notification: NotyfNotification): IRenderedNotification | undefined {
     let idx = -1;
     for (let i = 0; i < this.notifications.length && idx < 0; i++) {
       if (this.notifications[i].notification === notification) {

@@ -6,9 +6,9 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
-    "noImplicitAny": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "strict": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
