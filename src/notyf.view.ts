@@ -40,7 +40,7 @@ export class NotyfView {
       return;
     }
     node = renderedNotification.node;
-    node.classList.add('notyf--disappear');
+    node.classList.add('notyf__toast--disappear');
     let handleEvent: (e: Event) => void;
     node.addEventListener(this.animationEndEventName, handleEvent = (event: Event) => {
       if (event.target === node) {
@@ -61,10 +61,10 @@ export class NotyfView {
 
     switch (notification.type) {
       case NotyfType.Alert:
-        className = 'notyf--alert';
+        className = 'notyf__toast--alert';
         break;
       case NotyfType.Confirm:
-        className = 'notyf--confirm';
+        className = 'notyf__toast--confirm';
         break;
     }
 
@@ -90,6 +90,7 @@ export class NotyfView {
   private _buildNotificationCard(messageText: string, iconClass: string): HTMLElement {
     // Create elements
     const notification = this._createHTLMElement({ tagName: 'div', className: 'notyf__toast'});
+    const ripple = this._createHTLMElement({ tagName: 'div', className: 'notyf__ripple'});
     const wrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__wrapper'});
     const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon'});
     const icon = this._createHTLMElement({ tagName: 'i', className: iconClass});
@@ -102,6 +103,7 @@ export class NotyfView {
     wrapper.appendChild(iconContainer);
     wrapper.appendChild(message);
     notification.appendChild(wrapper);
+    notification.appendChild(ripple);
 
     return notification;
   }

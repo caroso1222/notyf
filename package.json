@@ -20,6 +20,9 @@
     "url": "https://github.com/caroso1222/notyf/issues"
   },
   "devDependencies": {
+    "autoprefixer": "^9.4.9",
+    "css-loader": "^2.1.0",
+    "cssnano": "^4.1.10",
     "del": "^2.2.2",
     "eslint": "^3.4.0",
     "gulp": "^3.9.1",
@@ -28,6 +31,12 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
     "gulp-uglify": "^2.0.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
     "ts-loader": "^4.2.0",
     "tslint": "^5.10.0",
     "typescript": "^2.8.1",

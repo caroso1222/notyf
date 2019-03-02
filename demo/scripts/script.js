@@ -1,14 +1,11 @@
-//var Notyf = require('../../dist/notyf.min.js');
-
-
-var notyf = new Notyf({delay: 5000});
+var notyf = new Notyf({delay: 2000});
 
 document.getElementById('confirm-btn')
         .addEventListener('click', function(){
-            notyf.confirm('Your request has been sent');
+            notyf.confirm('Your changes have succesfully been saved');
         });
 
 document.getElementById('alert-btn')
         .addEventListener('click', function(){
-            notyf.alert('You have been disconnected');
+            notyf.alert('You have been disconnected!');
         });
