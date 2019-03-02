@@ -9,7 +9,7 @@
     "plugin",
     "notify"
   ],
-  "main": "index.js",
+  "main": "dist/notyf.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack --mode=production",
     "watch": "./node_modules/.bin/webpack -w --mode=development"
@@ -46,5 +46,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/caroso1222/notyf.git"
-  }
+  },
+  "typings": "./dist/notyf/notyf.d.ts"
 }

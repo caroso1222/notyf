@@ -20,7 +20,7 @@ export enum NotyfArrayEvent {
   Add, Remove,
 }
 
-type NotyfArrayEventFn<T> = (elem: T, event: NotyfArrayEvent, elems: T[]) => void;
+export type NotyfArrayEventFn<T> = (elem: T, event: NotyfArrayEvent, elems: T[]) => void;
 
 export class NotyfArray<T> {
   private notifications: T[] = [];
