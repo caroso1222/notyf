@@ -3,6 +3,7 @@
 /dist-server
 /tmp
 /out-tsc
+/.rpt2_cache
 
 # dependencies
 /node_modules

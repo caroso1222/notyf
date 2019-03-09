@@ -9,10 +9,11 @@
     "plugin",
     "notify"
   ],
-  "main": "dist/notyf.js",
+  "main": "notyf.js",
+  "module": "notyf.es.js",
+  "private": true,
   "scripts": {
-    "build": "./node_modules/.bin/webpack --mode=production",
-    "watch": "./node_modules/.bin/webpack -w --mode=development"
+    "build": "node ./build.js"
   },
   "author": "Carlos Roso",
   "license": "MIT",
@@ -20,11 +21,15 @@
     "url": "https://github.com/caroso1222/notyf/issues"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
     "autoprefixer": "^9.4.9",
+    "babel": "^6.23.0",
     "css-loader": "^2.1.0",
     "cssnano": "^4.1.10",
     "del": "^2.2.2",
     "eslint": "^3.4.0",
+    "fs": "0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-cssnano": "^2.1.2",
@@ -36,6 +41,10 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
+    "rollup": "^1.4.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-typescript2": "^0.19.3",
+    "rollup-plugin-uglify": "^6.0.2",
     "sass-loader": "^7.1.0",
     "ts-loader": "^4.2.0",
     "tslint": "^5.10.0",
@@ -47,5 +56,5 @@
     "type": "git",
     "url": "https://github.com/caroso1222/notyf.git"
   },
-  "typings": "./dist/notyf/notyf.d.ts"
+  "typings": "notyf.d.ts"
 }

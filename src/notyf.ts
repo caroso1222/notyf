@@ -1,6 +1,5 @@
 import {
   NotyfArray,
-  NotyfArrayEvent,
   NotyfNotification,
   NotyfType,
 } from './notyf.models';
