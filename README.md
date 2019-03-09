@@ -1,4 +1,8 @@
 # Notyf
+[![npm version](https://badge.fury.io/js/notyf.svg)](https://badge.fury.io/js/notyf)
+[![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
+[![npm downloads](https://img.shields.io/npm/dm/notyf.svg)]
+
 Notyf is a dead simple, responsive, a11y compatible, vanilla javascript notification plugin. No jQuery required.
 
 **Demo:** [carlosroso.com/notyf](http://carlosroso.com/notyf/)
