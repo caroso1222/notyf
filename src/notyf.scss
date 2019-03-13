@@ -1,5 +1,3 @@
-@import "notyf-colors.scss";
-
 @keyframes fadeinup{
   0%{
     opacity: 0;
@@ -32,7 +30,7 @@
   }
 }
 
-.notyf__icon--alert, .notyf__icon--confirm{
+.notyf__icon--error, .notyf__icon--success{
     height: 21px;
     width: 21px;
     background: white;
@@ -42,10 +40,10 @@
     position: relative;
 }
 
-.notyf__icon--alert{
+.notyf__icon--error{
     &:after, &:before{
       content: "";
-      background: $red-notyf;
+      background: currentColor;
       display: block;
       position: absolute;
       width: 3px;
@@ -63,10 +61,10 @@
     }
 }
 
-.notyf__icon--confirm{
+.notyf__icon--success{
     &:after, &:before{
       content: "";
-      background: $green-notyf;
+      background: currentColor;
       display: block;
       position: absolute;
       width: 3px;
@@ -99,12 +97,6 @@
     max-width: 300px;
     transform: translateY(25%);
 
-    &--alert .notyf__ripple {
-      background: $red-notyf;
-    }
-    &--confirm .notyf__ripple {
-      background: $green-notyf;
-    }
     &--disappear{
       transform: translateY(0);
       animation: fadeoutdown 0.3s forwards;

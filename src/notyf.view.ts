@@ -2,7 +2,6 @@ import {
   IRenderedNotification,
   NotyfArrayEvent,
   NotyfNotification,
-  NotyfType,
 } from './notyf.models';
 
 export class NotyfView {
@@ -53,23 +52,17 @@ export class NotyfView {
   public addNotification(notification: NotyfNotification) {
     const node = this._renderNotification(notification);
     this.notifications.push({ notification, node });
-    this._announce(notification.message);
+    // For a11y purposes, we still want to announce that there's a notification in the screen
+    // even if it comes with no message.
+    this._announce(notification.options.message || 'Notification');
   }
 
   private _renderNotification(notification: NotyfNotification): HTMLElement {
-    let className: string = '';
-
-    switch (notification.type) {
-      case NotyfType.Alert:
-        className = 'notyf__toast--alert';
-        break;
-      case NotyfType.Confirm:
-        className = 'notyf__toast--confirm';
-        break;
+    const card = this._buildNotificationCard(notification);
+    const className = notification.options.className;
+    if (className) {
+      card.classList.add(className);
     }
-
-    const card = this._buildNotificationCard(notification.message, notification.icon);
-    card.classList.add(className);
     this.container.appendChild(card);
     return card;
   }
@@ -87,31 +80,56 @@ export class NotyfView {
     return;
   }
 
-  private _buildNotificationCard(messageText: string, iconClass: string): HTMLElement {
+  private _buildNotificationCard(notification: NotyfNotification): HTMLElement {
+    const { options } = notification;
+    const iconOpts = options.icon;
+
     // Create elements
-    const notification = this._createHTLMElement({ tagName: 'div', className: 'notyf__toast'});
+    const notificationElem = this._createHTLMElement({ tagName: 'div', className: 'notyf__toast'});
     const ripple = this._createHTLMElement({ tagName: 'div', className: 'notyf__ripple'});
     const wrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__wrapper'});
-    const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon'});
-    const icon = this._createHTLMElement({ tagName: 'i', className: iconClass});
     const message = this._createHTLMElement({ tagName: 'div', className: 'notyf__message'});
 
-    message.innerHTML = messageText;
+    message.innerHTML = options.message || '';
+    const color = options.backgroundColor;
 
-    // Build the card
-    iconContainer.appendChild(icon);
-    wrapper.appendChild(iconContainer);
+    // build the icon and append it to the card
+    if (iconOpts && typeof iconOpts === 'object') {
+      const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon'});
+      const icon = this._createHTLMElement({
+        tagName: iconOpts.tagName || 'i',
+        className: iconOpts.className,
+        text: iconOpts.text,
+      });
+      if (color) {
+        icon.style.color = color;
+      }
+      iconContainer.appendChild(icon);
+      wrapper.appendChild(iconContainer);
+    }
+
     wrapper.appendChild(message);
-    notification.appendChild(wrapper);
-    notification.appendChild(ripple);
+    notificationElem.appendChild(wrapper);
 
-    return notification;
+    // add ripple if applicable, else just paint the full toast
+    if (color) {
+      if (options.ripple) {
+        ripple.style.backgroundColor = color;
+        notificationElem.appendChild(ripple);
+      } else {
+        notificationElem.style.backgroundColor = color;
+      }
+    }
+    return notificationElem;
   }
 
-  private _createHTLMElement({ tagName, className }:
-    { tagName: keyof ElementTagNameMap, className: string }): HTMLElement {
+  private _createHTLMElement({ tagName, className, text }:
+    { tagName: keyof ElementTagNameMap, className?: string, text?: string }): HTMLElement {
     const elem = document.createElement(tagName);
-    elem.className = className;
+    if (className) {
+      elem.className = className;
+    }
+    elem.textContent = text || null;
     return elem;
   }
 

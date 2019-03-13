@@ -17,7 +17,8 @@
     "build": "node ./build.js",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "test": "npm run build && start-server-and-test dev http://localhost:8080 cy:run"
+    "test": "npm run build && start-server-and-test dev http://localhost:8080 cy:run",
+    "lint": "tslint --project tsconfig.json"
   },
   "author": "Carlos Roso",
   "license": "MIT",
@@ -55,9 +56,9 @@
     "start-server-and-test": "^1.7.11",
     "ts-loader": "^4.2.0",
     "tslint": "^5.10.0",
-    "typescript": "^2.8.1",
     "webpack": "4.5.0",
-    "webpack-cli": "^2.1.2"
+    "webpack-cli": "^2.1.2",
+    "typescript": "^3.3.3333"
   },
   "repository": {
     "type": "git",

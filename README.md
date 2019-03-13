@@ -1,7 +1,7 @@
 # Notyf
 [![npm version](https://badge.fury.io/js/notyf.svg)](https://badge.fury.io/js/notyf)
 [![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
-[![npm downloads](https://img.shields.io/npm/dm/notyf.svg)]
+[![npm downloads](https://img.shields.io/npm/dm/notyf.svg)](https://npmjs.org/notyf)
 
 Notyf is a dead simple, responsive, a11y compatible, vanilla javascript notification plugin. No jQuery required.
 
@@ -40,11 +40,11 @@ Now add it to your project:
 // Create an instance of Notyf
 var notyf = new Notyf();
 
-// Display an alert notification
-notyf.alert('You must fill out the form before moving forward');
+// Display an error notification
+notyf.error('You must fill out the form before moving forward');
 
 // Display a success notification
-notyf.confirm('Your changes have been successfully saved!');
+notyf.success('Your changes have been successfully saved!');
 ```
 
 ### CommonJS
@@ -58,8 +58,8 @@ import 'notyf/dist/notyf.min.css';
 // Create an instance of Notyf
 var notyf = new Notyf()
 
-// Display an alert notification 
-notyf.alert('Please fill out the form')
+// Display an error notification 
+notyf.error('Please fill out the form')
 ```
 
 ## Options
@@ -69,16 +69,16 @@ You can set some options when creating a Notyf instance.
 
 Param | Type | Default | Details
 ------------ | ------------- | ------------- | -------------
-delay | `Number` | 2000 | Number of miliseconds the notification must be shown
-alertIcon | `String` | *Custom Notyf icon* | CSS class of the icon shown in an alert notification
-confirmIcon | `String` | *Custom Notyf icon* | CSS class of the icon shown in a success notification
+duration | `Number` | 2000 | Number of miliseconds the notification must be shown
+errorIcon | `String` | *Custom Notyf icon* | CSS class of the icon shown in an error notification
+successIcon | `String` | *Custom Notyf icon* | CSS class of the icon shown in a success notification
 
-This is an example of setting Notyf with a 1s delay and FontAwesome [alert](http://fontawesome.io/icon/exclamation-circle/) and [success](http://fontawesome.io/icon/check-circle-o/) icons (be sure to [include FontAwesome](http://fontawesome.io/get-started/) in your project):
+This is an example of setting Notyf with a 1s duration and FontAwesome [error](http://fontawesome.io/icon/exclamation-circle/) and [success](http://fontawesome.io/icon/check-circle-o/) icons (be sure to [include FontAwesome](http://fontawesome.io/get-started/) in your project):
 ```javascript
 var notyf = new Notyf({
-  delay:1000,
-  alertIcon: 'fa fa-exclamation-circle',
-  confirmIcon: 'fa fa-check-circle'  
+  duration:1000,
+  errorIcon: 'fa fa-exclamation-circle',
+  successIcon: 'fa fa-check-circle'  
 })
 ```
 

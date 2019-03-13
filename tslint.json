@@ -5,6 +5,9 @@
       true,
       "single"
     ],
-    "max-classes-per-file": false
+    "max-classes-per-file": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "arrow-parens": false
   }
 }

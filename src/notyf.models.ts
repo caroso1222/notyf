@@ -1,14 +1,7 @@
-export enum NotyfType {
-  Alert, Confirm,
-}
+import { INotyfNotificationOptions, DeepPartial } from './notyf.options';
 
 export class NotyfNotification {
-  constructor(
-    public type: NotyfType,
-    public message: string,
-    public delay: number,
-    public icon: string,
-  ) { }
+  constructor(public options: DeepPartial<INotyfNotificationOptions>) {}
 }
 
 export interface IRenderedNotification {
