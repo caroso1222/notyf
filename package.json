@@ -1,7 +1,7 @@
 {
   "name": "notyf",
-  "version": "2.0.1",
-  "description": "A dead simple, responsive, vanilla javascript notification plugin. No jQuery required",
+  "version": "3.0.0",
+  "description": "A dead simple, responsive, a11y, dependency-free, vanilla JavaScript toast library.",
   "keywords": [
     "javascript",
     "plugin",
@@ -64,5 +64,5 @@
     "type": "git",
     "url": "https://github.com/caroso1222/notyf.git"
   },
-  "typings": "notyf.d.ts"
+  "typings": "index.d.ts"
 }

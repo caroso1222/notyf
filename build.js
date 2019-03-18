@@ -42,7 +42,7 @@ promise = promise.then(() => del(['dist/*']));
 // Compile source code into a distributable format with Babel and Rollup
 for (const config of bundles) {
   promise = promise.then(() => rollup.rollup({
-    input: 'src/notyf.ts',
+    input: 'src/index.ts',
     external: [
       ...Object.keys(pkg.dependencies || {}),
       ...Object.keys(pkg.peerDependencies || {}),
