@@ -4,11 +4,12 @@
 
 * Improve a11y support with the new a11y announcer
 * Implement a more extensible, yet simple and scalable API
+* Complete up to date TypeScript typings
 
 ## Miscellaneous
 
 * Migrate codebase to TypeScript
-* Add appropriate support for module bundlers by exposing different artifacts
+* Add appropriate support for module bundlers by exposing different artifacts (ES6, CommonJS, minified IIFE)
 * Add e2e tests with Cypress
 * Move to Rollup for the build workflow
 
@@ -19,6 +20,7 @@
 * Rename `confirm` for `success`. [#22](https://github.com/caroso1222/notyf/issues/22)
 * Remove option `confirmIcon`. [#22](https://github.com/caroso1222/notyf/issues/22)
 * Remove option `alertIcon`. [#22](https://github.com/caroso1222/notyf/issues/22)
+* Drop support for Bower
 
 ## Credits
 
