@@ -7,6 +7,8 @@
 
 Notyf is a dead simple, responsive, a11y compatible, dependency-free, vanilla javascript toast library.
 
+![demo gif](https://user-images.githubusercontent.com/3689856/54656011-0751e900-4a92-11e9-9c0c-0b7984c62e9d.gif)
+
 ## Features
 
 - 📱 Responsive
@@ -21,8 +23,6 @@ Notyf is a dead simple, responsive, a11y compatible, dependency-free, vanilla ja
 - 🐣 Tiny footprint (<2K gzipped)
 
 **Demo:** [carlosroso.com/notyf](http://carlosroso.com/notyf/)
-
-![demo gif](https://user-images.githubusercontent.com/3689856/54656011-0751e900-4a92-11e9-9c0c-0b7984c62e9d.gif)
 
 Angular version: [ng-notyf](https://github.com/jdjuan/ng-notyf)
 
