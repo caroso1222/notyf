@@ -1,7 +1,7 @@
 {
   "name": "notyf",
-  "version": "2.0.1",
-  "description": "A dead simple, responsive, vanilla javascript notification plugin. No jQuery required",
+  "version": "3.0.1",
+  "description": "A dead simple, responsive, a11y, dependency-free, vanilla JavaScript toast library.",
   "keywords": [
     "javascript",
     "plugin",
@@ -9,23 +9,60 @@
     "plugin",
     "notify"
   ],
+  "main": "notyf.js",
+  "module": "notyf.es.js",
+  "private": true,
+  "scripts": {
+    "dev": "lite-server",
+    "build": "node ./build.js",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "test": "npm run build && start-server-and-test dev http://localhost:8080 cy:run",
+    "lint": "tslint --project tsconfig.json"
+  },
   "author": "Carlos Roso",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/caroso1222/notyf/issues"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "autoprefixer": "^9.4.9",
+    "babel": "^6.23.0",
+    "css-loader": "^2.1.0",
+    "cssnano": "^4.1.10",
+    "cypress": "^3.1.5",
     "del": "^2.2.2",
     "eslint": "^3.4.0",
+    "fs": "0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-cssnano": "^2.1.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
-    "gulp-uglify": "^2.0.0"
+    "gulp-uglify": "^2.0.0",
+    "lite-server": "^2.4.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "rollup": "^1.4.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-typescript2": "^0.19.3",
+    "rollup-plugin-uglify": "^6.0.2",
+    "sass-loader": "^7.1.0",
+    "start-server-and-test": "^1.7.11",
+    "ts-loader": "^4.2.0",
+    "tslint": "^5.10.0",
+    "webpack": "4.5.0",
+    "webpack-cli": "^2.1.2",
+    "typescript": "^3.3.3333"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/caroso1222/notyf.git"
-  }
+  },
+  "typings": "index.d.ts"
 }

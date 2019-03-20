@@ -1,5 +1,24 @@
 # Notyf
-Notyf is a dead simple, responsive, vanilla javascript notification plugin. No jQuery required.
+[![npm version](https://badge.fury.io/js/notyf.svg)](https://badge.fury.io/js/notyf)
+[![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
+[![npm downloads](https://img.shields.io/npm/dm/notyf.svg)](https://npmjs.org/notyf)
+[![size](https://img.shields.io/bundlephobia/minzip/notyf.svg?color=54CA2F&style=popout)](https://npmjs.org/notyf)
+
+
+Notyf is a dead simple, responsive, a11y compatible, dependency-free, vanilla javascript toast library.
+
+## Features
+
+- 📱 Responsive
+- 👓 A11Y compatible
+- 🔥 Strongly typed codebase (TypeScript Typings readily available)
+- ⚡️ 3 types of bundles exposed: ES6, CommonJS and IIFE (for vanilla, framework-free usage).
+- 🎯 End-to-end testing with Cypress
+- 🎸 Easily plugable to modern frameworks. Recipes available to integrate with React, Angular and Vue.
+- ✨ Optional ripple-like fancy revealing effect
+- 😈 Simple but highly extensible API. Create your own toast types and customize them.
+- 🎃 Support to render custom HTML content within the toasts
+- 🐣 Tiny footprint (<2K gzipped)
 
 **Demo:** [carlosroso.com/notyf](http://carlosroso.com/notyf/)
 
@@ -9,15 +28,16 @@ Angular version: [ng-notyf](https://github.com/jdjuan/ng-notyf)
 
 ## Installation
 
-### npm
 ```
-npm install --save notyf
+npm i notyf
 ```
-### Bower
-```
-bower install --save notyf
-```
-Now add it to your project:
+
+## Usage
+
+This section explains the base case using the minified bundle. See the [quick recipes](recipes/README.md) section for instructions to plug Notyf into Angular, React or Vue.
+
+Add the css and js files to your main document:
+
 ```html
 <html>
   <head>
@@ -30,7 +50,6 @@ Now add it to your project:
   </body>
 </html>
 ```
-## Usage
 
 ### Basic
 
@@ -38,47 +57,134 @@ Now add it to your project:
 // Create an instance of Notyf
 var notyf = new Notyf();
 
-// Display an alert notification
-notyf.alert('You must fill out the form before moving forward');
+// Display an error notification
+notyf.error('You must fill out the form before moving forward');
 
 // Display a success notification
-notyf.confirm('Your changes have been successfully saved!');
+notyf.success('Your changes have been successfully saved!');
 ```
 
-### CommonJS
+### With module bundlers
 
-When importing Notyf via CommonJS modules, for example for Vue or Angular on top of Webpack, you can import the module as shown below:
+Notyf ships with an ES6 bundle referenced from the `module` key of its package.json. This is the file that module bundlers like Webpack will use when using the package. `Notyf` is exported as a class under the `notyf` namespace. Typings are also available.
+
 ```javascript
-// Import Notyf using CommonJS require
-var Notyf = require('notyf');
-import 'notyf/dist/notyf.min.css';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css'; // for React and Vue
 
 // Create an instance of Notyf
-var notyf = new Notyf()
+const notyf = new Notyf();
 
-// Display an alert notification 
-notyf.alert('Please fill out the form')
+// Display an error notification 
+notyf.error('Please fill out the form');
 ```
 
-## Options
+## API
 You can set some options when creating a Notyf instance.
 
-#### `new Notyf([options])`
+### `new Notyf([options])`
 
 Param | Type | Default | Details
 ------------ | ------------- | ------------- | -------------
-delay | `Number` | 2000 | Number of miliseconds the notification must be shown
-alertIcon | `String` | *Custom Notyf icon* | CSS class of the icon shown in an alert notification
-confirmIcon | `String` | *Custom Notyf icon* | CSS class of the icon shown in a success notification
+duration | `number` | 2000 | Number of miliseconds before hiding the notification
+ripple | `boolean` | True | Whether to show the notification with a ripple effect
+types | `INotyfNotificationOptions[]` | Success and error toasts | Array with individual configurations for each type of toast
 
-This is an example of setting Notyf with a 1s delay and FontAwesome [alert](http://fontawesome.io/icon/exclamation-circle/) and [success](http://fontawesome.io/icon/check-circle-o/) icons (be sure to [include FontAwesome](http://fontawesome.io/get-started/) in your project):
+### INotyfNotificationOptions
+
+Configuration interface for each individual toast.
+
+Param | Type  | Details
+------------ | ------------- | -------------
+type | `string` | Notification type for which this configuration will be applied
+className | `string` | Custom class name to be set in the toast wrapper element
+duration | `number` | 2000 | Number of miliseconds before hiding the notification
+icon | `INotyfIcon | false` | An object which the properties of the icon to be rendered. 'false' hides the icon.
+backgroundColor | `string` | Background color of the toast
+message | `string` | Message to be rendered inside of the toast. Becomes the default message when used in the global config.
+ripple | `boolean` | Whether or not to render the ripple at revealing
+
+### INotyfIcon
+
+Configuration interface to define an icon
+
+Param | Type | Details
+------------ | ------------- | -------------
+className | `string` | Custom class name to be set in the icon element
+tagName | `string` | HTML5 tag used to render the icon
+text | `string` | Inner text rendered within the icon (useful when using [ligature icons](https://css-tricks.com/ligature-icons/))
+
+## Examples
+
+### Global configuration
+
+This is an example of setting Notyf with a 1s duration, custom duration and color for the error toast, and a new custom toast called 'warning' with a [ligature material icon](https://google.github.io/material-design-icons/):
+
 ```javascript
-var notyf = new Notyf({
-  delay:1000,
-  alertIcon: 'fa fa-exclamation-circle',
-  confirmIcon: 'fa fa-check-circle'  
+const notyf = new Notyf({
+  duration: 1000,
+  types: [
+    {
+      type: 'warning',
+      backgroundColor: 'orange',
+      icon: {
+        className: 'material-icons',
+        tagName: 'i',
+        text: 'warning'
+      }
+    },
+    {
+      type: 'error',
+      backgroundColor: 'indianred',
+      duration: 2000
+    }
+  ]
+});
+```
+
+### Custom toast type
+
+Register a new toast type and use it by referencing its type name:
+
+```javascript
+const notyf = new Notyf({
+  types: [
+    {
+      type: 'info',
+      backgroundColor: 'blue',
+      icon: false
+    }
+  ]
+});
+
+notyf.open({
+  type: 'info',
+  message: 'Send us <b>an email</b> to get support'
+});
+```
+
+### Default types with custom configurations
+
+The default types are 'success' and 'error'. You can use them simply by passing a message as its argument, or you can pass a settings object in case you want to modify its behaviour.
+
+```javascript
+const notyf = new Notyf();
+
+notyf.error({
+  message: 'Accept the terms before moving forward',
+  duration: 9000,
+  icon: false
 })
 ```
 
+## Recipes
+
+Notyf is well supported in all of the modern frameworks such as Angular, React or Vue. [Check out the recipes](recipes/README.MD) and learn how to integrate the library to your application.
+
+## Contributing
+
+Please see the [contributing](contributing.md) document and read the contribution guidelines. Thanks in advance for all the help!
+
 ## Licence
+
 Notyf is under [MIT licence](https://opensource.org/licenses/mit-license.php)

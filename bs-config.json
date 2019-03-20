@@ -1,0 +1,13 @@
+{
+  "port": 8080,
+  "files": ["./demo/**/*.{html,css,js}"],
+  "open": false,
+  "logLevel": "silent",
+  "server": {
+    "baseDir": ["./", "./demo"],
+    "index": "index.html",
+    "middleware": {
+      "0": null
+    }
+  }
+}
