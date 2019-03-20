@@ -16,12 +16,14 @@ const bundles = [
     plugins: [],
     babelPresets: ['stage-1'],
     file: pkg.module,
+    input: 'src/index.ts'
   },
   {
     format: 'cjs',
     plugins: [],
     babelPresets: ['stage-1'],
     file: pkg.main,
+    input: 'src/index.ts'
   },
   {
     format: 'iife',
@@ -31,6 +33,7 @@ const bundles = [
     name: 'Notyf',
     minify: true,
     file: 'notyf.min.js',
+    input: 'src/notyf.ts'
   }
 ];
 
@@ -42,7 +45,7 @@ promise = promise.then(() => del(['dist/*']));
 // Compile source code into a distributable format with Babel and Rollup
 for (const config of bundles) {
   promise = promise.then(() => rollup.rollup({
-    input: 'src/index.ts',
+    input: config.input,
     external: [
       ...Object.keys(pkg.dependencies || {}),
       ...Object.keys(pkg.peerDependencies || {}),
