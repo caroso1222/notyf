@@ -179,7 +179,7 @@ notyf.error({
 
 ## Recipes
 
-Notyf is well supported in all of the modern frameworks such as Angular, React or Vue. [Check out the recipes](recipes/README.MD) and learn how to integrate the library to your application.
+Notyf is well supported in all of the modern frameworks such as Angular, React or Vue. [Check out the recipes](recipes/README.md) and learn how to integrate the library to your application.
 
 ## Contributing
 
