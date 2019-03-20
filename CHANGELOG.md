@@ -1,4 +1,4 @@
-# 3.0.0
+# 3.0.0
 
 ## Features
 
@@ -22,7 +22,7 @@
 * Remove option `alertIcon`. [#22](https://github.com/caroso1222/notyf/issues/22)
 * Drop support for Bower
 
-## Credits
+## Credits
 
 * Big thanks to [@rijkvanzanten](https://github.com/rijkvanzanten), [@honzabilek4](https://github.com/honzabilek4) and [@ConsoleTVs](https://github.com/ConsoleTVs) for helping to shape out the API and new features of v3.
 
