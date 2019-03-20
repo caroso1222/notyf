@@ -24,8 +24,6 @@ Notyf is a dead simple, responsive, a11y compatible, dependency-free, vanilla ja
 
 **Demo:** [carlosroso.com/notyf](http://carlosroso.com/notyf/)
 
-Angular version: [ng-notyf](https://github.com/jdjuan/ng-notyf)
-
 ## Installation
 
 ```

@@ -11,7 +11,7 @@ It's no secret that most of the frontend work nowadays is being done using some 
 
 ## Disclaimer
 
-I'm not an expert in React or Vue. The recipes are only a result of personal research, experimenting and testing. Please feel free to open an issue if you think a recipe doesn't reflect a best practice or if the proposed recipe is totally wrong.
+I'm not an expert in React or Vue. The recipes are only a result of personal research, experimenting and testing. Please feel free to open an issue if you think some recipe doesn't reflect a best practice or if the proposed recipe is totally wrong.
 
 ## Contributing
 
