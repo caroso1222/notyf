@@ -1,3 +1,9 @@
+# 3.0.4
+
+## Fix
+
+- Fix responsive issue. [#30](https://github.com/caroso1222/notyf/issues/30)
+
 # 3.0.3
 
 ## Fix
