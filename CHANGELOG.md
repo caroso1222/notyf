@@ -1,3 +1,9 @@
+# 3.0.3
+
+## Fix
+
+- Fix IIFE bundle as it was not exposing the main entry point only but the full namespace instead.
+
 # 3.0.0
 
 ## Features
