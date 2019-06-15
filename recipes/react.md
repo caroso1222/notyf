@@ -33,22 +33,37 @@ export default React.createContext(
 4. Use Notyf with a Context Consumer in your component. The following is an example of a component called `Card.jsx`:
 
 ```jsx
-import React, { Component } from 'react'
+// For React >= 16.8 (Hooks)
+import React, { useContext } from 'react'
 import NotyfContext from './path/to/NotyfContext';
 
-export class Card extends Component {
 
-  render() {
-    return (
-      <NotyfContext.Consumer>
-        {notyf => (
-          <div>
-            <button onClick={() => notyf.error('Please fill out all the fields in the form')}>Send</button>
-          </div>
-        )}
-      </NotyfContext.Consumer>
-    );
-  }
+export function Card() {
+  const notyf = useContext(NotyfContext);
+  
+  return (
+    <div>
+      <button onClick={() => notyf.error('Please fill out all the fields in the form')}>Send</button>
+    </div>
+  );
+}
+```
+
+```jsx
+// For React < 16.8 (No Hooks)
+import React from 'react'
+import NotyfContext from './path/to/NotyfContext';
+
+export function Card() {
+  return (
+    <NotyfContext.Consumer>
+      {notyf => (
+        <div>
+          <button onClick={() => notyf.error('Please fill out all the fields in the form')}>Send</button>
+        </div>
+      )}
+    </NotyfContext.Consumer>
+  );
 }
 
 export default Card;
