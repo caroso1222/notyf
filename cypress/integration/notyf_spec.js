@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 context('Notyf', () => {
-  
+
   function init(config) {
     if (config) {
       typeCode(config);
@@ -23,12 +23,12 @@ context('Notyf', () => {
     it('should render the main container', () => {
       cy.get('.notyf');
     });
-    
+
     it('should render a success notification', () => {
       cy.get('#success-btn').click();
       cy.get('.notyf__toast').should('have.class', 'notyf__toast--success');
     });
-  
+
     it('should render an error notification', () => {
       cy.get('#error-btn').click();
       cy.get('.notyf__toast').should('have.class', 'notyf__toast--error');
@@ -200,6 +200,14 @@ context('Notyf', () => {
 
     it('should render with custom class name', () => {
       const className = 'foo-bar-class';
+      const config = { className };
+      typeCode(config);
+      cy.get('#success-btn').click();
+      cy.get('.notyf__toast').should('have.class', className);
+    });
+
+    it('should render with multiple custom class names', () => {
+      const className = 'foo-bar-class another-class';
       const config = { className };
       typeCode(config);
       cy.get('#success-btn').click();
