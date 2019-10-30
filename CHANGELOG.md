@@ -1,6 +1,6 @@
 # 3.1.0
 
-## Feature
+## Features
 
 - Allow multiple class names
 
