@@ -61,7 +61,7 @@ export class NotyfView {
     const card = this._buildNotificationCard(notification);
     const className = notification.options.className;
     if (className) {
-      card.classList.add(className);
+      card.classList.add(...className.split(' '));
     }
     this.container.appendChild(card);
     return card;
