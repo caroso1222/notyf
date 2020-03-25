@@ -86,7 +86,7 @@ Param | Type | Default | Details
 ------------ | ------------- | ------------- | -------------
 duration | `number` | 2000 | Number of miliseconds before hiding the notification
 ripple | `boolean` | True | Whether to show the notification with a ripple effect
-position | `INotyfPosition` | `{x:'right',y:'bottom'}` | Viewport location in which to render the notifications
+position | `INotyfPosition` | `{x:'right',y:'bottom'}` | Viewport location where notifications are rendered
 types | `INotyfNotificationOptions[]` | Success and error toasts | Array with individual configurations for each type of toast
 
 ### INotyfPosition
@@ -107,7 +107,7 @@ Param | Type  | Details
 type | `string` | Notification type for which this configuration will be applied
 className | `string` | Custom class name to be set in the toast wrapper element
 duration | `number` | 2000 | Number of miliseconds before hiding the notification
-icon | `INotyfIcon \| false` | An object which the properties of the icon to be rendered. 'false' hides the icon.
+icon | `INotyfIcon \| false` | An object with the properties of the icon to be rendered. 'false' hides the icon.
 backgroundColor | `string` | Background color of the toast
 message | `string` | Message to be rendered inside of the toast. Becomes the default message when used in the global config.
 ripple | `boolean` | Whether or not to render the ripple at revealing
