@@ -1,3 +1,9 @@
+# 3.2.0
+
+## Features
+
+- Allow custom notification positioning [#36](https://github.com/caroso1222/notyf/issues/36)
+
 # 3.1.0
 
 ## Features
