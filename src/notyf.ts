@@ -39,6 +39,7 @@ export default class Notyf {
     const defaultOpts = this.options.types.find(({type}) => type === options.type) || {};
     const config = {...defaultOpts, ...options};
     config.ripple = config.ripple === undefined ? this.options.ripple : config.ripple;
+    config.position = config.position || this.options.position;
     const notification = new NotyfNotification(config);
     this._pushNotification(notification);
   }

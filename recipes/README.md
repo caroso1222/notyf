@@ -1,6 +1,6 @@
 # Framework specific recipes
 
-It's no secret that most of the frontend work nowadays is being done using some of the popular frameworks: React, Angular or Vue. Follow these recipes to easily plug in Notyf in your favorite framework.
+Follow these recipes to easily use Notyf in React, Angular or Vue.
 
 ## Recipes
 

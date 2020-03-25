@@ -1,5 +1,13 @@
 export type DeepPartial<T> = { [P in keyof T]?: DeepPartial<T[P]> };
 
+export type NotyfHorizontalPosition = 'left' | 'center' | 'right';
+export type NotyfVerticalPosition = 'top' | 'center' | 'bottom';
+
+export interface INotyfPosition {
+  x: NotyfHorizontalPosition;
+  y: NotyfVerticalPosition;
+}
+
 export interface INotyfIcon {
   className: string;
   tagName: keyof ElementTagNameMap;
@@ -14,12 +22,14 @@ export interface INotyfNotificationOptions {
   backgroundColor: string;
   message: string;
   ripple: boolean;
+  position: INotyfPosition;
 }
 
 export interface INotyfOptions {
   types: Array<DeepPartial<INotyfNotificationOptions>>;
   duration: number;
   ripple: boolean;
+  position: INotyfPosition;
 }
 
 export const DEFAULT_OPTIONS: INotyfOptions = {
@@ -45,4 +55,8 @@ export const DEFAULT_OPTIONS: INotyfOptions = {
   ],
   duration: 2000,
   ripple: true,
+  position: {
+    x: 'right',
+    y: 'bottom',
+  },
 };
