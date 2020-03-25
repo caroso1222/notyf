@@ -86,7 +86,17 @@ Param | Type | Default | Details
 ------------ | ------------- | ------------- | -------------
 duration | `number` | 2000 | Number of miliseconds before hiding the notification
 ripple | `boolean` | True | Whether to show the notification with a ripple effect
+position | `INotyfPosition` | `{x:'right',y:'bottom'}` | Viewport location in which to render the notifications
 types | `INotyfNotificationOptions[]` | Success and error toasts | Array with individual configurations for each type of toast
+
+### INotyfPosition
+
+Configuration interface to define the viewport location where notifications are rendered.
+
+Param | Type | Details
+------------ | ------------- | -------------
+x | `left \| center \| right` | x-position
+y | `top \| center \| bottom` | y-position
 
 ### INotyfNotificationOptions
 
@@ -97,7 +107,7 @@ Param | Type  | Details
 type | `string` | Notification type for which this configuration will be applied
 className | `string` | Custom class name to be set in the toast wrapper element
 duration | `number` | 2000 | Number of miliseconds before hiding the notification
-icon | `INotyfIcon | false` | An object which the properties of the icon to be rendered. 'false' hides the icon.
+icon | `INotyfIcon \| false` | An object which the properties of the icon to be rendered. 'false' hides the icon.
 backgroundColor | `string` | Background color of the toast
 message | `string` | Message to be rendered inside of the toast. Becomes the default message when used in the global config.
 ripple | `boolean` | Whether or not to render the ripple at revealing
@@ -116,11 +126,19 @@ text | `string` | Inner text rendered within the icon (useful when using [ligatu
 
 ### Global configuration
 
-This is an example of setting Notyf with a 1s duration, custom duration and color for the error toast, and a new custom toast called 'warning' with a [ligature material icon](https://google.github.io/material-design-icons/):
+The following example configures Notyf with the following settings:
+- 1s duration
+- Render notifications in the top-right corner
+- New custom notification called 'warning' with a [ligature material icon](https://google.github.io/material-design-icons/)
+- Error notification with custom duration and color
 
 ```javascript
 const notyf = new Notyf({
   duration: 1000,
+  position: {
+    x: 'right',
+    y: 'top',
+  },
   types: [
     {
       type: 'warning',

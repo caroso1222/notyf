@@ -41,7 +41,7 @@ function show(type) {
   } else if (type === 'error') {
     notyf.error(input);
   } else {
-    const opts = Object.assign({}, {type}, input);
+    const opts = Object.assign({}, {type}, {message: input});
     notyf.open(opts);
   }
 }

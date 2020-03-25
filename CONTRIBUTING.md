@@ -20,7 +20,7 @@ The codebase is written in TypeScript so you will need at least a bit of familir
 
 ## Tests
 
-Ensure that all tests are passing before opening the pull request. You can do this by running `npm run cy:open` and then click on `notyf_spec.js` to run the suite.
+Ensure that all tests are passing before opening the pull request. To do this, run `npm run test:dev` and then click on `notyf_spec.js` to run the suite.
 
 You'll also need to add unit tests for the features or fixes implemented in your PR. Don't be discouraged by this if you don't feel confident about it. Just open the PR and I will guide you through the process of creating tests for it.
 
