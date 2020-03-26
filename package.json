@@ -6,7 +6,7 @@
     "javascript",
     "plugin",
     "notification",
-    "plugin",
+    "toast",
     "notify"
   ],
   "main": "notyf.js",
