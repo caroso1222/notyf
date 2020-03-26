@@ -2,7 +2,7 @@ import {
   NotyfArray,
   NotyfNotification,
 } from './notyf.models';
-import { DEFAULT_OPTIONS, INotyfOptions, INotyfNotificationOptions, DeepPartial } from './notyf.options';
+import { DEFAULT_OPTIONS, INotyfOptions, INotyfNotificationOptions, DeepPartial, NotyfEvent } from './notyf.options';
 import { NotyfView } from './notyf.view';
 
 /**
@@ -20,9 +20,8 @@ export default class Notyf {
     this.options = { ...DEFAULT_OPTIONS, ...opts };
     this.options.types = types;
 
-    this.notifications.onupdate((elem, type) => {
-      this.view.update(elem, type);
-    });
+    this.notifications.onUpdate((elem, type) => this.view.update(elem, type));
+    this.view.on(NotyfEvent.Dismiss, elem => this._removeNotification(elem));
   }
 
   public error(payload: string | Partial<INotyfNotificationOptions>)  {
@@ -39,20 +38,43 @@ export default class Notyf {
     const defaultOpts = this.options.types.find(({type}) => type === options.type) || {};
     const config = {...defaultOpts, ...options};
     config.ripple = config.ripple === undefined ? this.options.ripple : config.ripple;
+    config.dismissible = config.dismissible === undefined ? this.options.dismissible : config.dismissible;
     config.position = config.position || this.options.position;
+    this.assignProps(['ripple', 'position', 'dismissible'], config);
     const notification = new NotyfNotification(config);
     this._pushNotification(notification);
+  }
+
+  /**
+   * Assigns properties to a config object based on two rules:
+   * 1. If the config object already sets that prop, leave it as so
+   * 2. Otherwise, use the default prop from the global options
+   *
+   * It's intended to build the final config object to open a notification. e.g. if
+   * 'dismissible' is not set, then use the value from the global config.
+   *
+   * @param props - properties to be assigned to the config object
+   * @param config - object whose properties need to be set
+   */
+  private assignProps(props: Array<Exclude<keyof INotyfOptions, 'types'>>,
+                      config: DeepPartial<INotyfNotificationOptions>) {
+    props.forEach(prop => {
+      // intentional double equality to check for both null and undefined
+      (config[prop] as any) = config[prop] == null ? this.options[prop] : config[prop];
+    });
   }
 
   private _pushNotification(notification: NotyfNotification) {
     this.notifications.push(notification);
     const duration = notification.options.duration || this.options.duration;
-    setTimeout(() => {
-      const index = this.notifications.indexOf(notification);
-      if(index !== -1){
-        this.notifications.splice(index, 1);         
-      }
-    }, duration);
+    setTimeout(() => this._removeNotification(notification), duration);
+  }
+
+  private _removeNotification(notification: NotyfNotification) {
+    const index = this.notifications.indexOf(notification);
+    if (index !== -1) {
+      this.notifications.splice(index, 1);
+    }
   }
 
   private normalizeOptions(

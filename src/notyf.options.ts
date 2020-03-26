@@ -8,6 +8,10 @@ export interface INotyfPosition {
   y: NotyfVerticalPosition;
 }
 
+export enum NotyfEvent {
+  Dismiss,
+}
+
 export interface INotyfIcon {
   className: string;
   tagName: keyof ElementTagNameMap;
@@ -23,6 +27,7 @@ export interface INotyfNotificationOptions {
   message: string;
   ripple: boolean;
   position: INotyfPosition;
+  dismissible: boolean;
 }
 
 export interface INotyfOptions {
@@ -30,6 +35,7 @@ export interface INotyfOptions {
   duration: number;
   ripple: boolean;
   position: INotyfPosition;
+  dismissible: boolean;
 }
 
 export const DEFAULT_OPTIONS: INotyfOptions = {
@@ -59,4 +65,5 @@ export const DEFAULT_OPTIONS: INotyfOptions = {
     x: 'right',
     y: 'bottom',
   },
+  dismissible: false,
 };

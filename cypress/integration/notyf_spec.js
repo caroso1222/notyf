@@ -72,6 +72,16 @@ context('Notyf', () => {
       cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
     });
 
+    it('should allow notifications to be dismissed manually', () => {
+      const duration = 3000;
+      const config = { dismissible: true, duration };
+      init(config);
+      cy.get('#error-btn').click();
+      cy.get('.notyf__dismiss-btn').should('exist').click();
+      cy.wait(duration/2); // if the notification was dismissed, then it should disappear before duration elapsed
+      cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
+    });
+
     describe('Positioning', () => {
 
       function openAt({x, y}) {
@@ -327,6 +337,16 @@ context('Notyf', () => {
         .find(tagName)
         .should('have.class', className)
         .should('have.text', text);
+    });
+
+    it('should allow the notification to be dismissed manually', () => {
+      const duration = 3000;
+      const config = { dismissible: true, duration };
+      typeCode(config);
+      cy.get('#success-btn').click();
+      cy.get('.notyf__dismiss-btn').should('exist').click();
+      cy.wait(duration/2); // if the notification was dismissed, then it should disappear before duration elapsed
+      cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
     });
 
   });

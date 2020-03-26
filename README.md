@@ -85,8 +85,9 @@ You can set some options when creating a Notyf instance.
 Param | Type | Default | Details
 ------------ | ------------- | ------------- | -------------
 duration | `number` | 2000 | Number of miliseconds before hiding the notification
-ripple | `boolean` | True | Whether to show the notification with a ripple effect
+ripple | `boolean` | true | Whether to show the notification with a ripple effect
 position | `INotyfPosition` | `{x:'right',y:'bottom'}` | Viewport location where notifications are rendered
+dismissible | `boolean` | false | Whether to allow users to dismiss the notification with a button
 types | `INotyfNotificationOptions[]` | Success and error toasts | Array with individual configurations for each type of toast
 
 ### INotyfPosition
@@ -111,6 +112,7 @@ icon | `INotyfIcon \| false` | An object with the properties of the icon to be r
 backgroundColor | `string` | Background color of the toast
 message | `string` | Message to be rendered inside of the toast. Becomes the default message when used in the global config.
 ripple | `boolean` | Whether or not to render the ripple at revealing
+dismissible | `boolean` | Whether to allow users to dismiss the notification with a button
 
 ### INotyfIcon
 
@@ -130,7 +132,7 @@ The following example configures Notyf with the following settings:
 - 1s duration
 - Render notifications in the top-right corner
 - New custom notification called 'warning' with a [ligature material icon](https://google.github.io/material-design-icons/)
-- Error notification with custom duration and color
+- Error notification with custom duration, color and dismiss button
 
 ```javascript
 const notyf = new Notyf({
@@ -152,7 +154,8 @@ const notyf = new Notyf({
     {
       type: 'error',
       backgroundColor: 'indianred',
-      duration: 2000
+      duration: 2000,
+      dismissible: true
     }
   ]
 });
