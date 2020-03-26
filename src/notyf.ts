@@ -49,7 +49,9 @@ export default class Notyf {
     const duration = notification.options.duration || this.options.duration;
     setTimeout(() => {
       const index = this.notifications.indexOf(notification);
-      this.notifications.splice(index, 1);
+      if(index !== -1){
+        this.notifications.splice(index, 1);         
+      }
     }, duration);
   }
 
