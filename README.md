@@ -202,7 +202,7 @@ Notyf is well supported in all of the modern frameworks such as Angular, React o
 
 ## Contributing
 
-Please see the [contributing](contributing.md) document and read the contribution guidelines. Thanks in advance for all the help!
+Please see the [contributing](CONTRIBUTING.md) document and read the contribution guidelines. Thanks in advance for all the help!
 
 ## Licence
 
