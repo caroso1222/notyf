@@ -8,6 +8,7 @@ import {
   NotyfVerticalPosition,
   DeepPartial,
   INotyfNotificationOptions,
+  NotyfEvent,
 } from './notyf.options';
 
 export class NotyfView {
@@ -16,6 +17,7 @@ export class NotyfView {
   public animationEndEventName: string;
   public container: HTMLElement;
   private notifications: IRenderedNotification[] = [];
+  private events?: Record<NotyfEvent, (notification: NotyfNotification) => void>;
 
   private readonly X_POSITION_FLEX_MAP: Record<NotyfHorizontalPosition, string> = {
     left: 'flex-start',
@@ -40,6 +42,10 @@ export class NotyfView {
     // Identifies the main animation end event
     this.animationEndEventName = this._getAnimationEndEventName();
     this._createA11yContainer();
+  }
+
+  public on(event: NotyfEvent, cb: (notification: NotyfNotification) => void) {
+    this.events = {...this.events, [event]: cb };
   }
 
   public update(notification: NotyfNotification, type: NotyfArrayEvent) {
@@ -156,6 +162,19 @@ export class NotyfView {
       } else {
         notificationElem.style.backgroundColor = color;
       }
+    }
+
+    // Add dismiss button
+    if (options.dismissible) {
+      const dismissWrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__dismiss'});
+      const dismissButton = this._createHTLMElement({
+        tagName: 'button',
+        className: 'notyf__dismiss-btn',
+      }) as HTMLButtonElement;
+      dismissWrapper.appendChild(dismissButton);
+      wrapper.appendChild(dismissWrapper);
+      notificationElem.classList.add(`notyf__toast--dismissible`);
+      dismissButton.addEventListener('click', () => this.events?.[NotyfEvent.Dismiss](notification));
     }
 
     // Adjust margins depending on whether its an upper or lower notification

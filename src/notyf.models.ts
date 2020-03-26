@@ -33,7 +33,7 @@ export class NotyfArray<T> {
     return this.notifications.indexOf(elem);
   }
 
-  public onupdate(fn: NotyfArrayEventFn<T>) {
+  public onUpdate(fn: NotyfArrayEventFn<T>) {
     this.updateFn = fn;
   }
 }
