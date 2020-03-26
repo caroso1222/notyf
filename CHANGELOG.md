@@ -1,3 +1,9 @@
+# 3.3.0
+
+## Features
+
+- Allow users to dismiss notifications via button [#13](https://github.com/caroso1222/notyf/issues/13)
+
 # 3.2.0
 
 ## Features
