@@ -37,9 +37,6 @@ export default class Notyf {
   public open(options: DeepPartial<INotyfNotificationOptions>) {
     const defaultOpts = this.options.types.find(({type}) => type === options.type) || {};
     const config = {...defaultOpts, ...options};
-    config.ripple = config.ripple === undefined ? this.options.ripple : config.ripple;
-    config.dismissible = config.dismissible === undefined ? this.options.dismissible : config.dismissible;
-    config.position = config.position || this.options.position;
     this.assignProps(['ripple', 'position', 'dismissible'], config);
     const notification = new NotyfNotification(config);
     this._pushNotification(notification);
