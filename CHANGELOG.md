@@ -1,3 +1,9 @@
+# 3.4.0
+
+## Features
+
+- Allow users to dismiss all the notifications [#40](https://github.com/caroso1222/notyf/issues/40)
+
 # 3.3.0
 
 ## Features
