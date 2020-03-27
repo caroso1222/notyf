@@ -42,6 +42,10 @@ export default class Notyf {
     this._pushNotification(notification);
   }
 
+  public dismissAll() {
+    while (this.notifications.splice(0, 1));
+  }
+
   /**
    * Assigns properties to a config object based on two rules:
    * 1. If the config object already sets that prop, leave it as so

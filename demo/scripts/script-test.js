@@ -10,6 +10,11 @@ document.getElementById('error-btn')
           show('error');
         });
 
+document.getElementById('dismiss-all-btn')
+        .addEventListener('click', function(){
+          dismissAll();
+        });
+
 document.getElementById('custom-btn')
         .addEventListener('click', function(){
           const customId = document.getElementById('custom-id').value;
@@ -30,6 +35,10 @@ function init() {
   }
   const code = JSON.parse(document.getElementById('code').value || '{}');
   notyf = new Notyf(code);
+}
+
+function dismissAll() {
+  notyf.dismissAll();
 }
 
 function show(type) {
