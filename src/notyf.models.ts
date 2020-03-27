@@ -27,6 +27,7 @@ export class NotyfArray<T> {
   public splice(index: number, num: number) {
     const elem = this.notifications.splice(index, num)[0];
     this.updateFn(elem, NotyfArrayEvent.Remove, this.notifications);
+    return elem;
   }
 
   public indexOf(elem: T) {

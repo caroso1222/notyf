@@ -348,6 +348,19 @@ context('Notyf', () => {
       cy.wait(duration/2); // if the notification was dismissed, then it should disappear before duration elapsed
       cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
     });
+  });
 
+  describe('Public API', () => {
+    
+    it('should dismiss all notifications', () => {
+      init();
+      const NUM_TOASTS = 5;
+      for (let i = 0; i< NUM_TOASTS; i++) {
+        cy.get('#success-btn').click();
+      }
+      cy.get('.notyf__toast').should('have.length', NUM_TOASTS);
+      cy.get('#dismiss-all-btn').click();
+      cy.get('.notyf__toast').should('have.length', 0);
+    });
   });
 });
