@@ -134,7 +134,7 @@ export class NotyfView {
     const message = this._createHTLMElement({ tagName: 'div', className: 'notyf__message'});
 
     message.innerHTML = options.message || '';
-    const color = options.backgroundColor;
+    const color = options.background || options.backgroundColor;
 
     // Build the icon and append it to the card
     if (iconOpts && typeof iconOpts === 'object') {
@@ -157,10 +157,10 @@ export class NotyfView {
     // Add ripple if applicable, else just paint the full toast
     if (color) {
       if (options.ripple) {
-        ripple.style.backgroundColor = color;
+        ripple.style.background = color;
         notificationElem.appendChild(ripple);
       } else {
-        notificationElem.style.backgroundColor = color;
+        notificationElem.style.background = color;
       }
     }
 

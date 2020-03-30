@@ -122,7 +122,7 @@ type | `string` | Notification type for which this configuration will be applied
 className | `string` | Custom class name to be set in the toast wrapper element
 duration | `number` | 2000 | Number of miliseconds before hiding the notification
 icon | [`INotyfIcon \| false`](#inotyficon) | An object with the properties of the icon to be rendered. 'false' hides the icon.
-backgroundColor | `string` | Background color of the toast
+background | `string` | Background color of the toast
 message | `string` | Message to be rendered inside of the toast. Becomes the default message when used in the global config.
 ripple | `boolean` | Whether or not to render the ripple at revealing
 dismissible | `boolean` | Whether to allow users to dismiss the notification with a button
@@ -157,7 +157,7 @@ const notyf = new Notyf({
   types: [
     {
       type: 'warning',
-      backgroundColor: 'orange',
+      background: 'orange',
       icon: {
         className: 'material-icons',
         tagName: 'i',
@@ -166,7 +166,7 @@ const notyf = new Notyf({
     },
     {
       type: 'error',
-      backgroundColor: 'indianred',
+      background: 'indianred',
       duration: 2000,
       dismissible: true
     }
@@ -183,7 +183,7 @@ const notyf = new Notyf({
   types: [
     {
       type: 'info',
-      backgroundColor: 'blue',
+      background: 'blue',
       icon: false
     }
   ]
