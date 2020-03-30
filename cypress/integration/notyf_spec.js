@@ -325,6 +325,16 @@ context('Notyf', () => {
       });
     });
 
+    it('should render the toast with custom background', () => {
+      const background = 'linear-gradient(45deg, red, green)';
+      const config = { background };
+      typeCode(config);
+      cy.get('#success-btn').click();
+      cy.get('.notyf__ripple').then(([elem]) => {
+        expect(elem.style.background).to.equal(background);
+      });
+    });
+
     it('should render with a custom icon', () => {
       const className = 'foo-bar-icon';
       const tagName = 'span';

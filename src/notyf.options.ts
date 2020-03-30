@@ -23,7 +23,11 @@ export interface INotyfNotificationOptions {
   className: string;
   duration: number;
   icon: INotyfIcon | false;
+  /**
+   * @deprecated Use `background` instead. Removal target: v4.0.0.
+   */
   backgroundColor: string;
+  background: string;
   message: string;
   ripple: boolean;
   position: INotyfPosition;

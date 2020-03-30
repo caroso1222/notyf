@@ -9,6 +9,6 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "arrow-parens": false,
-    "curly": [true, "as-needed"]
+    "curly": false
   }
 }
