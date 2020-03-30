@@ -1,3 +1,9 @@
+# 3.5.0
+
+## Features
+
+- Introduce `background`. Deprecate `backgroundColor`.[#55](https://github.com/caroso1222/notyf/issues/55)
+
 # 3.4.0
 
 ## Features
