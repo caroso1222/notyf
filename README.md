@@ -7,7 +7,7 @@
 
 Notyf is a dead simple, responsive, a11y compatible, dependency-free, vanilla javascript toast library.
 
-![demo gif](https://user-images.githubusercontent.com/3689856/54656011-0751e900-4a92-11e9-9c0c-0b7984c62e9d.gif)
+![demo gif](https://user-images.githubusercontent.com/3689856/78058753-635e7700-734e-11ea-9902-2dc5a60a065e.gif)
 
 ## Features
 
