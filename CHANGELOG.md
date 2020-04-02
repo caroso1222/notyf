@@ -1,3 +1,9 @@
+# 3.5.1
+
+## Fix
+
+- Fixed compatibility issues with IE11. [#44](https://github.com/caroso1222/notyf/issues/44)
+
 # 3.5.0
 
 ## Features
