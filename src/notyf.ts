@@ -93,13 +93,16 @@ export default class Notyf {
 
   private registerTypes(opts?: Partial<INotyfOptions>): Array<DeepPartial<INotyfNotificationOptions>> {
     const incomingTypes = (opts && opts.types || []).slice();
-    const finalTypes = DEFAULT_OPTIONS.types.map(defaultType => {
+    const finalDefaultTypes = DEFAULT_OPTIONS.types.map(defaultType => {
       // find if there's a default type within the user input's types, if so, it means the user
       // wants to change some of the default settings
-      const userTypeIdx = incomingTypes.findIndex((t) => t.type === defaultType.type);
+      let userTypeIdx = -1;
+      incomingTypes.forEach((t, idx) => {
+        if (t.type === defaultType.type) userTypeIdx = idx;
+      });
       const userType = userTypeIdx !== -1 ? incomingTypes.splice(userTypeIdx, 1)[0] : {};
       return { ...defaultType, ...userType };
     });
-    return finalTypes.concat(incomingTypes);
+    return finalDefaultTypes.concat(incomingTypes);
   }
 }

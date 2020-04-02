@@ -21,6 +21,7 @@ Notyf is a dead simple, responsive, a11y compatible, dependency-free, vanilla ja
 - 😈 Simple but highly extensible API. Create your own toast types and customize them.
 - 🎃 Support to render custom HTML content within the toasts
 - 🐣 Tiny footprint (<3K gzipped)
+- 👴🏽 Works on IE11
 
 **Demo:** [carlosroso.com/notyf](http://carlosroso.com/notyf/)
 
