@@ -4,8 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/notyf.svg)](https://npmjs.org/notyf)
 [![size](https://img.shields.io/bundlephobia/minzip/notyf.svg?color=54CA2F&style=popout)](https://npmjs.org/notyf)
 
-
-Notyf is a minimalistic, responsive, A11Y compatible, dependency-free, vanilla JavaScript toast library.
+Notyf is a minimalistic JavaScript library for toast notifications. It's responsive, A11Y compatible, dependency-free and tiny (~3KB). Easy integration with React, Angular and Vue.
 
 ![demo gif](https://user-images.githubusercontent.com/3689856/78058753-635e7700-734e-11ea-9902-2dc5a60a065e.gif)
 
