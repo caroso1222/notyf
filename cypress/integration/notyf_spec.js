@@ -82,6 +82,15 @@ context('Notyf', () => {
       cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
     });
 
+    it('should allow notifications with infinite duration', () => {
+      const duration = 0;
+      const config = { duration };
+      init(config);
+      cy.get('#error-btn').click();
+      cy.wait(Math.random() * 5); // should wait randomly for few seconds, the notification should still be alive
+      cy.get('.notyf__toast').should('exist');
+    });
+
     describe('Positioning', () => {
 
       function openAt({x, y}) {

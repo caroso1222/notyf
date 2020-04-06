@@ -67,8 +67,12 @@ export default class Notyf {
 
   private _pushNotification(notification: NotyfNotification) {
     this.notifications.push(notification);
-    const duration = notification.options.duration || this.options.duration;
-    setTimeout(() => this._removeNotification(notification), duration);
+    const duration = notification.options.duration !== undefined
+                        ? notification.options.duration
+                        : this.options.duration;
+    if (duration) {
+      setTimeout(() => this._removeNotification(notification), duration);
+    }
   }
 
   private _removeNotification(notification: NotyfNotification) {
