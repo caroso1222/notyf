@@ -85,7 +85,7 @@ You can set some options when creating a Notyf instance.
 
 Param | Type | Default | Details
 ------------ | ------------- | ------------- | -------------
-duration | `number` | 2000 | Number of miliseconds before hiding the notification; Use `0` for infinite duration
+duration | `number` | 2000 | Number of miliseconds before hiding the notification. Use `0` for infinite duration.
 ripple | `boolean` | true | Whether to show the notification with a ripple effect
 position | [`INotyfPosition`](#inotyfposition) | `{x:'right',y:'bottom'}` | Viewport location where notifications are rendered
 dismissible | `boolean` | false | Whether to allow users to dismiss the notification with a button
