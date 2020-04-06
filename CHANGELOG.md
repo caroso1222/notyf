@@ -1,3 +1,9 @@
+# 3.6.0
+
+## Features
+
+- Allow infinite duration for active notification. [#60](https://github.com/caroso1222/notyf/pull/60)
+
 # 3.5.1
 
 ## Fix
