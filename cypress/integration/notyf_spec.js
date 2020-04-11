@@ -370,6 +370,20 @@ context('Notyf', () => {
   });
 
   describe('Public API', () => {
+
+    it('should dismiss one notification', () => {
+      const duration = 0; // Infinite duration so that dismissing manually can be verified
+      const config = { duration };
+      init(config);
+      cy.get('#success-btn').click();
+      cy.get('.notyf__toast').should('have.length', 1);
+      cy.window().then(win => {
+        const notification = win.notyfNotifications[win.notyfNotifications - 1]; // Get the latest notification
+        win.notyf.dismiss(notification);
+        cy.wait(1500); // we need to account roughly 1500ms for the css animations to finish
+        cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
+      });
+    });
     
     it('should dismiss all notifications', () => {
       init();
@@ -381,5 +395,6 @@ context('Notyf', () => {
       cy.get('#dismiss-all-btn').click();
       cy.get('.notyf__toast').should('have.length', 0);
     });
+
   });
 });

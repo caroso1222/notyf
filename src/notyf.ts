@@ -24,25 +24,26 @@ export default class Notyf {
     this.view.on(NotyfEvent.Dismiss, elem => this._removeNotification(elem));
   }
 
-  public error(payload: string | Partial<INotyfNotificationOptions>)  {
+  public error(payload: string | Partial<INotyfNotificationOptions>): NotyfNotification  {
     const options = this.normalizeOptions('error', payload);
-    this.open(options);
+    return this.open(options);
   }
 
-  public success(payload: string | Partial<INotyfNotificationOptions>) {
+  public success(payload: string | Partial<INotyfNotificationOptions>): NotyfNotification {
     const options = this.normalizeOptions('success', payload);
-    this.open(options);
+    return this.open(options);
   }
 
-  public open(options: DeepPartial<INotyfNotificationOptions>) {
+  public open(options: DeepPartial<INotyfNotificationOptions>): NotyfNotification {
     const defaultOpts = this.options.types.find(({type}) => type === options.type) || {};
     const config = {...defaultOpts, ...options};
     this.assignProps(['ripple', 'position', 'dismissible'], config);
     const notification = new NotyfNotification(config);
     this._pushNotification(notification);
+    return notification;
   }
 
-  public dismissAll() {
+  public dismissAll(): void {
     while (this.notifications.splice(0, 1));
   }
 
@@ -81,6 +82,8 @@ export default class Notyf {
       this.notifications.splice(index, 1);
     }
   }
+
+  public dismiss = this._removeNotification;
 
   private normalizeOptions(
     type: 'success' | 'error',

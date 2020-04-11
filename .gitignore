@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 # Cypress files
-cypress/screenshots
+cypress/screenshots.vscode

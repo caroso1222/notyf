@@ -1,4 +1,5 @@
 var notyf;
+var notyfNotifications = [];
 
 document.getElementById('success-btn')
         .addEventListener('click', function(){
@@ -39,20 +40,23 @@ function init() {
 
 function dismissAll() {
   notyf.dismissAll();
+  notyfNotifications.length = 0;
 }
 
 function show(type) {
   const message = document.getElementById('message').value;
   const options = JSON.parse(document.getElementById('code').value || '{}');
   let input = message || options;
+  let notification;
   // if message is non null then call notyf with the message
   // otherwise open the notyf with the config object
   if (type === 'success') {
-    notyf.success(input);
+    notification = notyf.success(input);
   } else if (type === 'error') {
-    notyf.error(input);
+    notification = notyf.error(input);
   } else {
     const opts = Object.assign({}, {type}, {message: input});
-    notyf.open(opts);
+    notification = notyf.open(opts);
   }
+  notyfNotifications.push(notification);
 }
