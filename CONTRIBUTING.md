@@ -20,16 +20,16 @@ The codebase is written in TypeScript so you will need at least a bit of familir
 
 ## Tests
 
-Ensure that all tests are passing before opening the pull request. You can do this by running `npm run cy:open` and then click on `notyf_spec.js` to run the suite.
+Ensure that all tests are passing before opening the pull request. To do this, run `npm run test:dev` and then click on `notyf_spec.js` to run the suite.
 
 You'll also need to add unit tests for the features or fixes implemented in your PR. Don't be discouraged by this if you don't feel confident about it. Just open the PR and I will guide you through the process of creating tests for it.
 
-## Development
+## Development
 
 I haven't set up a good hot reload strategy yet so the dev experience is not great now. Follow the next steps to spin up and test the project locally:
 
 1. Fork the repo
-2. Clone the repo `git clone <your-fork-url>``
+2. Clone the repo `git clone <your-fork-url>`
 3. Install dependencies: `npm i`
 4. Run the dev server: `npm run dev`
 5. Open the browser at `localhost:8080`

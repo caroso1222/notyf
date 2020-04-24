@@ -3,6 +3,13 @@ import {
   NotyfArrayEvent,
   NotyfNotification,
 } from './notyf.models';
+import {
+  NotyfHorizontalPosition,
+  NotyfVerticalPosition,
+  DeepPartial,
+  INotyfNotificationOptions,
+  NotyfEvent,
+} from './notyf.options';
 
 export class NotyfView {
 
@@ -10,6 +17,19 @@ export class NotyfView {
   public animationEndEventName: string;
   public container: HTMLElement;
   private notifications: IRenderedNotification[] = [];
+  private events?: Record<NotyfEvent, (notification: NotyfNotification) => void>;
+
+  private readonly X_POSITION_FLEX_MAP: Record<NotyfHorizontalPosition, string> = {
+    left: 'flex-start',
+    center: 'center',
+    right: 'flex-end',
+  };
+
+  private readonly Y_POSITION_FLEX_MAP: Record<NotyfVerticalPosition, string> = {
+    top: 'flex-start',
+    center: 'center',
+    bottom: 'flex-end',
+  };
 
   constructor() {
     // Creates the main notifications container
@@ -22,6 +42,10 @@ export class NotyfView {
     // Identifies the main animation end event
     this.animationEndEventName = this._getAnimationEndEventName();
     this._createA11yContainer();
+  }
+
+  public on(event: NotyfEvent, cb: (notification: NotyfNotification) => void) {
+    this.events = {...this.events, [event]: cb };
   }
 
   public update(notification: NotyfNotification, type: NotyfArrayEvent) {
@@ -80,9 +104,28 @@ export class NotyfView {
     return;
   }
 
+  private getXPosition(options: DeepPartial<INotyfNotificationOptions>) {
+    return options?.position?.x || 'right';
+  }
+
+  private getYPosition(options: DeepPartial<INotyfNotificationOptions>) {
+    return options?.position?.y || 'bottom';
+  }
+
+  private adjustContainerAlignment(options: DeepPartial<INotyfNotificationOptions>) {
+    const align = this.X_POSITION_FLEX_MAP[this.getXPosition(options)];
+    const justify = this.Y_POSITION_FLEX_MAP[this.getYPosition(options)];
+    const { style } = this.container;
+    style.setProperty('justify-content', justify);
+    style.setProperty('align-items', align);
+  }
+
   private _buildNotificationCard(notification: NotyfNotification): HTMLElement {
     const { options } = notification;
     const iconOpts = options.icon;
+
+    // Adjust container according to position (e.g. top-left, bottom-center, etc)
+    this.adjustContainerAlignment(options);
 
     // Create elements
     const notificationElem = this._createHTLMElement({ tagName: 'div', className: 'notyf__toast'});
@@ -91,9 +134,9 @@ export class NotyfView {
     const message = this._createHTLMElement({ tagName: 'div', className: 'notyf__message'});
 
     message.innerHTML = options.message || '';
-    const color = options.backgroundColor;
+    const color = options.background || options.backgroundColor;
 
-    // build the icon and append it to the card
+    // Build the icon and append it to the card
     if (iconOpts && typeof iconOpts === 'object') {
       const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon'});
       const icon = this._createHTLMElement({
@@ -112,15 +155,32 @@ export class NotyfView {
     wrapper.appendChild(message);
     notificationElem.appendChild(wrapper);
 
-    // add ripple if applicable, else just paint the full toast
+    // Add ripple if applicable, else just paint the full toast
     if (color) {
       if (options.ripple) {
-        ripple.style.backgroundColor = color;
+        ripple.style.background = color;
         notificationElem.appendChild(ripple);
       } else {
-        notificationElem.style.backgroundColor = color;
+        notificationElem.style.background = color;
       }
     }
+
+    // Add dismiss button
+    if (options.dismissible) {
+      const dismissWrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__dismiss'});
+      const dismissButton = this._createHTLMElement({
+        tagName: 'button',
+        className: 'notyf__dismiss-btn',
+      }) as HTMLButtonElement;
+      dismissWrapper.appendChild(dismissButton);
+      wrapper.appendChild(dismissWrapper);
+      notificationElem.classList.add(`notyf__toast--dismissible`);
+      dismissButton.addEventListener('click', () => this.events?.[NotyfEvent.Dismiss](notification));
+    }
+
+    // Adjust margins depending on whether its an upper or lower notification
+    const className = this.getYPosition(options) === 'top' ? 'upper' : 'lower';
+    notificationElem.classList.add(`notyf__toast--${className}`);
     return notificationElem;
   }
 

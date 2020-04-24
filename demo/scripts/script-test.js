@@ -10,6 +10,11 @@ document.getElementById('error-btn')
           show('error');
         });
 
+document.getElementById('dismiss-all-btn')
+        .addEventListener('click', function(){
+          dismissAll();
+        });
+
 document.getElementById('custom-btn')
         .addEventListener('click', function(){
           const customId = document.getElementById('custom-id').value;
@@ -23,11 +28,17 @@ document.getElementById('init-btn')
 
 function init() {
   if (notyf) {
-    document.querySelector('.notyf').remove();
-    document.querySelector('.notyf-announcer').remove();
+    try { 
+      document.querySelector('.notyf-announcer').remove();
+      document.querySelector('.notyf').remove();
+    } catch(e) {}
   }
   const code = JSON.parse(document.getElementById('code').value || '{}');
   notyf = new Notyf(code);
+}
+
+function dismissAll() {
+  notyf.dismissAll();
 }
 
 function show(type) {
@@ -41,7 +52,7 @@ function show(type) {
   } else if (type === 'error') {
     notyf.error(input);
   } else {
-    const opts = Object.assign({}, {type}, input);
+    const opts = Object.assign({}, {type}, {message: input});
     notyf.open(opts);
   }
 }

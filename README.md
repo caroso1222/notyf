@@ -4,10 +4,9 @@
 [![npm downloads](https://img.shields.io/npm/dm/notyf.svg)](https://npmjs.org/notyf)
 [![size](https://img.shields.io/bundlephobia/minzip/notyf.svg?color=54CA2F&style=popout)](https://npmjs.org/notyf)
 
+Notyf is a minimalistic JavaScript library for toast notifications. It's responsive, A11Y compatible, dependency-free and tiny (~3KB). Easy integration with React, Angular and Vue.
 
-Notyf is a dead simple, responsive, a11y compatible, dependency-free, vanilla javascript toast library.
-
-![demo gif](https://user-images.githubusercontent.com/3689856/54656011-0751e900-4a92-11e9-9c0c-0b7984c62e9d.gif)
+![demo gif](https://user-images.githubusercontent.com/3689856/78058753-635e7700-734e-11ea-9902-2dc5a60a065e.gif)
 
 ## Features
 
@@ -20,7 +19,8 @@ Notyf is a dead simple, responsive, a11y compatible, dependency-free, vanilla ja
 - ✨ Optional ripple-like fancy revealing effect
 - 😈 Simple but highly extensible API. Create your own toast types and customize them.
 - 🎃 Support to render custom HTML content within the toasts
-- 🐣 Tiny footprint (<2K gzipped)
+- 🐣 Tiny footprint (<3K gzipped)
+- 👴🏽 Works on IE11
 
 **Demo:** [carlosroso.com/notyf](http://carlosroso.com/notyf/)
 
@@ -80,13 +80,37 @@ notyf.error('Please fill out the form');
 ## API
 You can set some options when creating a Notyf instance.
 
-### `new Notyf([options])`
+### `new Notyf(options: INotyfOptions)`
 
 Param | Type | Default | Details
 ------------ | ------------- | ------------- | -------------
-duration | `number` | 2000 | Number of miliseconds before hiding the notification
-ripple | `boolean` | True | Whether to show the notification with a ripple effect
-types | `INotyfNotificationOptions[]` | Success and error toasts | Array with individual configurations for each type of toast
+duration | `number` | 2000 | Number of miliseconds before hiding the notification. Use `0` for infinite duration.
+ripple | `boolean` | true | Whether to show the notification with a ripple effect
+position | [`INotyfPosition`](#inotyfposition) | `{x:'right',y:'bottom'}` | Viewport location where notifications are rendered
+dismissible | `boolean` | false | Whether to allow users to dismiss the notification with a button
+types | [`INotyfNotificationOptions[]`](#inotyfnotificationoptions) | Success and error toasts | Array with individual configurations for each type of toast
+
+### `dismissAll()`
+
+Dismiss all the active notifications.
+
+```javascript
+const notyf = new Notyf();
+notyf.success('Address updated');
+notyf.error('Please fill out the form');
+notyf.dismissAll();
+```
+
+## Interfaces
+
+### INotyfPosition
+
+Viewport location where notifications are rendered.
+
+Param | Type | Details
+------------ | ------------- | -------------
+x | `left \| center \| right` | x-position
+y | `top \| center \| bottom` | y-position
 
 ### INotyfNotificationOptions
 
@@ -97,14 +121,15 @@ Param | Type  | Details
 type | `string` | Notification type for which this configuration will be applied
 className | `string` | Custom class name to be set in the toast wrapper element
 duration | `number` | 2000 | Number of miliseconds before hiding the notification
-icon | `INotyfIcon | false` | An object which the properties of the icon to be rendered. 'false' hides the icon.
-backgroundColor | `string` | Background color of the toast
+icon | [`INotyfIcon \| false`](#inotyficon) | An object with the properties of the icon to be rendered. 'false' hides the icon.
+background | `string` | Background color of the toast
 message | `string` | Message to be rendered inside of the toast. Becomes the default message when used in the global config.
 ripple | `boolean` | Whether or not to render the ripple at revealing
+dismissible | `boolean` | Whether to allow users to dismiss the notification with a button
 
 ### INotyfIcon
 
-Configuration interface to define an icon
+Icon configuration
 
 Param | Type | Details
 ------------ | ------------- | -------------
@@ -116,15 +141,23 @@ html | `string` | Inner html rendered within the icon (useful when using with [V
 
 ### Global configuration
 
-This is an example of setting Notyf with a 1s duration, custom duration and color for the error toast, and a new custom toast called 'warning' with a [ligature material icon](https://google.github.io/material-design-icons/):
+The following example configures Notyf with the following settings:
+- 1s duration
+- Render notifications in the top-right corner
+- New custom notification called 'warning' with a [ligature material icon](https://google.github.io/material-design-icons/)
+- Error notification with custom duration, color and dismiss button
 
 ```javascript
 const notyf = new Notyf({
   duration: 1000,
+  position: {
+    x: 'right',
+    y: 'top',
+  },
   types: [
     {
       type: 'warning',
-      backgroundColor: 'orange',
+      background: 'orange',
       icon: {
         className: 'material-icons',
         tagName: 'i',
@@ -134,8 +167,9 @@ const notyf = new Notyf({
     },
     {
       type: 'error',
-      backgroundColor: 'indianred',
-      duration: 2000
+      background: 'indianred',
+      duration: 2000,
+      dismissible: true
     }
   ]
 });
@@ -150,7 +184,7 @@ const notyf = new Notyf({
   types: [
     {
       type: 'info',
-      backgroundColor: 'blue',
+      background: 'blue',
       icon: false
     }
   ]
@@ -182,7 +216,7 @@ Notyf is well supported in all of the modern frameworks such as Angular, React o
 
 ## Contributing
 
-Please see the [contributing](contributing.md) document and read the contribution guidelines. Thanks in advance for all the help!
+Please see the [contributing](CONTRIBUTING.md) document and read the contribution guidelines. Thanks in advance for all the help!
 
 ## Licence
 

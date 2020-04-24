@@ -13,8 +13,12 @@ context('Notyf', () => {
     cy.get('#code').type(JSON.stringify(obj).replace(new RegExp('{', 'g'), '{{}'), {delay: 0});
   }
 
+  const VIEWPORT_WIDTH = 800;
+  const VIEWPORT_HEIGHT = 800;
+
   beforeEach(() => {
     cy.visit('/');
+    cy.viewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
   });
 
   describe('Default behaviour', () => {
@@ -37,7 +41,17 @@ context('Notyf', () => {
     it('should render the notification with ripple', () => {
       cy.get('#error-btn').click();
       cy.get('.notyf__ripple');
-    })
+    });
+
+    it('should position the notification at the bottom right by default.', () => {
+      cy.get('#success-btn').click();
+      cy.get('.notyf__toast').then(button => {
+        const pos = button.position();
+        expect(pos.left).to.be.greaterThan(VIEWPORT_WIDTH/2)
+        expect(pos.top).to.be.greaterThan(VIEWPORT_HEIGHT/2)
+      });
+    });
+
   });
 
   describe('Global custom configuration', () => {
@@ -56,6 +70,90 @@ context('Notyf', () => {
       cy.get('.notyf__toast', { timeout: 10 });
       cy.wait(duration + 1500); // we need to account roughly 1500ms for the css animations to finish
       cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
+    });
+
+    it('should allow notifications to be dismissed manually', () => {
+      const duration = 3000;
+      const config = { dismissible: true, duration };
+      init(config);
+      cy.get('#error-btn').click();
+      cy.get('.notyf__dismiss-btn').should('exist').click();
+      cy.wait(duration/2); // if the notification was dismissed, then it should disappear before duration elapsed
+      cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
+    });
+
+    it('should allow notifications with infinite duration', () => {
+      const duration = 0;
+      const config = { duration };
+      init(config);
+      cy.get('#error-btn').click();
+      cy.wait(Math.random() * 5); // should wait randomly for few seconds, the notification should still be alive
+      cy.get('.notyf__toast').should('exist');
+    });
+
+    describe('Positioning', () => {
+
+      function openAt({x, y}) {
+        const config = { position: { x, y } };
+        init(config);
+        cy.get('#success-btn').click();
+      }
+      
+      it('should position the notification at the top left', () => {
+        openAt({ x: 'left', y: 'top' });
+        cy.get('.notyf__toast').then(button => {
+          const { left, top } = button.position();
+          expect(left).to.be.lessThan(VIEWPORT_WIDTH / 2)
+          expect(top).to.be.lessThan(VIEWPORT_HEIGHT / 2)
+        });
+      });
+      
+      it('should position the notification at the top center', () => {
+        openAt({ x: 'center', y: 'top' });
+        cy.get('.notyf__toast').then(button => {
+          const { left, top } = button.position();
+          expect(top).to.be.lessThan(VIEWPORT_HEIGHT / 2);
+          expect(left).to.be.lessThan(VIEWPORT_WIDTH / 2);
+          expect(left + button.width()).to.be.greaterThan(VIEWPORT_WIDTH / 2);
+        });
+      });
+      
+      it('should position the notification at the top right', () => {
+        openAt({ x: 'right', y: 'top' });
+        cy.get('.notyf__toast').then(button => {
+          const { left, top } = button.position();
+          expect(top).to.be.lessThan(VIEWPORT_HEIGHT / 2);
+          expect(left).to.be.greaterThan(VIEWPORT_WIDTH / 2);
+        });
+      });
+      
+      it('should position the notification at the bottom left', () => {
+        openAt({ x: 'left', y: 'bottom' });
+        cy.get('.notyf__toast').then(button => {
+          const { left, top } = button.position();
+          expect(top).to.be.greaterThan(VIEWPORT_HEIGHT / 2);
+          expect(left).to.be.lessThan(VIEWPORT_WIDTH / 2);
+        });
+      });
+      
+      it('should position the notification at the bottom center', () => {
+        openAt({ x: 'center', y: 'bottom' });
+        cy.get('.notyf__toast').then(button => {
+          const { left, top } = button.position();
+          expect(top).to.be.greaterThan(VIEWPORT_HEIGHT / 2);
+          expect(left).to.be.lessThan(VIEWPORT_WIDTH / 2);
+          expect(left + button.width()).to.be.greaterThan(VIEWPORT_WIDTH / 2);
+        });
+      });
+      
+      it('should position the notification at the bottom right', () => {
+        openAt({ x: 'right', y: 'bottom' });
+        cy.get('.notyf__toast').then(button => {
+          const { left, top } = button.position();
+          expect(top).to.be.greaterThan(VIEWPORT_HEIGHT / 2);
+          expect(left).to.be.greaterThan(VIEWPORT_WIDTH / 2);
+        });
+      });
     });
   });
 
@@ -236,6 +334,16 @@ context('Notyf', () => {
       });
     });
 
+    it('should render the toast with custom background', () => {
+      const background = 'linear-gradient(45deg, red, green)';
+      const config = { background };
+      typeCode(config);
+      cy.get('#success-btn').click();
+      cy.get('.notyf__ripple').then(([elem]) => {
+        expect(elem.style.background).to.equal(background);
+      });
+    });
+
     it('should render with a custom icon', () => {
       const className = 'foo-bar-icon';
       const tagName = 'span';
@@ -250,5 +358,28 @@ context('Notyf', () => {
         .should('have.text', text);
     });
 
+    it('should allow the notification to be dismissed manually', () => {
+      const duration = 3000;
+      const config = { dismissible: true, duration };
+      typeCode(config);
+      cy.get('#success-btn').click();
+      cy.get('.notyf__dismiss-btn').should('exist').click();
+      cy.wait(duration/2); // if the notification was dismissed, then it should disappear before duration elapsed
+      cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
+    });
+  });
+
+  describe('Public API', () => {
+    
+    it('should dismiss all notifications', () => {
+      init();
+      const NUM_TOASTS = 5;
+      for (let i = 0; i< NUM_TOASTS; i++) {
+        cy.get('#success-btn').click();
+      }
+      cy.get('.notyf__toast').should('have.length', NUM_TOASTS);
+      cy.get('#dismiss-all-btn').click();
+      cy.get('.notyf__toast').should('have.length', 0);
+    });
   });
 });

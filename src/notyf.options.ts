@@ -1,5 +1,17 @@
 export type DeepPartial<T> = { [P in keyof T]?: DeepPartial<T[P]> };
 
+export type NotyfHorizontalPosition = 'left' | 'center' | 'right';
+export type NotyfVerticalPosition = 'top' | 'center' | 'bottom';
+
+export interface INotyfPosition {
+  x: NotyfHorizontalPosition;
+  y: NotyfVerticalPosition;
+}
+
+export enum NotyfEvent {
+  Dismiss,
+}
+
 export interface INotyfIcon {
   className: string;
   tagName: keyof ElementTagNameMap;
@@ -12,15 +24,23 @@ export interface INotyfNotificationOptions {
   className: string;
   duration: number;
   icon: INotyfIcon | false;
+  /**
+   * @deprecated Use `background` instead. Removal target: v4.0.0.
+   */
   backgroundColor: string;
+  background: string;
   message: string;
   ripple: boolean;
+  position: INotyfPosition;
+  dismissible: boolean;
 }
 
 export interface INotyfOptions {
   types: Array<DeepPartial<INotyfNotificationOptions>>;
   duration: number;
   ripple: boolean;
+  position: INotyfPosition;
+  dismissible: boolean;
 }
 
 export const DEFAULT_OPTIONS: INotyfOptions = {
@@ -46,4 +66,9 @@ export const DEFAULT_OPTIONS: INotyfOptions = {
   ],
   duration: 2000,
   ripple: true,
+  position: {
+    x: 'right',
+    y: 'bottom',
+  },
+  dismissible: false,
 };

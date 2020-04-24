@@ -27,13 +27,14 @@ export class NotyfArray<T> {
   public splice(index: number, num: number) {
     const elem = this.notifications.splice(index, num)[0];
     this.updateFn(elem, NotyfArrayEvent.Remove, this.notifications);
+    return elem;
   }
 
   public indexOf(elem: T) {
     return this.notifications.indexOf(elem);
   }
 
-  public onupdate(fn: NotyfArrayEventFn<T>) {
+  public onUpdate(fn: NotyfArrayEventFn<T>) {
     this.updateFn = fn;
   }
 }

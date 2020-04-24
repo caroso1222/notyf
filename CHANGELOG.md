@@ -1,3 +1,39 @@
+# 3.6.0
+
+## Features
+
+- Allow infinite duration for active notification. [#60](https://github.com/caroso1222/notyf/pull/60)
+
+# 3.5.1
+
+## Fix
+
+- Fixed compatibility issues with IE11. [#44](https://github.com/caroso1222/notyf/issues/44)
+
+# 3.5.0
+
+## Features
+
+- Introduce `background`. Deprecate `backgroundColor`.[#55](https://github.com/caroso1222/notyf/issues/55)
+
+# 3.4.0
+
+## Features
+
+- Allow users to dismiss all the notifications [#40](https://github.com/caroso1222/notyf/issues/40)
+
+# 3.3.0
+
+## Features
+
+- Allow users to dismiss notifications via button [#13](https://github.com/caroso1222/notyf/issues/13)
+
+# 3.2.0
+
+## Features
+
+- Allow custom notification positioning [#36](https://github.com/caroso1222/notyf/issues/36)
+
 # 3.1.0
 
 ## Features

@@ -8,6 +8,7 @@
     "max-classes-per-file": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,
-    "arrow-parens": false
+    "arrow-parens": false,
+    "curly": false
   }
 }
