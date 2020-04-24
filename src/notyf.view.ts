@@ -100,6 +100,7 @@ export class NotyfView {
         tagName: iconOpts.tagName || 'i',
         className: iconOpts.className,
         text: iconOpts.text,
+        html: iconOpts.html,
       });
       if (color) {
         icon.style.color = color;
@@ -123,11 +124,14 @@ export class NotyfView {
     return notificationElem;
   }
 
-  private _createHTLMElement({ tagName, className, text }:
-    { tagName: keyof ElementTagNameMap, className?: string, text?: string }): HTMLElement {
+  private _createHTLMElement({ tagName, className, text, html }:
+    { tagName: keyof ElementTagNameMap, className?: string, text?: string, html?: string }): HTMLElement {
     const elem = document.createElement(tagName);
     if (className) {
       elem.className = className;
+    }
+    if (html?.trim()) {
+      elem.innerHTML = html;
     }
     elem.textContent = text || null;
     return elem;

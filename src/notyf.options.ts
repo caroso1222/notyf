@@ -4,6 +4,7 @@ export interface INotyfIcon {
   className: string;
   tagName: keyof ElementTagNameMap;
   text: string;
+  html: string;
 }
 
 export interface INotyfNotificationOptions {

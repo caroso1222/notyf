@@ -111,7 +111,7 @@ Param | Type | Details
 className | `string` | Custom class name to be set in the icon element
 tagName | `string` | HTML5 tag used to render the icon
 text | `string` | Inner text rendered within the icon (useful when using [ligature icons](https://css-tricks.com/ligature-icons/))
-
+html | `string` | Inner html rendered within the icon (useful when using with [Vue](https://vuejs.org/))
 ## Examples
 
 ### Global configuration
@@ -128,7 +128,8 @@ const notyf = new Notyf({
       icon: {
         className: 'material-icons',
         tagName: 'i',
-        text: 'warning'
+        text: 'warning',
+        html: '<svg ... > ... </svg>'
       }
     },
     {
