@@ -1,3 +1,9 @@
+# 3.7.0
+
+## Features
+
+- Allow individual notifications to be dismissed programatically. [#63](https://github.com/caroso1222/notyf/pull/63)
+
 # 3.6.0
 
 ## Features
