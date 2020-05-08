@@ -1,41 +1,46 @@
 var notyf;
 var notyfNotifications = [];
 
-document.getElementById('success-btn')
-        .addEventListener('click', function(){
-          show('success');
-        });
+document.getElementById('success-btn').addEventListener('click', function () {
+  show('success');
+});
 
-document.getElementById('error-btn')
-        .addEventListener('click', function(){
-          show('error');
-        });
+document.getElementById('error-btn').addEventListener('click', function () {
+  show('error');
+});
 
-document.getElementById('dismiss-all-btn')
-        .addEventListener('click', function(){
-          dismissAll();
-        });
+document.getElementById('dismiss-all-btn').addEventListener('click', function () {
+  dismissAll();
+});
 
-document.getElementById('custom-btn')
-        .addEventListener('click', function(){
-          const customId = document.getElementById('custom-id').value;
-          show(customId);
-        });
+document.getElementById('custom-btn').addEventListener('click', function () {
+  const customId = document.getElementById('custom-id').value;
+  show(customId);
+});
 
-document.getElementById('init-btn')
-        .addEventListener('click', function(){
-          init();
-        });
+document.getElementById('init-btn').addEventListener('click', function () {
+  init();
+});
+
+document.getElementById('dismiss-btn').addEventListener('click', function () {
+  const idx = document.getElementById('dismiss-idx').value;
+  dismiss(idx);
+});
 
 function init() {
   if (notyf) {
-    try { 
+    try {
       document.querySelector('.notyf-announcer').remove();
       document.querySelector('.notyf').remove();
-    } catch(e) {}
+    } catch (e) {}
   }
   const code = JSON.parse(document.getElementById('code').value || '{}');
   notyf = new Notyf(code);
+}
+
+function dismiss(idx) {
+  notyf.dismiss(notyfNotifications[idx]);
+  notyfNotifications.splice(idx, 1);
 }
 
 function dismissAll() {
@@ -55,7 +60,7 @@ function show(type) {
   } else if (type === 'error') {
     notification = notyf.error(input);
   } else {
-    const opts = Object.assign({}, {type}, {message: input});
+    const opts = Object.assign({}, { type }, { message: input });
     notification = notyf.open(opts);
   }
   notyfNotifications.push(notification);
