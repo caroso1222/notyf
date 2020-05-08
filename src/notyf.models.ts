@@ -10,7 +10,8 @@ export interface IRenderedNotification {
 }
 
 export enum NotyfArrayEvent {
-  Add, Remove,
+  Add,
+  Remove,
 }
 
 export type NotyfArrayEventFn<T> = (elem: T, event: NotyfArrayEvent, elems: T[]) => void;
@@ -19,7 +20,7 @@ export class NotyfArray<T> {
   private notifications: T[] = [];
   private updateFn!: NotyfArrayEventFn<T>;
 
-  public push(elem: T) {
+  public push(elem: T) {
     this.notifications.push(elem);
     this.updateFn(elem, NotyfArrayEvent.Add, this.notifications);
   }

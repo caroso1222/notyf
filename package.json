@@ -54,6 +54,11 @@
     "typescript": "^3.8.3",
     "webpack": "4.5.0"
   },
+  "prettier": {
+    "printWidth": 110,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/caroso1222/notyf.git"
