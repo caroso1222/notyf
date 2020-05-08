@@ -1,8 +1,11 @@
+import { NotyfArray, NotyfNotification } from './notyf.models';
 import {
-  NotyfArray,
-  NotyfNotification,
-} from './notyf.models';
-import { DEFAULT_OPTIONS, INotyfOptions, INotyfNotificationOptions, DeepPartial, NotyfEvent } from './notyf.options';
+  DEFAULT_OPTIONS,
+  INotyfOptions,
+  INotyfNotificationOptions,
+  DeepPartial,
+  NotyfEvent,
+} from './notyf.options';
 import { NotyfView } from './notyf.view';
 
 /**
@@ -11,6 +14,8 @@ import { NotyfView } from './notyf.view';
 export default class Notyf {
   public notifications: NotyfArray<NotyfNotification>;
   public options: INotyfOptions;
+
+  public dismiss = this._removeNotification;
   private view: NotyfView;
 
   constructor(opts?: Partial<INotyfOptions>) {
@@ -21,25 +26,26 @@ export default class Notyf {
     this.options.types = types;
 
     this.notifications.onUpdate((elem, type) => this.view.update(elem, type));
-    this.view.on(NotyfEvent.Dismiss, elem => this._removeNotification(elem));
+    this.view.on(NotyfEvent.Dismiss, (elem) => this._removeNotification(elem));
   }
 
-  public error(payload: string | Partial<INotyfNotificationOptions>)  {
+  public error(payload: string | Partial<INotyfNotificationOptions>) {
     const options = this.normalizeOptions('error', payload);
-    this.open(options);
+    return this.open(options);
   }
 
   public success(payload: string | Partial<INotyfNotificationOptions>) {
     const options = this.normalizeOptions('success', payload);
-    this.open(options);
+    return this.open(options);
   }
 
   public open(options: DeepPartial<INotyfNotificationOptions>) {
-    const defaultOpts = this.options.types.find(({type}) => type === options.type) || {};
-    const config = {...defaultOpts, ...options};
+    const defaultOpts = this.options.types.find(({ type }) => type === options.type) || {};
+    const config = { ...defaultOpts, ...options };
     this.assignProps(['ripple', 'position', 'dismissible'], config);
     const notification = new NotyfNotification(config);
     this._pushNotification(notification);
+    return notification;
   }
 
   public dismissAll() {
@@ -57,9 +63,11 @@ export default class Notyf {
    * @param props - properties to be assigned to the config object
    * @param config - object whose properties need to be set
    */
-  private assignProps(props: Array<Exclude<keyof INotyfOptions, 'types'>>,
-                      config: DeepPartial<INotyfNotificationOptions>) {
-    props.forEach(prop => {
+  private assignProps(
+    props: Array<Exclude<keyof INotyfOptions, 'types'>>,
+    config: DeepPartial<INotyfNotificationOptions>,
+  ) {
+    props.forEach((prop) => {
       // intentional double equality to check for both null and undefined
       (config[prop] as any) = config[prop] == null ? this.options[prop] : config[prop];
     });
@@ -67,9 +75,8 @@ export default class Notyf {
 
   private _pushNotification(notification: NotyfNotification) {
     this.notifications.push(notification);
-    const duration = notification.options.duration !== undefined
-                        ? notification.options.duration
-                        : this.options.duration;
+    const duration =
+      notification.options.duration !== undefined ? notification.options.duration : this.options.duration;
     if (duration) {
       setTimeout(() => this._removeNotification(notification), duration);
     }
@@ -96,8 +103,8 @@ export default class Notyf {
   }
 
   private registerTypes(opts?: Partial<INotyfOptions>): Array<DeepPartial<INotyfNotificationOptions>> {
-    const incomingTypes = (opts && opts.types || []).slice();
-    const finalDefaultTypes = DEFAULT_OPTIONS.types.map(defaultType => {
+    const incomingTypes = ((opts && opts.types) || []).slice();
+    const finalDefaultTypes = DEFAULT_OPTIONS.types.map((defaultType) => {
       // find if there's a default type within the user input's types, if so, it means the user
       // wants to change some of the default settings
       let userTypeIdx = -1;

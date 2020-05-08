@@ -90,6 +90,16 @@ position | [`INotyfPosition`](#inotyfposition) | `{x:'right',y:'bottom'}` | View
 dismissible | `boolean` | false | Whether to allow users to dismiss the notification with a button
 types | [`INotyfNotificationOptions[]`](#inotyfnotificationoptions) | Success and error toasts | Array with individual configurations for each type of toast
 
+### `dismiss(notification: NotyfNotification)`
+
+Dismiss a specific notification.
+
+```javascript
+const notyf = new Notyf();
+const notification = notyf.success('Address updated');
+notyf.dismiss(notification);
+```
+
 ### `dismissAll()`
 
 Dismiss all the active notifications.
