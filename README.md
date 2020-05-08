@@ -3,6 +3,7 @@
 [![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
 [![npm downloads](https://img.shields.io/npm/dm/notyf.svg)](https://npmjs.org/notyf)
 [![size](https://img.shields.io/bundlephobia/minzip/notyf.svg?color=54CA2F&style=popout)](https://npmjs.org/notyf)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/notyf/badge)](https://www.jsdelivr.com/package/npm/notyf)
 
 Notyf is a minimalistic JavaScript library for toast notifications. It's responsive, A11Y compatible, dependency-free and tiny (~3KB). Easy integration with React, Angular and Vue.
 
@@ -40,14 +41,16 @@ Add the css and js files to your main document:
 <html>
   <head>
     ...
-    <link rel="stylesheet" type="text/css" href="/path/to/notyf.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
   </head>
   <body>
     ...
-    <script src="/path/to/notyf.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
   </body>
 </html>
 ```
+
+> Files are delivered via CDN by [jsdeliver](https://www.jsdelivr.com/)
 
 ### Basic
 
