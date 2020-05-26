@@ -34,7 +34,7 @@ plugins: [{ src: "~/plugins/notyf.js", ssr: false }],
 
 ```
 
-4.In your Vue component you can call `this.$notyf`.
+5. In your Vue component you can call `this.$notyf`.
 
 ```html
 <template>
