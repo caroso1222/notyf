@@ -6,6 +6,7 @@ Follow these recipes to easily use Notyf in React, Angular or Vue.
 
 - [React](react.md)
 - [Vue](vue.md)
+- [Nuxt](vue.md)
 - [Angular](angular.md): You can also use [ng-notyf](https://github.com/jdjuan/ng-notyf).
 - [Global](global.md)
 
