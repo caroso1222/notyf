@@ -183,6 +183,7 @@ Param | Type | Details
 className | `string` | Custom class name to be set in the icon element
 tagName | `string` | HTML5 tag used to render the icon
 text | `string` | Inner text rendered within the icon (useful when using [ligature icons](https://css-tricks.com/ligature-icons/))
+color | `string` | Icon color. It must be a valid CSS color value. Defaults to background color.
 
 ## Examples
 
