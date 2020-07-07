@@ -34,7 +34,7 @@ export default class Notyf {
     });
 
     // tslint:disable-next-line: no-string-literal
-    this.view.on(NotyfEvent.Click, ({ target }) => target['triggerEvent'](NotyfEvent.Click, event));
+    this.view.on(NotyfEvent.Click, ({ target, event }) => target['triggerEvent'](NotyfEvent.Click, event));
   }
 
   public error(payload: string | Partial<INotyfNotificationOptions>) {
