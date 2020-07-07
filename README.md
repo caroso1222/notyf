@@ -140,15 +140,12 @@ Triggers when the notification is **manually** (not programatically) dismissed.
 
 ```javascript
 const notyf = new Notyf();
-const notification = notyf.error({
-  message: 'There has been an error. Dismiss to retry.',
-  dismissible: true
-});
-notification.on('dismiss', ({target, event}) => {
-  // target: the notification being clicked
-  // event: the mouseevent
-  foo();
-});
+notyf
+  .error({
+    message: 'There has been an error. Dismiss to retry.',
+    dismissible: true
+  })
+  .on('dismiss', ({target, event}) => foobar.retry());
 ```
 
 ## Interfaces
