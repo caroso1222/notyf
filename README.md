@@ -209,6 +209,8 @@ notyf.open({
 });
 ```
 
+**Warning:** Notyf doesn't sanitize the content when rendering your message. To avoid [injection attacks](https://github.com/caroso1222/notyf/issues/72), you should either sanitize your HTML messages or make sure you don't render user generated content on the notifications.
+
 ### Default types with custom configurations
 
 The default types are 'success' and 'error'. You can use them simply by passing a message as its argument, or you can pass a settings object in case you want to modify its behaviour.
