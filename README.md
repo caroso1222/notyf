@@ -6,7 +6,7 @@
 [![jsdelivr](https://data.jsdelivr.com/v1/package/npm/notyf/badge?style=rounded)](https://www.jsdelivr.com/package/npm/notyf)
 
 
-Notyf is a minimalistic JavaScript library for toast notifications. It's responsive, A11Y compatible, dependency-free and tiny (~3KB). Easy integration with React, Angular and Vue.
+Notyf is a minimalistic JavaScript library for toast notifications. It's responsive, A11Y compatible, dependency-free and tiny (~3KB). Easy integration with React, Angular, Vue, and Svelte.
 
 ![demo gif](https://user-images.githubusercontent.com/3689856/78058753-635e7700-734e-11ea-9902-2dc5a60a065e.gif)
 
@@ -17,7 +17,7 @@ Notyf is a minimalistic JavaScript library for toast notifications. It's respons
 - 🔥 Strongly typed codebase (TypeScript Typings readily available)
 - ⚡️ 3 types of bundles exposed: ES6, CommonJS and IIFE (for vanilla, framework-free usage).
 - 🎯 End-to-end testing with Cypress
-- 🎸 Easily plugable to modern frameworks. Recipes available to integrate with React, Angular and Vue.
+- 🎸 Easily plugable to modern frameworks. Recipes available to integrate with React, Angular, Vue, and Svelte.
 - ✨ Optional ripple-like fancy revealing effect
 - 😈 Simple but highly extensible API. Create your own toast types and customize them.
 - 🎃 Support to render custom HTML content within the toasts
@@ -34,7 +34,7 @@ npm i notyf
 
 ## Usage
 
-This section explains the base case using the minified bundle. See the [quick recipes](recipes/README.md) section for instructions to plug Notyf into Angular, React or Vue.
+This section explains the base case using the minified bundle. See the [quick recipes](recipes/README.md) section for instructions to plug Notyf into Angular, React, Vue, or Svelte.
 
 Add the css and js files to your main document:
 
@@ -72,7 +72,7 @@ Notyf ships with an ES6 bundle referenced from the `module` key of its package.j
 
 ```javascript
 import { Notyf } from 'notyf';
-import 'notyf/notyf.min.css'; // for React and Vue
+import 'notyf/notyf.min.css'; // for React, Vue and Svelte
 
 // Create an instance of Notyf
 const notyf = new Notyf();
@@ -225,7 +225,7 @@ notyf.error({
 
 ## Recipes
 
-Notyf is well supported in all of the modern frameworks such as Angular, React or Vue. [Check out the recipes](recipes/README.md) and learn how to integrate the library to your application.
+Notyf is well supported in all of the modern frameworks such as Angular, React, Vue, or Svelte. [Check out the recipes](recipes/README.md) and learn how to integrate the library to your application.
 
 ## Contributing
 
