@@ -9,7 +9,8 @@ export interface INotyfPosition {
 }
 
 export enum NotyfEvent {
-  Dismiss,
+  Dismiss = 'dismiss',
+  Click = 'click',
 }
 
 export interface INotyfIcon {

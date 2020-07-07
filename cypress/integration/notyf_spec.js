@@ -9,7 +9,11 @@ context('Notyf', () => {
   }
 
   function typeCode(obj) {
-    cy.get('#code').type(JSON.stringify(obj).replace(new RegExp('{', 'g'), '{{}'), { delay: 0 });
+    return cy.get('#code').type(JSON.stringify(obj).replace(new RegExp('{', 'g'), '{{}'), { delay: 0 });
+  }
+
+  function checkPrintOutput(message) {
+    return cy.get('#print-output').should('have.text', message);
   }
 
   const VIEWPORT_WIDTH = 800;
@@ -386,6 +390,23 @@ context('Notyf', () => {
       cy.get('.notyf__toast').should('have.length', NUM_TOASTS);
       cy.get('#dismiss-all-btn').click();
       cy.get('.notyf__toast').should('have.length', 0);
+    });
+
+    describe('Notification events', () => {
+      it('should emit the event: click', () => {
+        init();
+        cy.get('#click-listener-btn').click();
+        cy.get('.notyf__toast').click();
+        checkPrintOutput('clicked');
+      });
+
+      it('should emit the event: dismiss', () => {
+        const config = { dismissible: true };
+        init(config);
+        cy.get('#dismiss-listener-btn').click();
+        cy.get('.notyf__dismiss-btn').click();
+        checkPrintOutput('dismissed');
+      });
     });
   });
 });

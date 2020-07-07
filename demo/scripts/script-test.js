@@ -27,6 +27,18 @@ document.getElementById('dismiss-btn').addEventListener('click', function () {
   dismiss(idx);
 });
 
+// events
+
+document.getElementById('click-listener-btn').addEventListener('click', function () {
+  const notif = notyf.success('Click me');
+  notif.on('click', () => print('clicked'));
+});
+
+document.getElementById('dismiss-listener-btn').addEventListener('click', function () {
+  const notif = notyf.success({ message: 'Dismiss me', dismissible: true });
+  notif.on('dismiss', () => print('dismissed'));
+});
+
 function init() {
   if (notyf) {
     try {
@@ -46,6 +58,10 @@ function dismiss(idx) {
 function dismissAll() {
   notyf.dismissAll();
   notyfNotifications.length = 0;
+}
+
+function print(msg) {
+  document.getElementById('print-output').textContent = msg;
 }
 
 function show(type) {

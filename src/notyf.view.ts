@@ -1,4 +1,9 @@
-import { IRenderedNotification, NotyfArrayEvent, NotyfNotification } from './notyf.models';
+import {
+  IRenderedNotification,
+  NotyfArrayEvent,
+  NotyfNotification,
+  NotyfEventCallback,
+} from './notyf.models';
 import {
   NotyfHorizontalPosition,
   NotyfVerticalPosition,
@@ -12,7 +17,7 @@ export class NotyfView {
   public animationEndEventName: string;
   public container: HTMLElement;
   private notifications: IRenderedNotification[] = [];
-  private events?: Record<NotyfEvent, (notification: NotyfNotification) => void>;
+  private events: Partial<Record<NotyfEvent, NotyfEventCallback>> = {};
 
   private readonly X_POSITION_FLEX_MAP: Record<NotyfHorizontalPosition, string> = {
     left: 'flex-start',
@@ -39,7 +44,7 @@ export class NotyfView {
     this._createA11yContainer();
   }
 
-  public on(event: NotyfEvent, cb: (notification: NotyfNotification) => void) {
+  public on(event: NotyfEvent, cb: NotyfEventCallback) {
     this.events = { ...this.events, [event]: cb };
   }
 
@@ -172,8 +177,15 @@ export class NotyfView {
       dismissWrapper.appendChild(dismissButton);
       wrapper.appendChild(dismissWrapper);
       notificationElem.classList.add(`notyf__toast--dismissible`);
-      dismissButton.addEventListener('click', () => this.events?.[NotyfEvent.Dismiss](notification));
+      dismissButton.addEventListener('click', (event) => {
+        this.events[NotyfEvent.Dismiss]?.({ target: notification, event });
+        event.stopPropagation();
+      });
     }
+
+    notificationElem.addEventListener('click', (event) =>
+      this.events[NotyfEvent.Click]?.({ target: notification, event }),
+    );
 
     // Adjust margins depending on whether its an upper or lower notification
     const className = this.getYPosition(options) === 'top' ? 'upper' : 'lower';
