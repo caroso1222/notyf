@@ -82,6 +82,7 @@ notyf.error('Please fill out the form');
 ```
 
 ## API
+
 You can set some options when creating a Notyf instance.
 
 ### `new Notyf(options: INotyfOptions)`
@@ -113,6 +114,41 @@ const notyf = new Notyf();
 notyf.success('Address updated');
 notyf.error('Please fill out the form');
 notyf.dismissAll();
+```
+
+## Events
+
+Every individual notification emits events. You can register listeners using the `on` method.
+
+### `'click'`
+
+Triggers when the notification is clicked
+
+```javascript
+const notyf = new Notyf();
+const notification = notyf.success('Address updated. Click here to continue');
+notification.on('click', ({target, event}) => {
+  // target: the notification being clicked
+  // event: the mouseevent
+  window.location.href = '/';
+});
+```
+
+### `'dismiss'`
+
+Triggers when the notification is **manually** (not programatically) dismissed. 
+
+```javascript
+const notyf = new Notyf();
+const notification = notyf.error({
+  message: 'There has been an error. Dismiss to retry.',
+  dismissible: true
+});
+notification.on('dismiss', ({target, event}) => {
+  // target: the notification being clicked
+  // event: the mouseevent
+  foo();
+});
 ```
 
 ## Interfaces
