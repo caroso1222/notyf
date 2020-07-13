@@ -17,6 +17,7 @@ export interface INotyfIcon {
   className: string;
   tagName: keyof ElementTagNameMap;
   text: string;
+  color: string;
 }
 
 export interface INotyfNotificationOptions {

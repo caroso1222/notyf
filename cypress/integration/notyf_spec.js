@@ -333,6 +333,9 @@ context('Notyf', () => {
       cy.get('.notyf__ripple').then(([elem]) => {
         expect(elem.style.backgroundColor).to.equal(backgroundColor);
       });
+      cy.get('.notyf__icon--success').then(([elem]) => {
+        expect(elem.style.color).to.equal(backgroundColor);
+      });
     });
 
     it('should render the toast with custom background', () => {
@@ -349,11 +352,18 @@ context('Notyf', () => {
       const className = 'foo-bar-icon';
       const tagName = 'span';
       const text = 'baz';
-      const icon = { className, tagName, text };
+      const color = 'white';
+      const icon = { className, tagName, text, color };
       const config = { icon };
       typeCode(config);
       cy.get('#success-btn').click();
-      cy.get('.notyf__icon').find(tagName).should('have.class', className).should('have.text', text);
+      cy.get('.notyf__icon')
+        .find(tagName)
+        .should('have.class', className)
+        .should('have.text', text)
+        .then(([elem]) => {
+          expect(elem.style.color).to.equal(color);
+        });
     });
 
     it('should allow the notification to be dismissed manually', () => {

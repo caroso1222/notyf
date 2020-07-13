@@ -147,8 +147,9 @@ export class NotyfView {
         className: iconOpts.className,
         text: iconOpts.text,
       });
-      if (color) {
-        icon.style.color = color;
+      const iconColor = iconOpts.color ?? color;
+      if (iconColor) {
+        icon.style.color = iconColor;
       }
       iconContainer.appendChild(icon);
       wrapper.appendChild(iconContainer);
