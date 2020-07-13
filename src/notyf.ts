@@ -26,7 +26,15 @@ export default class Notyf {
     this.options.types = types;
 
     this.notifications.onUpdate((elem, type) => this.view.update(elem, type));
-    this.view.on(NotyfEvent.Dismiss, (elem) => this._removeNotification(elem));
+
+    this.view.on(NotyfEvent.Dismiss, ({ target, event }) => {
+      this._removeNotification(target);
+      // tslint:disable-next-line: no-string-literal
+      target['triggerEvent'](NotyfEvent.Dismiss, event);
+    });
+
+    // tslint:disable-next-line: no-string-literal
+    this.view.on(NotyfEvent.Click, ({ target, event }) => target['triggerEvent'](NotyfEvent.Click, event));
   }
 
   public error(payload: string | Partial<INotyfNotificationOptions>) {
