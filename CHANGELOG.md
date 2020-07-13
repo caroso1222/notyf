@@ -1,12 +1,23 @@
+# 3.8.0
+
+## Feature
+
+- Add Notyf events. [#74](https://github.com/caroso1222/notyf/pull/74)
+- Allow custom icon colors. [#77](https://github.com/caroso1222/notyf/pull/77)
+
+## Fix
+
+- Avoid toasts to shrink when stacked. [#70](https://github.com/caroso1222/notyf/pull/70)
+
 # 3.7.0
 
-## Features
+## Feature
 
 - Allow individual notifications to be dismissed programatically. [#63](https://github.com/caroso1222/notyf/pull/63)
 
 # 3.6.0
 
-## Features
+## Feature
 
 - Allow infinite duration for active notification. [#60](https://github.com/caroso1222/notyf/pull/60)
 
@@ -18,31 +29,31 @@
 
 # 3.5.0
 
-## Features
+## Feature
 
 - Introduce `background`. Deprecate `backgroundColor`.[#55](https://github.com/caroso1222/notyf/issues/55)
 
 # 3.4.0
 
-## Features
+## Feature
 
 - Allow users to dismiss all the notifications [#40](https://github.com/caroso1222/notyf/issues/40)
 
 # 3.3.0
 
-## Features
+## Feature
 
 - Allow users to dismiss notifications via button [#13](https://github.com/caroso1222/notyf/issues/13)
 
 # 3.2.0
 
-## Features
+## Feature
 
 - Allow custom notification positioning [#36](https://github.com/caroso1222/notyf/issues/36)
 
 # 3.1.0
 
-## Features
+## Feature
 
 - Allow multiple class names
 
@@ -60,7 +71,7 @@
 
 # 3.0.0
 
-## Features
+## Feature
 
 * Improve a11y support with the new a11y announcer
 * Implement a more extensible, yet simple and scalable API
@@ -84,17 +95,17 @@
 
 ## Credits
 
-* Big thanks to [@rijkvanzanten](https://github.com/rijkvanzanten), [@honzabilek4](https://github.com/honzabilek4) and [@ConsoleTVs](https://github.com/ConsoleTVs) for helping to shape out the API and new features of v3.
+* Big thanks to [@rijkvanzanten](https://github.com/rijkvanzanten), [@honzabilek4](https://github.com/honzabilek4) and [@ConsoleTVs](https://github.com/ConsoleTVs) for helping to shape out the API and new feature of v3.
 
 # 2.0.1
 
-## Features
+## Feature
 
 * Add entry point for CommonJS require. Now Notyf can be imported as `var Notyf = require('notyf')`
 
 # 2.0.0
 
-## Features
+## Feature
 
 * Add support for AMD & CommonJS modules.
 
