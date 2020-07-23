@@ -35,6 +35,14 @@ const bundles = [
     file: 'notyf.min.js',
     input: 'src/notyf.ts',
   },
+  {
+    format: 'umd',
+    babelPresets: ['es2015-rollup', 'stage-1'],
+    babelPlugins: [],
+    name: 'Notyf',
+    file: 'notyf.umd.js',
+    input: 'src/notyf.ts',
+  },
 ];
 
 let promise = Promise.resolve();
