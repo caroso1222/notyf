@@ -1,6 +1,6 @@
 {
   "name": "notyf",
-  "version": "3.8.0",
+  "version": "3.9.0",
   "description": "A dead simple, responsive, a11y, dependency-free, vanilla JavaScript toast library.",
   "keywords": [
     "javascript",
