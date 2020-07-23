@@ -15,7 +15,7 @@ Notyf is a minimalistic JavaScript library for toast notifications. It's respons
 - 📱 Responsive
 - 👓 A11Y compatible
 - 🔥 Strongly typed codebase (TypeScript Typings readily available)
-- ⚡️ 3 types of bundles exposed: ES6, CommonJS and IIFE (for vanilla, framework-free usage).
+- ⚡️ 4 types of bundles exposed: ES6, CommonJS, UMD, and IIFE (for vanilla, framework-free usage).
 - 🎯 End-to-end testing with Cypress
 - 🎸 Easily plugable to modern frameworks. Recipes available to integrate with React, Angular, Vue, and Svelte.
 - ✨ Optional ripple-like fancy revealing effect
@@ -136,7 +136,7 @@ notification.on('click', ({target, event}) => {
 
 ### `'dismiss'`
 
-Triggers when the notification is **manually** (not programatically) dismissed. 
+Triggers when the notification is **manually** (not programatically) dismissed.
 
 ```javascript
 const notyf = new Notyf();
