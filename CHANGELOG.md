@@ -1,3 +1,9 @@
+# 3.9.0
+
+## Chore
+
+- Add support for UMD bundles. [#81](https://github.com/caroso1222/notyf/pull/81)
+
 # 3.8.0
 
 ## Feature
