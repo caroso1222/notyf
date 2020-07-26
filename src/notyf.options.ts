@@ -9,7 +9,8 @@ export interface INotyfPosition {
 }
 
 export enum NotyfEvent {
-  Dismiss,
+  Dismiss = 'dismiss',
+  Click = 'click',
 }
 
 export interface INotyfIcon {
@@ -17,6 +18,7 @@ export interface INotyfIcon {
   tagName: keyof ElementTagNameMap;
   text: string;
   html: string;
+  color: string;
 }
 
 export interface INotyfNotificationOptions {

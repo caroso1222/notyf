@@ -139,6 +139,7 @@ $toast-padding: 15px;
     max-width: 300px;
     transform: translateY(25%);
     box-sizing: border-box;
+    flex-shrink: 0;
 
     &--disappear{
       transform: translateY(0);

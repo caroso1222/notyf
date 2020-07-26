@@ -1,6 +1,6 @@
 {
   "name": "notyf",
-  "version": "3.6.0",
+  "version": "3.9.0",
   "description": "A dead simple, responsive, a11y, dependency-free, vanilla JavaScript toast library.",
   "keywords": [
     "javascript",
@@ -44,15 +44,20 @@
     "postcss-loader": "^3.0.0",
     "rollup": "^1.4.1",
     "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-typescript2": "^0.20.1",
+    "rollup-plugin-typescript2": "^0.27.1",
     "rollup-plugin-uglify": "^6.0.2",
     "sass-loader": "^7.1.0",
     "start-server-and-test": "^1.7.11",
     "ts-loader": "^4.2.0",
-    "tslib": "^1.10.0",
+    "tslib": "^1.13.0",
     "tslint": "^5.10.0",
     "typescript": "^3.8.3",
     "webpack": "4.5.0"
+  },
+  "prettier": {
+    "printWidth": 110,
+    "singleQuote": true,
+    "trailingComma": "all"
   },
   "repository": {
     "type": "git",

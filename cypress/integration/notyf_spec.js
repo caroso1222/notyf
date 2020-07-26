@@ -1,7 +1,6 @@
 /// <reference types="Cypress" />
 
 context('Notyf', () => {
-
   function init(config) {
     if (config) {
       typeCode(config);
@@ -10,7 +9,11 @@ context('Notyf', () => {
   }
 
   function typeCode(obj) {
-    cy.get('#code').type(JSON.stringify(obj).replace(new RegExp('{', 'g'), '{{}'), {delay: 0});
+    return cy.get('#code').type(JSON.stringify(obj).replace(new RegExp('{', 'g'), '{{}'), { delay: 0 });
+  }
+
+  function checkPrintOutput(message) {
+    return cy.get('#print-output').should('have.text', message);
   }
 
   const VIEWPORT_WIDTH = 800;
@@ -45,13 +48,12 @@ context('Notyf', () => {
 
     it('should position the notification at the bottom right by default.', () => {
       cy.get('#success-btn').click();
-      cy.get('.notyf__toast').then(button => {
+      cy.get('.notyf__toast').then((button) => {
         const pos = button.position();
-        expect(pos.left).to.be.greaterThan(VIEWPORT_WIDTH/2)
-        expect(pos.top).to.be.greaterThan(VIEWPORT_HEIGHT/2)
+        expect(pos.left).to.be.greaterThan(VIEWPORT_WIDTH / 2);
+        expect(pos.top).to.be.greaterThan(VIEWPORT_HEIGHT / 2);
       });
     });
-
   });
 
   describe('Global custom configuration', () => {
@@ -78,7 +80,7 @@ context('Notyf', () => {
       init(config);
       cy.get('#error-btn').click();
       cy.get('.notyf__dismiss-btn').should('exist').click();
-      cy.wait(duration/2); // if the notification was dismissed, then it should disappear before duration elapsed
+      cy.wait(duration / 2); // if the notification was dismissed, then it should disappear before duration elapsed
       cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
     });
 
@@ -92,63 +94,62 @@ context('Notyf', () => {
     });
 
     describe('Positioning', () => {
-
-      function openAt({x, y}) {
+      function openAt({ x, y }) {
         const config = { position: { x, y } };
         init(config);
         cy.get('#success-btn').click();
       }
-      
+
       it('should position the notification at the top left', () => {
         openAt({ x: 'left', y: 'top' });
-        cy.get('.notyf__toast').then(button => {
+        cy.get('.notyf__toast').then((button) => {
           const { left, top } = button.position();
-          expect(left).to.be.lessThan(VIEWPORT_WIDTH / 2)
-          expect(top).to.be.lessThan(VIEWPORT_HEIGHT / 2)
+          expect(left).to.be.lessThan(VIEWPORT_WIDTH / 2);
+          expect(top).to.be.lessThan(VIEWPORT_HEIGHT / 2);
         });
       });
-      
+
       it('should position the notification at the top center', () => {
         openAt({ x: 'center', y: 'top' });
-        cy.get('.notyf__toast').then(button => {
+        cy.get('.notyf__toast').then((button) => {
           const { left, top } = button.position();
           expect(top).to.be.lessThan(VIEWPORT_HEIGHT / 2);
           expect(left).to.be.lessThan(VIEWPORT_WIDTH / 2);
           expect(left + button.width()).to.be.greaterThan(VIEWPORT_WIDTH / 2);
         });
       });
-      
+
       it('should position the notification at the top right', () => {
         openAt({ x: 'right', y: 'top' });
-        cy.get('.notyf__toast').then(button => {
+        cy.get('.notyf__toast').then((button) => {
           const { left, top } = button.position();
           expect(top).to.be.lessThan(VIEWPORT_HEIGHT / 2);
           expect(left).to.be.greaterThan(VIEWPORT_WIDTH / 2);
         });
       });
-      
+
       it('should position the notification at the bottom left', () => {
         openAt({ x: 'left', y: 'bottom' });
-        cy.get('.notyf__toast').then(button => {
+        cy.get('.notyf__toast').then((button) => {
           const { left, top } = button.position();
           expect(top).to.be.greaterThan(VIEWPORT_HEIGHT / 2);
           expect(left).to.be.lessThan(VIEWPORT_WIDTH / 2);
         });
       });
-      
+
       it('should position the notification at the bottom center', () => {
         openAt({ x: 'center', y: 'bottom' });
-        cy.get('.notyf__toast').then(button => {
+        cy.get('.notyf__toast').then((button) => {
           const { left, top } = button.position();
           expect(top).to.be.greaterThan(VIEWPORT_HEIGHT / 2);
           expect(left).to.be.lessThan(VIEWPORT_WIDTH / 2);
           expect(left + button.width()).to.be.greaterThan(VIEWPORT_WIDTH / 2);
         });
       });
-      
+
       it('should position the notification at the bottom right', () => {
         openAt({ x: 'right', y: 'bottom' });
-        cy.get('.notyf__toast').then(button => {
+        cy.get('.notyf__toast').then((button) => {
           const { left, top } = button.position();
           expect(top).to.be.greaterThan(VIEWPORT_HEIGHT / 2);
           expect(left).to.be.greaterThan(VIEWPORT_WIDTH / 2);
@@ -168,9 +169,9 @@ context('Notyf', () => {
             icon: {
               className: 'custom-icon',
             },
-            ripple: false
-          }
-        ]
+            ripple: false,
+          },
+        ],
       };
       init(config);
       cy.get('#custom-id').type('warning');
@@ -204,7 +205,7 @@ context('Notyf', () => {
       cy.get('.notyf__toast').then(([elem]) => {
         expect(elem.style.backgroundColor).to.equal('orange');
       });
-    })
+    });
   });
 
   describe('Overwriting configuration of existing types', () => {
@@ -217,10 +218,10 @@ context('Notyf', () => {
             icon: {
               className: 'custom-error-icon',
               tagName: 'span',
-              text: 'fail icon'
+              text: 'fail icon',
             },
-          }
-        ]
+          },
+        ],
       };
       init(config);
       cy.get('#custom-id').type('warning');
@@ -291,7 +292,7 @@ context('Notyf', () => {
       const config = { duration };
       typeCode(config);
       cy.get('#success-btn').click();
-      cy.get('.notyf__toast', { timeout: 10 })
+      cy.get('.notyf__toast', { timeout: 10 });
       cy.wait(duration + 1500); // we need to account roughly 1500ms for the css animations to finish
       cy.get('.notyf__toast').should('not.exist');
     });
@@ -332,6 +333,9 @@ context('Notyf', () => {
       cy.get('.notyf__ripple').then(([elem]) => {
         expect(elem.style.backgroundColor).to.equal(backgroundColor);
       });
+      cy.get('.notyf__icon--success').then(([elem]) => {
+        expect(elem.style.color).to.equal(backgroundColor);
+      });
     });
 
     it('should render the toast with custom background', () => {
@@ -348,14 +352,18 @@ context('Notyf', () => {
       const className = 'foo-bar-icon';
       const tagName = 'span';
       const text = 'baz';
-      const icon = { className, tagName, text };
+      const color = 'white';
+      const icon = { className, tagName, text, color };
       const config = { icon };
       typeCode(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__icon')
         .find(tagName)
         .should('have.class', className)
-        .should('have.text', text);
+        .should('have.text', text)
+        .then(([elem]) => {
+          expect(elem.style.color).to.equal(color);
+        });
     });
 
     it('should allow the notification to be dismissed manually', () => {
@@ -364,22 +372,51 @@ context('Notyf', () => {
       typeCode(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__dismiss-btn').should('exist').click();
-      cy.wait(duration/2); // if the notification was dismissed, then it should disappear before duration elapsed
+      cy.wait(duration / 2); // if the notification was dismissed, then it should disappear before duration elapsed
       cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
     });
   });
 
   describe('Public API', () => {
-    
+    it('should dismiss one notification', () => {
+      const duration = 0; // Infinite duration so that dismissing manually can be verified
+      const config = { duration };
+      init(config);
+      cy.get('#success-btn').click();
+      cy.get('.notyf__toast').should('have.length', 1);
+
+      cy.get('#dismiss-idx').type('0');
+      cy.get('#dismiss-btn').click();
+      cy.wait(1500); // we need to account roughly 1500ms for the css animations to finish
+      cy.get('.notyf__toast', { timeout: 10 }).should('not.exist');
+    });
+
     it('should dismiss all notifications', () => {
       init();
       const NUM_TOASTS = 5;
-      for (let i = 0; i< NUM_TOASTS; i++) {
+      for (let i = 0; i < NUM_TOASTS; i++) {
         cy.get('#success-btn').click();
       }
       cy.get('.notyf__toast').should('have.length', NUM_TOASTS);
       cy.get('#dismiss-all-btn').click();
       cy.get('.notyf__toast').should('have.length', 0);
+    });
+
+    describe('Notification events', () => {
+      it('should emit the event: click', () => {
+        init();
+        cy.get('#click-listener-btn').click();
+        cy.get('.notyf__toast').click();
+        checkPrintOutput('clicked');
+      });
+
+      it('should emit the event: dismiss', () => {
+        const config = { dismissible: true };
+        init(config);
+        cy.get('#dismiss-listener-btn').click();
+        cy.get('.notyf__dismiss-btn').click();
+        checkPrintOutput('dismissed');
+      });
     });
   });
 });

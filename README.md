@@ -3,8 +3,10 @@
 [![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
 [![npm downloads](https://img.shields.io/npm/dm/notyf.svg)](https://npmjs.org/notyf)
 [![size](https://img.shields.io/bundlephobia/minzip/notyf.svg?color=54CA2F&style=popout)](https://npmjs.org/notyf)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/notyf/badge?style=rounded)](https://www.jsdelivr.com/package/npm/notyf)
 
-Notyf is a minimalistic JavaScript library for toast notifications. It's responsive, A11Y compatible, dependency-free and tiny (~3KB). Easy integration with React, Angular and Vue.
+
+Notyf is a minimalistic JavaScript library for toast notifications. It's responsive, A11Y compatible, dependency-free and tiny (~3KB). Easy integration with React, Angular, Vue, and Svelte.
 
 ![demo gif](https://user-images.githubusercontent.com/3689856/78058753-635e7700-734e-11ea-9902-2dc5a60a065e.gif)
 
@@ -13,9 +15,9 @@ Notyf is a minimalistic JavaScript library for toast notifications. It's respons
 - 📱 Responsive
 - 👓 A11Y compatible
 - 🔥 Strongly typed codebase (TypeScript Typings readily available)
-- ⚡️ 3 types of bundles exposed: ES6, CommonJS and IIFE (for vanilla, framework-free usage).
+- ⚡️ 4 types of bundles exposed: ES6, CommonJS, UMD, and IIFE (for vanilla, framework-free usage).
 - 🎯 End-to-end testing with Cypress
-- 🎸 Easily plugable to modern frameworks. Recipes available to integrate with React, Angular and Vue.
+- 🎸 Easily plugable to modern frameworks. Recipes available to integrate with React, Angular, Vue, and Svelte.
 - ✨ Optional ripple-like fancy revealing effect
 - 😈 Simple but highly extensible API. Create your own toast types and customize them.
 - 🎃 Support to render custom HTML content within the toasts
@@ -32,7 +34,7 @@ npm i notyf
 
 ## Usage
 
-This section explains the base case using the minified bundle. See the [quick recipes](recipes/README.md) section for instructions to plug Notyf into Angular, React or Vue.
+This section explains the base case using the minified bundle. See the [quick recipes](recipes/README.md) section for instructions to plug Notyf into Angular, React, Vue, or Svelte.
 
 Add the css and js files to your main document:
 
@@ -40,14 +42,16 @@ Add the css and js files to your main document:
 <html>
   <head>
     ...
-    <link rel="stylesheet" type="text/css" href="/path/to/notyf.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
   </head>
   <body>
     ...
-    <script src="/path/to/notyf.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
   </body>
 </html>
 ```
+
+> Files are delivered via CDN by [jsdeliver](https://www.jsdelivr.com/)
 
 ### Basic
 
@@ -68,7 +72,7 @@ Notyf ships with an ES6 bundle referenced from the `module` key of its package.j
 
 ```javascript
 import { Notyf } from 'notyf';
-import 'notyf/notyf.min.css'; // for React and Vue
+import 'notyf/notyf.min.css'; // for React, Vue and Svelte
 
 // Create an instance of Notyf
 const notyf = new Notyf();
@@ -78,6 +82,7 @@ notyf.error('Please fill out the form');
 ```
 
 ## API
+
 You can set some options when creating a Notyf instance.
 
 ### `new Notyf(options: INotyfOptions)`
@@ -90,6 +95,16 @@ position | [`INotyfPosition`](#inotyfposition) | `{x:'right',y:'bottom'}` | View
 dismissible | `boolean` | false | Whether to allow users to dismiss the notification with a button
 types | [`INotyfNotificationOptions[]`](#inotyfnotificationoptions) | Success and error toasts | Array with individual configurations for each type of toast
 
+### `dismiss(notification: NotyfNotification)`
+
+Dismiss a specific notification.
+
+```javascript
+const notyf = new Notyf();
+const notification = notyf.success('Address updated');
+notyf.dismiss(notification);
+```
+
 ### `dismissAll()`
 
 Dismiss all the active notifications.
@@ -99,6 +114,38 @@ const notyf = new Notyf();
 notyf.success('Address updated');
 notyf.error('Please fill out the form');
 notyf.dismissAll();
+```
+
+## Events
+
+Every individual notification emits events. You can register listeners using the `on` method.
+
+### `'click'`
+
+Triggers when the notification is clicked
+
+```javascript
+const notyf = new Notyf();
+const notification = notyf.success('Address updated. Click here to continue');
+notification.on('click', ({target, event}) => {
+  // target: the notification being clicked
+  // event: the mouseevent
+  window.location.href = '/';
+});
+```
+
+### `'dismiss'`
+
+Triggers when the notification is **manually** (not programatically) dismissed.
+
+```javascript
+const notyf = new Notyf();
+notyf
+  .error({
+    message: 'There has been an error. Dismiss to retry.',
+    dismissible: true
+  })
+  .on('dismiss', ({target, event}) => foobar.retry());
 ```
 
 ## Interfaces
@@ -136,7 +183,8 @@ Param | Type | Details
 className | `string` | Custom class name to be set in the icon element
 tagName | `string` | HTML5 tag used to render the icon
 text | `string` | Inner text rendered within the icon (useful when using [ligature icons](https://css-tricks.com/ligature-icons/))
-html | `string` | Inner html rendered within the icon (useful when using with [Vue](https://vuejs.org/))
+html | `string` | Inner html rendered within the icon (useful when using it with front end frameworks like React, Vue)
+color | `string` | Icon color. It must be a valid CSS color value. Defaults to background color.
 ## Examples
 
 ### Global configuration
@@ -196,6 +244,8 @@ notyf.open({
 });
 ```
 
+**Warning:** Notyf doesn't sanitize the content when rendering your message. To avoid [injection attacks](https://github.com/caroso1222/notyf/issues/72), you should either sanitize your HTML messages or make sure you don't render user generated content on the notifications.
+
 ### Default types with custom configurations
 
 The default types are 'success' and 'error'. You can use them simply by passing a message as its argument, or you can pass a settings object in case you want to modify its behaviour.
@@ -212,7 +262,7 @@ notyf.error({
 
 ## Recipes
 
-Notyf is well supported in all of the modern frameworks such as Angular, React or Vue. [Check out the recipes](recipes/README.md) and learn how to integrate the library to your application.
+Notyf is well supported in all of the modern frameworks such as Angular, React, Vue, or Svelte. [Check out the recipes](recipes/README.md) and learn how to integrate the library to your application.
 
 ## Contributing
 

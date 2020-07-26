@@ -2,6 +2,7 @@ import {
   IRenderedNotification,
   NotyfArrayEvent,
   NotyfNotification,
+  NotyfEventCallback,
 } from './notyf.models';
 import {
   NotyfHorizontalPosition,
@@ -12,12 +13,11 @@ import {
 } from './notyf.options';
 
 export class NotyfView {
-
   public a11yContainer!: HTMLElement;
   public animationEndEventName: string;
   public container: HTMLElement;
   private notifications: IRenderedNotification[] = [];
-  private events?: Record<NotyfEvent, (notification: NotyfNotification) => void>;
+  private events: Partial<Record<NotyfEvent, NotyfEventCallback>> = {};
 
   private readonly X_POSITION_FLEX_MAP: Record<NotyfHorizontalPosition, string> = {
     left: 'flex-start',
@@ -44,8 +44,8 @@ export class NotyfView {
     this._createA11yContainer();
   }
 
-  public on(event: NotyfEvent, cb: (notification: NotyfNotification) => void) {
-    this.events = {...this.events, [event]: cb };
+  public on(event: NotyfEvent, cb: NotyfEventCallback) {
+    this.events = { ...this.events, [event]: cb };
   }
 
   public update(notification: NotyfNotification, type: NotyfArrayEvent) {
@@ -65,12 +65,15 @@ export class NotyfView {
     node = renderedNotification.node;
     node.classList.add('notyf__toast--disappear');
     let handleEvent: (e: Event) => void;
-    node.addEventListener(this.animationEndEventName, handleEvent = (event: Event) => {
-      if (event.target === node) {
-        node.removeEventListener(this.animationEndEventName, handleEvent);
-        this.container.removeChild(node);
-      }
-    });
+    node.addEventListener(
+      this.animationEndEventName,
+      (handleEvent = (event: Event) => {
+        if (event.target === node) {
+          node.removeEventListener(this.animationEndEventName, handleEvent);
+          this.container.removeChild(node);
+        }
+      }),
+    );
   }
 
   public addNotification(notification: NotyfNotification) {
@@ -128,25 +131,26 @@ export class NotyfView {
     this.adjustContainerAlignment(options);
 
     // Create elements
-    const notificationElem = this._createHTLMElement({ tagName: 'div', className: 'notyf__toast'});
-    const ripple = this._createHTLMElement({ tagName: 'div', className: 'notyf__ripple'});
-    const wrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__wrapper'});
-    const message = this._createHTLMElement({ tagName: 'div', className: 'notyf__message'});
+    const notificationElem = this._createHTLMElement({ tagName: 'div', className: 'notyf__toast' });
+    const ripple = this._createHTLMElement({ tagName: 'div', className: 'notyf__ripple' });
+    const wrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__wrapper' });
+    const message = this._createHTLMElement({ tagName: 'div', className: 'notyf__message' });
 
-    message.innerHTML = options.message || '';
+    message.innerHTML = options.message || '';
     const color = options.background || options.backgroundColor;
 
     // Build the icon and append it to the card
     if (iconOpts && typeof iconOpts === 'object') {
-      const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon'});
+      const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon' });
       const icon = this._createHTLMElement({
         tagName: iconOpts.tagName || 'i',
         className: iconOpts.className,
         text: iconOpts.text,
         html: iconOpts.html,
       });
-      if (color) {
-        icon.style.color = color;
+      const iconColor = iconOpts.color ?? color;
+      if (iconColor) {
+        icon.style.color = iconColor;
       }
       iconContainer.appendChild(icon);
       wrapper.appendChild(iconContainer);
@@ -167,7 +171,7 @@ export class NotyfView {
 
     // Add dismiss button
     if (options.dismissible) {
-      const dismissWrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__dismiss'});
+      const dismissWrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__dismiss' });
       const dismissButton = this._createHTLMElement({
         tagName: 'button',
         className: 'notyf__dismiss-btn',
@@ -175,8 +179,15 @@ export class NotyfView {
       dismissWrapper.appendChild(dismissButton);
       wrapper.appendChild(dismissWrapper);
       notificationElem.classList.add(`notyf__toast--dismissible`);
-      dismissButton.addEventListener('click', () => this.events?.[NotyfEvent.Dismiss](notification));
+      dismissButton.addEventListener('click', (event) => {
+        this.events[NotyfEvent.Dismiss]?.({ target: notification, event });
+        event.stopPropagation();
+      });
     }
+
+    notificationElem.addEventListener('click', (event) =>
+      this.events[NotyfEvent.Click]?.({ target: notification, event }),
+    );
 
     // Adjust margins depending on whether its an upper or lower notification
     const className = this.getYPosition(options) === 'top' ? 'upper' : 'lower';
@@ -184,8 +195,23 @@ export class NotyfView {
     return notificationElem;
   }
 
+<<<<<<< HEAD
   private _createHTLMElement({ tagName, className, text, html }:
     { tagName: keyof ElementTagNameMap, className?: string, text?: string, html?: string }): HTMLElement {
+||||||| merged common ancestors
+  private _createHTLMElement({ tagName, className, text }:
+    { tagName: keyof ElementTagNameMap, className?: string, text?: string }): HTMLElement {
+=======
+  private _createHTLMElement({
+    tagName,
+    className,
+    text,
+  }: {
+    tagName: keyof ElementTagNameMap;
+    className?: string;
+    text?: string;
+  }): HTMLElement {
+>>>>>>> bd37218f45de8de080a2ca2970874a48fc873ab8
     const elem = document.createElement(tagName);
     if (className) {
       elem.className = className;
@@ -242,7 +268,7 @@ export class NotyfView {
    */
   private _getAnimationEndEventName(): string {
     const el = document.createElement('_fake');
-    const transitions: {[key: string]: string} = {
+    const transitions: { [key: string]: string } = {
       MozTransition: 'animationend',
       OTransition: 'oAnimationEnd',
       WebkitTransition: 'webkitAnimationEnd',
@@ -250,7 +276,7 @@ export class NotyfView {
     };
     let t: any;
     for (t in transitions) {
-      if ( el.style[t] !== undefined ) {
+      if (el.style[t] !== undefined) {
         return transitions[t];
       }
     }
