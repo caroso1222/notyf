@@ -195,31 +195,25 @@ export class NotyfView {
     return notificationElem;
   }
 
-<<<<<<< HEAD
-  private _createHTLMElement({ tagName, className, text, html }:
-    { tagName: keyof ElementTagNameMap, className?: string, text?: string, html?: string }): HTMLElement {
-||||||| merged common ancestors
-  private _createHTLMElement({ tagName, className, text }:
-    { tagName: keyof ElementTagNameMap, className?: string, text?: string }): HTMLElement {
-=======
   private _createHTLMElement({
     tagName,
     className,
     text,
+    html,
   }: {
     tagName: keyof ElementTagNameMap;
     className?: string;
     text?: string;
+    html?: string;
   }): HTMLElement {
->>>>>>> bd37218f45de8de080a2ca2970874a48fc873ab8
     const elem = document.createElement(tagName);
-    if (className) {
-      elem.className = className;
-    }
-    if (html?.trim()) {
-      elem.innerHTML = html;
-    }
-    elem.textContent = text || null;
+
+    elem.textContent = text ?? null;
+
+    if (html?.trim()) elem.innerHTML = html;
+    
+    if (className?.trim()) elem.className = className;
+
     return elem;
   }
 

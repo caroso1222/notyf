@@ -366,6 +366,19 @@ context('Notyf', () => {
         });
     });
 
+    it('Should render with a custom icon ( using html option )', () => {
+      const className = 'foo-bar-icon'
+      const text = 'baz'
+      const icon = { html : `<span class='${className}'>${text}</span>` };
+      const config = { icon };
+      typeCode(config);
+      cy.get('#success-btn').click();
+      cy.get('.notyf__icon i')
+        .find('span')
+        .should('have.class', className)
+        .should('have.text', text)
+    })
+
     it('should allow the notification to be dismissed manually', () => {
       const duration = 3000;
       const config = { dismissible: true, duration };
