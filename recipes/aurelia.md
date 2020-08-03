@@ -28,7 +28,7 @@ aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
 
 2. Add `@lazy(Notyf) private getNotyf: () => Notyf` to your component constructor. Use Notyf as `this.getNotyf()`.
 
-```
+```javascript
 import {autoinject} from 'aurelia-framework';
 import {lazy} from 'aurelia-framework';
 import {Notyf} from 'notyf';
