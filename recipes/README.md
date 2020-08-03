@@ -1,6 +1,6 @@
 # Framework specific recipes
 
-Follow these recipes to easily use Notyf in React, Angular or Vue.
+Follow these recipes to easily use Notyf in React, Angular, Aurelia or Vue.
 
 ## Recipes
 
@@ -9,6 +9,7 @@ Follow these recipes to easily use Notyf in React, Angular or Vue.
 - [Vue](vue.md)
 - [Svelte](svelte.md)
 - [Nuxt](nuxt.md)
+- [Aurelia](aurelia.md)
 - [Global](global.md)
 
 ## Disclaimer
