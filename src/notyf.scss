@@ -71,7 +71,7 @@ $toast-padding: 15px;
   padding: 20px;
 
   &__icon {
-    &--error, &--success {
+    &--error, &--success, &--info, &--warning {
       height: 21px;
       width: 21px;
       background: white;
@@ -104,6 +104,52 @@ $toast-padding: 15px;
     }
 
     &--success {
+      &:after, &:before{
+        content: "";
+        background: currentColor;
+        display: block;
+        position: absolute;
+        width: 3px;
+        border-radius: 3px;
+      }
+      &:after{
+        height: 6px;
+        transform: rotate(-45deg);
+        top: 9px;
+        left: 6px;
+      }
+      &:before{
+        height: 11px;
+        transform: rotate(45deg);
+        top: 5px;
+        left: 10px;
+      }
+    }
+
+    &--info {
+      &:after, &:before{
+        content: "";
+        background: currentColor;
+        display: block;
+        position: absolute;
+        width: 3px;
+        border-radius: 3px;
+      }
+      &:after{
+        height: 6px;
+        transform: rotate(-45deg);
+        top: 9px;
+        left: 6px;
+      }
+      &:before{
+        height: 11px;
+        transform: rotate(45deg);
+        top: 5px;
+        left: 10px;
+      }
+    }
+
+    &--warning {
       &:after, &:before{
         content: "";
         background: currentColor;

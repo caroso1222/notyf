@@ -47,6 +47,24 @@ export interface INotyfOptions {
 export const DEFAULT_OPTIONS: INotyfOptions = {
   types: [
     {
+      type: 'info',
+      className: 'notyf__toast--info',
+      backgroundColor: '#4287f5',
+      icon: {
+        className: 'notyf__icon--info',
+        tagName: 'i',
+      },
+    },
+    {
+      type: 'warning',
+      className: 'notyf__toast--warning',
+      backgroundColor: '#fcba03',
+      icon: {
+        className: 'notyf__icon--warning',
+        tagName: 'i',
+      },
+    },
+    {
       type: 'success',
       className: 'notyf__toast--success',
       backgroundColor: '#3dc763',
