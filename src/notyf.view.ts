@@ -10,6 +10,7 @@ import {
   DeepPartial,
   INotyfNotificationOptions,
   NotyfEvent,
+  INotyfIcon,
 } from './notyf.options';
 
 export class NotyfView {
@@ -142,17 +143,31 @@ export class NotyfView {
     // Build the icon and append it to the card
     if (iconOpts && typeof iconOpts === 'object') {
       const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon' });
-      const icon = this._createHTLMElement({
-        tagName: iconOpts.tagName || 'i',
-        className: iconOpts.className,
-        text: iconOpts.text,
-      });
-      const iconColor = iconOpts.color ?? color;
-      if (iconColor) {
-        icon.style.color = iconColor;
+      
+      if ( iconOpts instanceof HTMLElement ) {
+        
+        const iconElement: HTMLElement = iconOpts as HTMLElement
+        iconContainer.appendChild(iconElement);
+        wrapper.appendChild(iconContainer);
+
+      } else {
+
+        const iconConfiguration: DeepPartial<INotyfIcon> = iconOpts as INotyfIcon;
+
+        const iconElement: HTMLElement = this._createHTLMElement({
+          tagName: iconConfiguration.tagName || 'i',
+          className: iconConfiguration.className,
+          text: iconConfiguration.text,
+        });
+  
+        const iconColor = iconConfiguration.color ?? color;
+  
+        if (iconColor) iconElement.style.color = iconColor;
+  
+        iconContainer.appendChild(iconElement);
+        wrapper.appendChild(iconContainer)
       }
-      iconContainer.appendChild(icon);
-      wrapper.appendChild(iconContainer);
+
     }
 
     wrapper.appendChild(message);

@@ -24,7 +24,7 @@ export interface INotyfNotificationOptions {
   type: string;
   className: string;
   duration: number;
-  icon: INotyfIcon | false;
+  icon: HTMLElement | INotyfIcon | false;
   /**
    * @deprecated Use `background` instead. Removal target: v4.0.0.
    */
