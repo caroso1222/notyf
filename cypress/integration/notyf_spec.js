@@ -3,13 +3,13 @@
 context('Notyf', () => {
   function init(config) {
     if (config) {
-      typeCode(config);
+      setConfiguration(config);
     }
     cy.get('#init-btn').click();
   }
 
-  function typeCode(obj) {
-    return cy.get('#code').type(JSON.stringify(obj).replace(new RegExp('{', 'g'), '{{}'), { delay: 0 });
+  function setConfiguration(obj) {
+    return cy.window().invoke('setConfiguration', obj)
   }
 
   function checkPrintOutput(message) {
@@ -274,7 +274,7 @@ context('Notyf', () => {
     it('should render with a custom message passed as a config object', () => {
       const message = 'I love Notyf';
       const config = { message };
-      typeCode(config);
+      setConfiguration(config);
       cy.get('#error-btn').click();
       cy.get('.notyf__message').should('have.text', message);
     });
@@ -282,7 +282,7 @@ context('Notyf', () => {
     it('should render html messages', () => {
       const message = '<p>My <b>html</b> <span class="foo">message</span></p>';
       const config = { message };
-      typeCode(config);
+      setConfiguration(config);
       cy.get('#error-btn').click();
       cy.get('.notyf__message').find('p').find('span').should('have.class', 'foo');
     });
@@ -290,7 +290,7 @@ context('Notyf', () => {
     it('should remove the notification after the given duration', () => {
       const duration = 3000;
       const config = { duration };
-      typeCode(config);
+      setConfiguration(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__toast', { timeout: 10 });
       cy.wait(duration + 1500); // we need to account roughly 1500ms for the css animations to finish
@@ -300,7 +300,7 @@ context('Notyf', () => {
     it('should render with custom class name', () => {
       const className = 'foo-bar-class';
       const config = { className };
-      typeCode(config);
+      setConfiguration(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__toast').should('have.class', className);
     });
@@ -308,7 +308,7 @@ context('Notyf', () => {
     it('should render with multiple custom class names', () => {
       const className = 'foo-bar-class another-class';
       const config = { className };
-      typeCode(config);
+      setConfiguration(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__toast').should('have.class', className);
     });
@@ -317,7 +317,7 @@ context('Notyf', () => {
       const ripple = false;
       const backgroundColor = 'cyan';
       const config = { ripple, backgroundColor };
-      typeCode(config);
+      setConfiguration(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__ripple', { timeout: 10 }).should('not.exist');
       cy.get('.notyf__toast').then(([elem]) => {
@@ -328,7 +328,7 @@ context('Notyf', () => {
     it('should render the toast with custom background color', () => {
       const backgroundColor = 'cyan';
       const config = { backgroundColor };
-      typeCode(config);
+      setConfiguration(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__ripple').then(([elem]) => {
         expect(elem.style.backgroundColor).to.equal(backgroundColor);
@@ -341,21 +341,44 @@ context('Notyf', () => {
     it('should render the toast with custom background', () => {
       const background = 'linear-gradient(45deg, red, green)';
       const config = { background };
-      typeCode(config);
+      setConfiguration(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__ripple').then(([elem]) => {
         expect(elem.style.background).to.equal(background);
       });
     });
 
-    it('should render with a custom icon', () => {
+    it('should render with a custom configuration-based icon', () => {
       const className = 'foo-bar-icon';
       const tagName = 'span';
       const text = 'baz';
       const color = 'white';
       const icon = { className, tagName, text, color };
       const config = { icon };
-      typeCode(config);
+      setConfiguration(config);
+      cy.get('#success-btn').click();
+      cy.get('.notyf__icon')
+        .find(tagName)
+        .should('have.class', className)
+        .should('have.text', text)
+        .then(([elem]) => {
+          expect(elem.style.color).to.equal(color);
+        });
+    });
+
+    it('should render with a custom HTMLElement-based icon', () => {
+      const tagName = 'span';
+      const className = 'foo-bar-icon';
+      const text = 'baz';
+      const color = 'white';
+      
+      const icon = document.createElement(tagName)
+      icon.classList.add(className)
+      icon.innerText = text
+      icon.style.color = color
+
+      const config = { icon };
+      setConfiguration(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__icon')
         .find(tagName)
@@ -369,7 +392,7 @@ context('Notyf', () => {
     it('should allow the notification to be dismissed manually', () => {
       const duration = 3000;
       const config = { dismissible: true, duration };
-      typeCode(config);
+      setConfiguration(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__dismiss-btn').should('exist').click();
       cy.wait(duration / 2); // if the notification was dismissed, then it should disappear before duration elapsed

@@ -143,15 +143,11 @@ export class NotyfView {
     // Build the icon and append it to the card
     if (iconOpts && typeof iconOpts === 'object') {
       const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon' });
-      
-      if ( iconOpts instanceof HTMLElement ) {
-        
-        const iconElement: HTMLElement = iconOpts as HTMLElement
+      if (this._isHTMLElement(iconOpts)) {
+        const iconElement: HTMLElement = iconOpts as HTMLElement;
         iconContainer.appendChild(iconElement);
         wrapper.appendChild(iconContainer);
-
       } else {
-
         const iconConfiguration: DeepPartial<INotyfIcon> = iconOpts as INotyfIcon;
 
         const iconElement: HTMLElement = this._createHTLMElement({
@@ -159,15 +155,14 @@ export class NotyfView {
           className: iconConfiguration.className,
           text: iconConfiguration.text,
         });
-  
-        const iconColor = iconConfiguration.color ?? color;
-  
-        if (iconColor) iconElement.style.color = iconColor;
-  
-        iconContainer.appendChild(iconElement);
-        wrapper.appendChild(iconContainer)
-      }
 
+        const iconColor = iconConfiguration.color ?? color;
+
+        if (iconColor) iconElement.style.color = iconColor;
+
+        iconContainer.appendChild(iconElement);
+        wrapper.appendChild(iconContainer);
+      }
     }
 
     wrapper.appendChild(message);
@@ -224,6 +219,16 @@ export class NotyfView {
     }
     elem.textContent = text || null;
     return elem;
+  }
+
+  private _isHTMLElement (element: any): element is HTMLElement {
+    try {
+      const container = document.createElement('div');
+      container.appendChild(element as HTMLElement);
+    } catch (err) {
+      return false;
+    }
+    return true;
   }
 
   /**
