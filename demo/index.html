@@ -1,47 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="../dist/notyf.min.css" rel="stylesheet">
-        <link href="styles/style.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    </head>
-    <body>
-      <button id="init-btn" type="button">Init</button>
-      <button id="success-btn" type="button">Success</button>
-      <button id="error-btn" type="button">Error</button>
-      <button id="custom-btn" type="button">Custom</button>
-      <button id="dismiss-all-btn" type="button">Dismiss All</button>
-      <br>
-      <div style="display: flex;">
-        <input type="text" id="dismiss-idx" placeholder="Notification index">
-        <button id="dismiss-btn" type="button">Dismiss</button>
-      </div>
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../dist/notyf.min.css" rel="stylesheet" />
+    <link href="styles/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <button id="init-btn" type="button">Init</button>
+    <button id="success-btn" type="button">Success</button>
+    <button id="error-btn" type="button">Error</button>
+    <button id="custom-btn" type="button">Custom</button>
+    <button id="dismiss-all-btn" type="button">Dismiss All</button>
+    <br />
+    <div style="display: flex">
+      <input type="text" id="dismiss-idx" placeholder="Notification index" />
+      <button id="dismiss-btn" type="button">Dismiss</button>
+    </div>
 
-      <div style="border: 1px solid black;">
-        <p>Events</p>
-        <button id="click-listener-btn" type="button">Click</button>
-        <button id="dismiss-listener-btn" type="button">Dismiss</button>
-        <p id="print-output"></p>
-      </div>
+    <div style="border: 1px solid black">
+      <p>Events</p>
+      <button id="click-listener-btn" type="button">Click</button>
+      <button id="dismiss-listener-btn" type="button">Dismiss</button>
+      <p id="print-output"></p>
+    </div>
 
-      <br>
-      <label>Message</label>
-      <input type="text" id="message">
-      <br>
-      <label>Custom ID</label>
-      <input type="text" id="custom-id">
-      <br>
-      <label>Code</label>
-      <textarea id="code" cols="30" rows="10"></textarea>
-      <hr>
-      <button id="success-btn-demo" type="button">Success</button>
-      <button id="error-btn-demo" type="button">Error</button>
-      <script src="../dist/notyf.min.js" type="text/javascript"></script>
-      <script src="scripts/script-test.js" type="text/javascript"></script>
-      <script src="scripts/script-demo.js" type="text/javascript"></script>
-    </body>
+    <br />
+    <label>Message</label><br />
+    <input type="text" id="message" />
+    <br />
+    <label>Custom ID</label><br />
+    <input type="text" id="custom-id" />
+    <br />
+    <label>Override Config (JSON)</label><br />
+    <textarea id="code" cols="30" rows="10"></textarea>
+    <hr />
+    <button id="success-btn-demo" type="button">Success</button>
+    <button id="error-btn-demo" type="button">Error</button>
+    <script src="../dist/notyf.min.js" type="text/javascript"></script>
+    <script src="scripts/script-test.js" type="text/javascript"></script>
+    <script src="scripts/script-demo.js" type="text/javascript"></script>
+  </body>
 </html>

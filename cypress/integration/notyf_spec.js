@@ -419,4 +419,38 @@ context('Notyf', () => {
       });
     });
   });
+
+  describe('MaxStack', () => {
+    it('should display 5 notifications only with default maxStack', () => {
+      init({ duration: 0 });
+
+      for (let i = 0; i < 6; i++) {
+        cy.get('#success-btn').click();
+      }
+
+      cy.get('.notyf__toast').should('have.length', 5);
+    });
+
+    it('should display 1 notification with maxStack = 1', () => {
+      const config = { maxStack: 1, duration: 0 };
+      init(config);
+
+      for (let i = 0; i < 3; i++) {
+        cy.get('#success-btn').click();
+      }
+
+      cy.get('.notyf__toast').should('have.length', 1);
+    });
+
+    it('should display infinite notifications with maxStack = 0', () => {
+      const config = { maxStack: 0, duration: 0 };
+      init(config);
+
+      for (let i = 0; i < 11; i++) {
+        cy.get('#success-btn').click();
+      }
+
+      cy.get('.notyf__toast').should('have.length', 11);
+    });
+  });
 });

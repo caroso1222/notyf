@@ -27,6 +27,16 @@ document.getElementById('dismiss-btn').addEventListener('click', function () {
   dismiss(idx);
 });
 
+// Preserve field changes
+['code', 'message'].forEach((elemId) => {
+  document.getElementById(elemId).addEventListener('change', function (e) {
+    localStorage.setItem(elemId, e.target.value);
+  });
+
+  var savedValue = localStorage.getItem(elemId);
+  document.getElementById(elemId).value = savedValue;
+});
+
 // events
 
 document.getElementById('click-listener-btn').addEventListener('click', function () {
