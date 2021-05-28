@@ -34,6 +34,7 @@ export interface INotyfNotificationOptions {
   ripple: boolean;
   position: INotyfPosition;
   dismissible: boolean;
+  maxStack: number;
 }
 
 export interface INotyfOptions {
@@ -42,6 +43,7 @@ export interface INotyfOptions {
   ripple: boolean;
   position: INotyfPosition;
   dismissible: boolean;
+  maxStack: number;
 }
 
 export const DEFAULT_OPTIONS: INotyfOptions = {
@@ -72,4 +74,5 @@ export const DEFAULT_OPTIONS: INotyfOptions = {
     y: 'bottom',
   },
   dismissible: false,
+  maxStack: 5,
 };

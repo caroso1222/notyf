@@ -51,6 +51,7 @@ export default class Notyf {
     const defaultOpts = this.options.types.find(({ type }) => type === options.type) || {};
     const config = { ...defaultOpts, ...options };
     this.assignProps(['ripple', 'position', 'dismissible'], config);
+    this._handleMaxStack();
     const notification = new NotyfNotification(config);
     this._pushNotification(notification);
     return notification;
@@ -94,6 +95,18 @@ export default class Notyf {
     const index = this.notifications.indexOf(notification);
     if (index !== -1) {
       this.notifications.splice(index, 1);
+    }
+  }
+
+  private _handleMaxStack() {
+    // If the max stack is 0, display the infinite number of notifications.
+    if (this.options.maxStack === 0) {
+      return;
+    }
+
+    // If the current number of notifications are more than the max stack, then remove without animation.
+    if (this.options.maxStack < this.notifications.length() + 1) {
+      this.notifications.spliceNoAnimation(0, 1);
     }
   }
 

@@ -53,6 +53,8 @@ export class NotyfView {
       this.addNotification(notification);
     } else if (type === NotyfArrayEvent.Remove) {
       this.removeNotification(notification);
+    } else if (type === NotyfArrayEvent.RemoveNoAnimation) {
+      this.removeNotificationNoAnimation(notification);
     }
   }
 
@@ -74,6 +76,18 @@ export class NotyfView {
         }
       }),
     );
+  }
+
+  public removeNotificationNoAnimation(notification: NotyfNotification) {
+    const renderedNotification = this._popRenderedNotification(notification);
+    let node!: HTMLElement;
+    if (!renderedNotification) {
+      return;
+    }
+    node = renderedNotification.node;
+    {
+    }
+    this.container.removeChild(node);
   }
 
   public addNotification(notification: NotyfNotification) {

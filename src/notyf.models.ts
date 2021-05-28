@@ -31,6 +31,7 @@ export interface IRenderedNotification {
 export enum NotyfArrayEvent {
   Add,
   Remove,
+  RemoveNoAnimation,
 }
 
 export type NotyfArrayEventFn<T> = (elem: T, event: NotyfArrayEvent, elems: T[]) => void;
@@ -50,11 +51,21 @@ export class NotyfArray<T> {
     return elem;
   }
 
+  public spliceNoAnimation(index: number, num: number) {
+    const elem = this.notifications.splice(index, num)[0];
+    this.updateFn(elem, NotyfArrayEvent.RemoveNoAnimation, this.notifications);
+    return elem;
+  }
+
   public indexOf(elem: T) {
     return this.notifications.indexOf(elem);
   }
 
   public onUpdate(fn: NotyfArrayEventFn<T>) {
     this.updateFn = fn;
+  }
+
+  public length() {
+    return this.notifications.length;
   }
 }
