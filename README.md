@@ -173,6 +173,7 @@ background | `string` | Background color of the toast
 message | `string` | Message to be rendered inside of the toast. Becomes the default message when used in the global config.
 ripple | `boolean` | Whether or not to render the ripple at revealing
 dismissible | `boolean` | Whether to allow users to dismiss the notification with a button
+maxStack | `number` | 5 | Number of messages to display as stacked.
 
 ### INotyfIcon
 
@@ -194,6 +195,7 @@ The following example configures Notyf with the following settings:
 - Render notifications in the top-right corner
 - New custom notification called 'warning' with a [ligature material icon](https://google.github.io/material-design-icons/)
 - Error notification with custom duration, color and dismiss button
+- 3 maximum stacked messages
 
 ```javascript
 const notyf = new Notyf({
@@ -218,7 +220,8 @@ const notyf = new Notyf({
       duration: 2000,
       dismissible: true
     }
-  ]
+  ],
+  maxStack:3
 });
 ```
 
