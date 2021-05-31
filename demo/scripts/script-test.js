@@ -2,6 +2,12 @@ var notyf;
 var notyfNotifications = [];
 var configuration = {};
 
+const textarea = document.getElementById('code')
+
+document.getElementById('save').addEventListener('click', function () {
+  setConfiguration(textarea.value)
+})
+
 document.getElementById('success-btn').addEventListener('click', function () {
   show('success');
 });
