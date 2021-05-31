@@ -138,43 +138,43 @@ export class NotyfView {
     const message = this._createHTLMElement({ tagName: 'div', className: 'notyf__message' });
 
     message.innerHTML = options.message || '';
-    const color = options.background || options.backgroundColor;
+    const mainColor = options.background || options.backgroundColor;
 
     // Build the icon and append it to the card
-    if (iconOpts && typeof iconOpts === 'object') {
+    if ( iconOpts ) {
+      
       const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon' });
-      if (this._isHTMLElement(iconOpts)) {
-        const iconElement: HTMLElement = iconOpts as HTMLElement;
-        iconContainer.appendChild(iconElement);
-        wrapper.appendChild(iconContainer);
-      } else {
-        const iconConfiguration: DeepPartial<INotyfIcon> = iconOpts as INotyfIcon;
 
-        const iconElement: HTMLElement = this._createHTLMElement({
-          tagName: iconConfiguration.tagName || 'i',
-          className: iconConfiguration.className,
-          text: iconConfiguration.text,
-        });
+      if ( typeof iconOpts === 'string' ) iconContainer.innerHTML = iconOpts
 
-        const iconColor = iconConfiguration.color ?? color;
+      if ( typeof iconOpts === 'object' ) {
 
-        if (iconColor) iconElement.style.color = iconColor;
+        const { tagName = 'i', className, text, color = mainColor } = iconOpts
+
+        const iconElement: HTMLElement = document.createElement(tagName)
+        
+        if ( className ) iconElement.classList.add( className );
+        if ( text ) iconElement.innerText = text
+        if ( color ) iconElement.style.color = color;
 
         iconContainer.appendChild(iconElement);
-        wrapper.appendChild(iconContainer);
+        
       }
+      
+      wrapper.appendChild(iconContainer);
+
     }
 
     wrapper.appendChild(message);
     notificationElem.appendChild(wrapper);
 
     // Add ripple if applicable, else just paint the full toast
-    if (color) {
+    if (mainColor) {
       if (options.ripple) {
-        ripple.style.background = color;
+        ripple.style.background = mainColor;
         notificationElem.appendChild(ripple);
       } else {
-        notificationElem.style.background = color;
+        notificationElem.style.background = mainColor;
       }
     }
 
@@ -219,16 +219,6 @@ export class NotyfView {
     }
     elem.textContent = text || null;
     return elem;
-  }
-
-  private _isHTMLElement (element: any): element is HTMLElement {
-    try {
-      const container = document.createElement('div');
-      container.appendChild(element as HTMLElement);
-    } catch (err) {
-      return false;
-    }
-    return true;
   }
 
   /**

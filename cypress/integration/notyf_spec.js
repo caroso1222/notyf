@@ -377,7 +377,7 @@ context('Notyf', () => {
       icon.innerText = text
       icon.style.color = color
 
-      const config = { icon };
+      const config = { icon: icon.outerHTML };
       setConfiguration(config);
       cy.get('#success-btn').click();
       cy.get('.notyf__icon')
