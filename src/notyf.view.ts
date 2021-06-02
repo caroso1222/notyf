@@ -151,10 +151,8 @@ export class NotyfView {
 
         const { tagName = 'i', className, text, color = mainColor } = iconOpts
 
-        const iconElement: HTMLElement = document.createElement(tagName)
+        const iconElement: HTMLElement = this._createHTLMElement({ tagName, className, text });
         
-        if ( className ) iconElement.classList.add( className );
-        if ( text ) iconElement.innerText = text
         if ( color ) iconElement.style.color = color;
 
         iconContainer.appendChild(iconElement);
