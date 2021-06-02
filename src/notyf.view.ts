@@ -145,7 +145,7 @@ export class NotyfView {
       
       const iconContainer = this._createHTMLElement({ tagName: 'div', className: 'notyf__icon' });
 
-      if ( typeof iconOpts === 'string' ) iconContainer.innerHTML = iconOpts
+      if ( typeof iconOpts === 'string' || iconOpts instanceof String ) iconContainer.innerHTML = new String(iconOpts).valueOf()
 
       if ( typeof iconOpts === 'object' ) {
 
