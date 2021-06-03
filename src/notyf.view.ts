@@ -10,6 +10,7 @@ import {
   DeepPartial,
   INotyfNotificationOptions,
   NotyfEvent,
+  INotyfIcon,
 } from './notyf.options';
 
 export class NotyfView {
@@ -34,7 +35,7 @@ export class NotyfView {
   constructor() {
     // Creates the main notifications container
     const docFrag = document.createDocumentFragment();
-    const notyfContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf' });
+    const notyfContainer = this._createHTMLElement({ tagName: 'div', className: 'notyf' });
     docFrag.appendChild(notyfContainer);
     document.body.appendChild(docFrag);
     this.container = notyfContainer;
@@ -131,47 +132,54 @@ export class NotyfView {
     this.adjustContainerAlignment(options);
 
     // Create elements
-    const notificationElem = this._createHTLMElement({ tagName: 'div', className: 'notyf__toast' });
-    const ripple = this._createHTLMElement({ tagName: 'div', className: 'notyf__ripple' });
-    const wrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__wrapper' });
-    const message = this._createHTLMElement({ tagName: 'div', className: 'notyf__message' });
+    const notificationElem = this._createHTMLElement({ tagName: 'div', className: 'notyf__toast' });
+    const ripple = this._createHTMLElement({ tagName: 'div', className: 'notyf__ripple' });
+    const wrapper = this._createHTMLElement({ tagName: 'div', className: 'notyf__wrapper' });
+    const message = this._createHTMLElement({ tagName: 'div', className: 'notyf__message' });
 
     message.innerHTML = options.message || '';
-    const color = options.background || options.backgroundColor;
+    const mainColor = options.background || options.backgroundColor;
 
     // Build the icon and append it to the card
-    if (iconOpts && typeof iconOpts === 'object') {
-      const iconContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf__icon' });
-      const icon = this._createHTLMElement({
-        tagName: iconOpts.tagName || 'i',
-        className: iconOpts.className,
-        text: iconOpts.text,
-      });
-      const iconColor = iconOpts.color ?? color;
-      if (iconColor) {
-        icon.style.color = iconColor;
+    if ( iconOpts ) {
+      
+      const iconContainer = this._createHTMLElement({ tagName: 'div', className: 'notyf__icon' });
+
+      if ( typeof iconOpts === 'string' || iconOpts instanceof String ) iconContainer.innerHTML = new String(iconOpts).valueOf()
+
+      if ( typeof iconOpts === 'object' ) {
+
+        const { tagName = 'i', className, text, color = mainColor } = iconOpts
+
+        const iconElement: HTMLElement = this._createHTMLElement({ tagName, className, text });
+        
+        if ( color ) iconElement.style.color = color;
+
+        iconContainer.appendChild(iconElement);
+        
       }
-      iconContainer.appendChild(icon);
+      
       wrapper.appendChild(iconContainer);
+
     }
 
     wrapper.appendChild(message);
     notificationElem.appendChild(wrapper);
 
     // Add ripple if applicable, else just paint the full toast
-    if (color) {
+    if (mainColor) {
       if (options.ripple) {
-        ripple.style.background = color;
+        ripple.style.background = mainColor;
         notificationElem.appendChild(ripple);
       } else {
-        notificationElem.style.background = color;
+        notificationElem.style.background = mainColor;
       }
     }
 
     // Add dismiss button
     if (options.dismissible) {
-      const dismissWrapper = this._createHTLMElement({ tagName: 'div', className: 'notyf__dismiss' });
-      const dismissButton = this._createHTLMElement({
+      const dismissWrapper = this._createHTMLElement({ tagName: 'div', className: 'notyf__dismiss' });
+      const dismissButton = this._createHTMLElement({
         tagName: 'button',
         className: 'notyf__dismiss-btn',
       }) as HTMLButtonElement;
@@ -194,7 +202,7 @@ export class NotyfView {
     return notificationElem;
   }
 
-  private _createHTLMElement({
+  private _createHTMLElement({
     tagName,
     className,
     text,
@@ -216,7 +224,7 @@ export class NotyfView {
    * screen readers
    */
   private _createA11yContainer() {
-    const a11yContainer = this._createHTLMElement({ tagName: 'div', className: 'notyf-announcer' });
+    const a11yContainer = this._createHTMLElement({ tagName: 'div', className: 'notyf-announcer' });
     a11yContainer.setAttribute('aria-atomic', 'true');
     a11yContainer.setAttribute('aria-live', 'polite');
     // Set the a11y container to be visible hidden. Can't use display: none as

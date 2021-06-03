@@ -1,5 +1,12 @@
 var notyf;
 var notyfNotifications = [];
+var configuration = {};
+
+const textarea = document.getElementById('code')
+
+document.getElementById('save').addEventListener('click', function () {
+  setConfiguration(textarea.value)
+})
 
 document.getElementById('success-btn').addEventListener('click', function () {
   show('success');
@@ -46,8 +53,7 @@ function init() {
       document.querySelector('.notyf').remove();
     } catch (e) {}
   }
-  const code = JSON.parse(document.getElementById('code').value || '{}');
-  notyf = new Notyf(code);
+  notyf = new Notyf(configuration);
 }
 
 function dismiss(idx) {
@@ -66,8 +72,7 @@ function print(msg) {
 
 function show(type) {
   const message = document.getElementById('message').value;
-  const options = JSON.parse(document.getElementById('code').value || '{}');
-  let input = message || options;
+  let input = message || configuration;
   let notification;
   // if message is non null then call notyf with the message
   // otherwise open the notyf with the config object
@@ -80,4 +85,8 @@ function show(type) {
     notification = notyf.open(opts);
   }
   notyfNotifications.push(notification);
+}
+
+function setConfiguration (newConfiguration) {
+  configuration = typeof newConfiguration === 'function' ? newConfiguration() : newConfiguration
 }
