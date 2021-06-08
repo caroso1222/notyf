@@ -168,7 +168,7 @@ Param | Type  | Details
 type | `string` | Notification type for which this configuration will be applied
 className | `string` | Custom class name to be set in the toast wrapper element
 duration | `number` | 2000 | Number of miliseconds before hiding the notification
-icon | `string` [`INotyfIcon`](#inotyficon) `false` | An object with the properties of the icon to be rendered. 'false' hides the icon.
+icon | `string` [`INotyfIcon`](#inotyficon) `false` | Either a string with HTML markup, an object with the properties of the icon, or 'false' to hide the icon
 background | `string` | Background color of the toast
 message | `string` | Message to be rendered inside of the toast. Becomes the default message when used in the global config.
 ripple | `boolean` | Whether or not to render the ripple at revealing

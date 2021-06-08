@@ -1,3 +1,9 @@
+# 3.10.0
+
+## Feature
+
+- Allow icons as HTML markup. [#101](https://github.com/caroso1222/notyf/pull/101)
+
 # 3.9.0
 
 ## Chore
