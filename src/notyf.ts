@@ -47,6 +47,16 @@ export default class Notyf {
     return this.open(options);
   }
 
+  public info(payload: string | Partial<INotyfNotificationOptions>) {
+    const options = this.normalizeOptions('info', payload);
+    return this.open(options);
+  }
+
+  public warning(payload: string | Partial<INotyfNotificationOptions>) {
+    const options = this.normalizeOptions('warning', payload);
+    return this.open(options);
+  }
+
   public open(options: DeepPartial<INotyfNotificationOptions>) {
     const defaultOpts = this.options.types.find(({ type }) => type === options.type) || {};
     const config = { ...defaultOpts, ...options };
@@ -98,7 +108,7 @@ export default class Notyf {
   }
 
   private normalizeOptions(
-    type: 'success' | 'error',
+    type: 'success' | 'error' | 'info' | 'warning',
     payload: string | DeepPartial<INotyfNotificationOptions>,
   ): DeepPartial<INotyfNotificationOptions> {
     let options: DeepPartial<INotyfNotificationOptions> = { type };
