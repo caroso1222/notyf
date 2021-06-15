@@ -196,6 +196,14 @@ export class NotyfView {
       this.events[NotyfEvent.Click]?.({ target: notification, event }),
     );
 
+    notificationElem.addEventListener('mouseover', event =>
+      notification.triggerEvent(NotyfEvent.MouseOver, event)
+    )
+
+    notificationElem.addEventListener('mouseleave', event =>
+      notification.triggerEvent(NotyfEvent.MouseLeave, event)
+    )
+
     // Adjust margins depending on whether its an upper or lower notification
     const className = this.getYPosition(options) === 'top' ? 'upper' : 'lower';
     notificationElem.classList.add(`notyf__toast--${className}`);

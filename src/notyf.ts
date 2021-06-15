@@ -7,6 +7,7 @@ import {
   NotyfEvent,
 } from './notyf.options';
 import { NotyfView } from './notyf.view';
+import Timer from './utils/classes/timer';
 
 /**
  * Main controller class. Defines the main Notyf API.
@@ -82,12 +83,22 @@ export default class Notyf {
   }
 
   private _pushNotification(notification: NotyfNotification) {
-    this.notifications.push(notification);
+    
+    this.notifications.push( notification );
+    
     const duration =
       notification.options.duration !== undefined ? notification.options.duration : this.options.duration;
-    if (duration) {
-      setTimeout(() => this._removeNotification(notification), duration);
-    }
+    
+    if ( !duration ) return
+
+    const timer = new Timer( duration );
+    
+    notification.on(NotyfEvent.MouseOver, () => timer.pause());
+    
+    notification.on(NotyfEvent.MouseLeave, () => timer.resume());
+    
+    timer.on('finished', () => this._removeNotification(notification) )
+
   }
 
   private _removeNotification(notification: NotyfNotification) {

@@ -17,7 +17,7 @@ export class NotyfNotification {
     this.listeners[eventType] = callbacks.concat([cb]);
   }
 
-  private triggerEvent(eventType: NotyfEvent, event?: Event) {
+  triggerEvent(eventType: NotyfEvent, event?: Event) {
     const callbacks = this.listeners[eventType] || [];
     callbacks.forEach((cb) => cb({ target: this, event }));
   }

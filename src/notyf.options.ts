@@ -11,6 +11,8 @@ export interface INotyfPosition {
 export enum NotyfEvent {
   Dismiss = 'dismiss',
   Click = 'click',
+  MouseOver = 'mouseover',
+  MouseLeave = 'mouseleave'
 }
 
 export interface INotyfIcon {
