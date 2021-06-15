@@ -197,11 +197,11 @@ export class NotyfView {
     );
 
     notificationElem.addEventListener('mouseover', event =>
-      notification.triggerEvent(NotyfEvent.MouseOver, event)
+      notification.triggerEvent(NotyfEvent.MouseOver, { target: notification, event })
     )
 
     notificationElem.addEventListener('mouseleave', event =>
-      notification.triggerEvent(NotyfEvent.MouseLeave, event)
+      notification.triggerEvent(NotyfEvent.MouseLeave, { target: notification, event })
     )
 
     // Adjust margins depending on whether its an upper or lower notification
