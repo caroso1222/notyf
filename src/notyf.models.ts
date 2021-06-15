@@ -1,4 +1,5 @@
 import { INotyfNotificationOptions, DeepPartial, NotyfEvent } from './notyf.options';
+import EventEmitter from './utils/classes/eventEmitter';
 
 export interface INotyfEventPayload {
   target: NotyfNotification;
@@ -7,20 +8,8 @@ export interface INotyfEventPayload {
 
 export type NotyfEventCallback = (payload: INotyfEventPayload) => void;
 
-export class NotyfNotification {
-  private listeners: Partial<Record<NotyfEvent, NotyfEventCallback[]>> = {};
-
-  constructor(public options: DeepPartial<INotyfNotificationOptions>) {}
-
-  public on(eventType: NotyfEvent, cb: NotyfEventCallback) {
-    const callbacks = this.listeners[eventType] || [];
-    this.listeners[eventType] = callbacks.concat([cb]);
-  }
-
-  private triggerEvent(eventType: NotyfEvent, event?: Event) {
-    const callbacks = this.listeners[eventType] || [];
-    callbacks.forEach((cb) => cb({ target: this, event }));
-  }
+export class NotyfNotification extends EventEmitter<{ [ K in NotyfEvent ]: INotyfEventPayload }> {
+  constructor(public options: DeepPartial<INotyfNotificationOptions>) { super() }
 }
 
 export interface IRenderedNotification {

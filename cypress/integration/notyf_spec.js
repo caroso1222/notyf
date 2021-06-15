@@ -54,6 +54,32 @@ context('Notyf', () => {
         expect(pos.top).to.be.greaterThan(VIEWPORT_HEIGHT / 2);
       });
     });
+
+    it('should pause on mouseover', () => {
+
+      setConfiguration({ message: 'Notyf 1' })
+      cy.get('#success-btn').click()
+
+      setConfiguration({ message: 'Notyf 2' })
+      cy.get('#success-btn').click()
+
+      setConfiguration({ message: 'Notyf 3' })
+      cy.get('#success-btn').click()
+
+      cy.get('.notyf__toast:nth-child(2)').trigger('mouseover')
+
+      cy.wait(2000)
+
+      cy.get('.notyf').children().should('have.length', 1)
+
+      cy.get('.notyf__toast').trigger('mouseleave')
+
+      cy.wait(2000)
+
+      cy.get('.notyf__toast').should('not.be.exist')
+
+    })
+
   });
 
   describe('Global custom configuration', () => {
