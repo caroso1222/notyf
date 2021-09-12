@@ -71,7 +71,7 @@ $toast-padding: 15px;
   padding: 20px;
 
   &__icon {
-    &--error, &--success {
+    &--error, &--success, &--info, &--warning {
       height: 21px;
       width: 21px;
       background: white;
@@ -93,17 +93,15 @@ $toast-padding: 15px;
         height: 12px;
         top: 5px;
       }
-  
       &:after{
         transform: rotate(-45deg);
       }
-
       &:before{
         transform: rotate(45deg);
       }
     }
-
-    &--success {
+ 
+    &--success, &--info, &--warning {
       &:after, &:before{
         content: "";
         background: currentColor;
