@@ -183,6 +183,7 @@ export class NotyfView {
         tagName: 'button',
         className: 'notyf__dismiss-btn',
       }) as HTMLButtonElement;
+      dismissButton.setAttribute('aria-label','Close');
       dismissWrapper.appendChild(dismissButton);
       wrapper.appendChild(dismissWrapper);
       notificationElem.classList.add(`notyf__toast--dismissible`);
