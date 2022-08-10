@@ -38,22 +38,22 @@ export default class Notyf {
   }
 
   public error(payload: string | Partial<INotyfNotificationOptions>) {
-    const options = this.normalizeOptions('error', payload);
-    return this.open(options);
+    return this.open(this.normalizeOptions('error', payload));
   }
 
   public success(payload: string | Partial<INotyfNotificationOptions>) {
-    const options = this.normalizeOptions('success', payload);
-    return this.open(options);
+    return this.open(this.normalizeOptions('success', payload));
   }
 
   public open(options: DeepPartial<INotyfNotificationOptions>) {
-    const defaultOpts = this.options.types.find(({ type }) => type === options.type) || {};
-    const config = { ...defaultOpts, ...options };
-    this.assignProps(['ripple', 'position', 'dismissible'], config);
-    const notification = new NotyfNotification(config);
-    this._pushNotification(notification);
-    return notification;
+    if (Object.prototype.toString.call(options).slice(8, -1) === 'Object' && typeof options.message === 'string') {
+      const defaultOpts = this.options.types.find(({ type }) => type === options.type) || {};
+      const config = { ...defaultOpts, ...options };
+      this.assignProps(['ripple', 'position', 'dismissible'], config);
+      const notification = new NotyfNotification(config);
+      this._pushNotification(notification);
+      return notification;
+    }
   }
 
   public dismissAll() {
@@ -84,7 +84,7 @@ export default class Notyf {
   private _pushNotification(notification: NotyfNotification) {
     this.notifications.push(notification);
     const duration =
-      notification.options.duration !== undefined ? notification.options.duration : this.options.duration;
+      notification.options.duration === undefined ? this.options.duration : notification.options.duration;
     if (duration) {
       setTimeout(() => this._removeNotification(notification), duration);
     }
@@ -104,8 +104,8 @@ export default class Notyf {
     let options: DeepPartial<INotyfNotificationOptions> = { type };
     if (typeof payload === 'string') {
       options.message = payload;
-    } else if (typeof payload === 'object') {
-      options = { ...options, ...payload };
+    } else if (Object.prototype.toString.call(payload).slice(8, -1) === 'Object') {
+      options = { ...payload, ...options };
     }
     return options;
   }
